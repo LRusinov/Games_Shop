@@ -17,7 +17,7 @@ public class Platform {
     }
 
     @Id
-    @Column(name = "name",length = 30)
+    @Column(name = "name",length = 30, nullable = false)
     private String name;
 
     public String getName() {

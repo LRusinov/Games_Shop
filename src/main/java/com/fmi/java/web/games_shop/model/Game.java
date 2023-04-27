@@ -9,13 +9,13 @@ import java.util.Set;
 @Table(name = "GAME")
 public class Game {
     @Id
-    @Column(name = "NAME", length = 50)
+    @Column(name = "NAME", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "RELEASE_DATE")
+    @Column(name = "RELEASE_DATE", nullable = false)
     private Instant releaseDate;
 
-    @Column(name = "PRICE")
+    @Column(name = "PRICE", nullable = false)
     private double price;
 
     @ManyToOne(targetEntity = Platform.class)
@@ -25,8 +25,8 @@ public class Game {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "PICTURE")
-    private String picture;
+    @Column(name = "PICTURE_URL", nullable = false)
+    private String pictureUrl;
 
     @ManyToOne(targetEntity = Publisher.class)
     @JoinColumn(name = "PUBLISHER_ID", referencedColumnName = "ID")
@@ -43,13 +43,13 @@ public class Game {
     protected Game() {
     }
 
-    public Game(String name, Instant releaseDate, double price, Platform platform, String description, String picture, Publisher publisher, Set<Genre> genres) {
+    public Game(String name, Instant releaseDate, double price, Platform platform, String description, String pictureUrl, Publisher publisher, Set<Genre> genres) {
         this.name = name;
         this.releaseDate = releaseDate;
         this.price = price;
         this.platform = platform;
         this.description = description;
-        this.picture = picture;
+        this.pictureUrl = pictureUrl;
         this.publisher = publisher;
         this.genres = genres;
     }
@@ -74,8 +74,8 @@ public class Game {
         return description;
     }
 
-    public String getPicture() {
-        return picture;
+    public String getPictureUrl() {
+        return pictureUrl;
     }
 
     public Publisher getPublisher() {

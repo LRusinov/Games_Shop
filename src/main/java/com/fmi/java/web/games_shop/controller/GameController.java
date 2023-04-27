@@ -72,6 +72,6 @@ public class GameController {
     }
 
     private GameDto entityToDto(Game game) {
-        return new GameDto(game.getName(),  game.getPrice(), game.getPlatform().getName(), game.getGenres().stream().map(Genre::getName).collect(Collectors.toSet()), game.getDescription(),game.getReleaseDate(), game.getPublisher().getName(), game.getPicture());
+        return new GameDto(game.getName(),  game.getPrice(), game.getPlatform().getName(), game.getGenres().stream().map(Genre::getName).collect(Collectors.toSet()), game.getDescription(),game.getReleaseDate(), game.getPublisher().getName(), game.getPictureUrl());
     }
 }

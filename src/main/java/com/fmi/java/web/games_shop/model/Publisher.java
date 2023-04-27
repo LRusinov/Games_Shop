@@ -9,13 +9,13 @@ public class Publisher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name="NAME",length = 40)
+    @Column(name="NAME",length = 40, nullable = false)
     String name;
 
-    @Column(name = "LOGO_PICTURE")
-    String logoPicture;
+    @Column(name = "LOGO_PICTURE_URL", nullable = false)
+    String logoPictureUrl;
 
-    @Column(name = "YEAR_OF_CREATION")
+    @Column(name = "YEAR_OF_CREATION", nullable = false)
     int yearOfCreation;
 
     @Column(name = "DESCRIPTION",length = 350)
@@ -30,8 +30,8 @@ public class Publisher {
         return name;
     }
 
-    public String getLogoPicture() {
-        return logoPicture;
+    public String getLogoPictureUrl() {
+        return logoPictureUrl;
     }
 
     public int getYearOfCreation() {
