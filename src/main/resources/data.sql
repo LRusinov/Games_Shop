@@ -81,7 +81,7 @@ VALUES ('Wolfenstein II: The New Colossus', '2017-10-27', 100, 'PC',
 INSERT INTO GAME (NAME, RELEASE_DATE, PRICE, PLATFORM, DESCRIPTION, PUBLISHER_ID, PICTURE)
 VALUES ('Halo Infinite', '2021-12-08', 120, 'XBOX ONE',
         'The campaign follows the human supersoldier Master Chief and his fight against the enemy Banished on the Forerunner ringworld Zeta Halo, also known as Installation 07.',
-        7, 'https://upload. wikimedia.org/wikipedia/en/1/14/Halo_Infinite.png');
+        7, 'https://assets-prd.ignimgs.com/2020/07/24/halo-infinite-button-2020-1595617876660.jpg');
 INSERT INTO GAME (NAME, RELEASE_DATE, PRICE, PLATFORM, DESCRIPTION, PUBLISHER_ID, PICTURE)
 VALUES ('Wolfenstein: The New Order', '2014-05-20', 70, 'PC',
         'The story follows war veteran William "B.J." Blazkowicz and his efforts to stop the Nazis from ruling over the world.',

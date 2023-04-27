@@ -1,0 +1,80 @@
+<table
+  mat-table
+  [dataSource]="dataSource"
+  multiTemplateDataRows
+  class="mat-elevation-z8"
+  matSort
+>
+  <ng-container matColumnDef="name">
+    <th mat-sort-header mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+  </ng-container>
+  <ng-container matColumnDef="price">
+    <th mat-sort-header mat-header-cell *matHeaderCellDef>Price</th>
+    <td mat-cell *matCellDef="let element">{{ element.price }} BGN</td>
+  </ng-container>
+  <ng-container matColumnDef="platform">
+    <th mat-sort-header mat-header-cell *matHeaderCellDef>Platform</th>
+    <td mat-cell *matCellDef="let element">{{ element.platform }}</td>
+  </ng-container>
+  <ng-container matColumnDef="genres">
+    <th mat-sort-header mat-header-cell *matHeaderCellDef>Genres</th>
+    <td mat-cell *matCellDef="let element">{{ element.genres }}</td>
+  </ng-container>
+  <ng-container matColumnDef="publisher">
+    <th mat-sort-header mat-header-cell *matHeaderCellDef>Publisher</th>
+    <td mat-cell *matCellDef="let element">{{ element.publisher }}</td>
+  </ng-container>
+  <ng-container matColumnDef="releaseDate">
+    <th mat-sort-header mat-header-cell *matHeaderCellDef>Release Date</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.releaseDate | date : "dd-MM-yyyy" }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="expand">
+    <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        mat-icon-button
+        (click)="
+          expandedElement = expandedElement === element ? null : element;
+          $event.stopPropagation()
+        "
+      >
+        <mat-icon *ngIf="expandedElement !== element">
+          keyboard_arrow_down</mat-icon
+        >
+        <mat-icon *ngIf="expandedElement === element">
+          keyboard_arrow_up</mat-icon
+        >
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="expandedDetails">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+      <div
+        class="example-element-detail"
+        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+      >
+        <img class="image" src="{{ element.picture }}" />
+        <div class="description"><b>Description: </b>{{ element.description }}</div>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr
+    mat-row
+    *matRowDef="let element; columns: columnsToDisplay"
+    class="example-element-row"
+    [class.example-expanded-row]="expandedElement === element"
+    (click)="expandedElement = expandedElement === element ? null : element"
+  ></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: ['expandedDetails']"
+    class="example-detail-row"
+  ></tr>
+</table>
