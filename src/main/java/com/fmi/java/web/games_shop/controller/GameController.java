@@ -7,6 +7,8 @@ import com.fmi.java.web.games_shop.model.Platform;
 import com.fmi.java.web.games_shop.model.Publisher;
 import com.fmi.java.web.games_shop.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/games-shop/games")
+@CrossOrigin(origins = "http://localhost:4200")
 public class GameController {
     private final GameService gameService;
 
@@ -35,9 +38,9 @@ public class GameController {
 
     @PostMapping
     @ResponseBody
-    public GameDto createCar(@RequestBody GameDto gameDto) {
-        gameService.addGame(dtoToEntity(gameDto));
-        return gameDto;
+    public ResponseEntity<Game> createCar(@RequestBody GameDto gameDto) {
+        Game newGame = gameService.addGame(dtoToEntity(gameDto));
+        return new ResponseEntity<>(newGame, HttpStatus.CREATED);
     }
     private Game dtoToEntity(GameDto gameDto) {
         Platform platform = new Platform(gameDto.platform());
