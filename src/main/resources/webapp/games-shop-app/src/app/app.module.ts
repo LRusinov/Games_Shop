@@ -11,12 +11,9 @@ import { GameModule } from './module/game/game.module';
 import { GameService } from './module/game/services/game.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     HttpClientModule,
     BrowserModule,
@@ -27,9 +24,8 @@ import { MatIconModule } from '@angular/material/icon';
     CommonModule,
     GameModule,
     BrowserAnimationsModule,
-    MatIconModule
   ],
   providers: [GameService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

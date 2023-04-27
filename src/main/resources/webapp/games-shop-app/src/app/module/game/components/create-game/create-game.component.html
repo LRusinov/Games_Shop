@@ -1,1 +1,91 @@
-<p>create-game works!</p>
+<mat-card>
+  <mat-card-content>
+    <form novalidate [formGroup]="createGameForm">
+      <table>
+        <caption>
+          Create game
+        </caption>
+        <tr>
+          <td>
+            <mat-form-field
+              ><mat-label>Name</mat-label>
+              <input matInput formControlName="name" required
+            /></mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field
+              ><mat-label>Price</mat-label>
+              <input matInput formControlName="price" required
+            /></mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field
+              ><mat-label>Platform</mat-label>
+              <mat-select formControlName="platform" required="">
+                <mat-option
+                  *ngFor="let platform of []"
+                  [value]="platform"
+                ></mat-option> </mat-select
+            ></mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field
+              ><mat-label>Description</mat-label>
+              <input matInput formControlName="description" required
+            /></mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field appearance="fill">
+              <mat-label>Release date</mat-label>
+              <input matInput [matDatepicker]="picker" />
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-checkbox formControlName="pepperoni">Pepperoni</mat-checkbox>
+
+            <mat-checkbox formControlName="extracheese"
+              >Extra Cheese</mat-checkbox
+            >
+            <mat-checkbox formControlName="mushroom">Mushroom</mat-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field
+              ><mat-label>Publisher</mat-label>
+              <mat-select formControlName="publisher" required="">
+                <mat-option
+                  *ngFor="let publisher of []"
+                  [value]="publisher"
+                ></mat-option> </mat-select
+            ></mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field
+              ><mat-label>Picture URL</mat-label>
+              <input matInput formControlName="picture" required
+            /></mat-form-field>
+          </td>
+        </tr>
+        <tr></tr>
+      </table>
+    </form>
+  </mat-card-content>
+</mat-card>
