@@ -25,7 +25,7 @@ public class Game {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "PICTURE", length = 255)
+    @Column(name = "PICTURE")
     private String picture;
 
     @ManyToOne(targetEntity = Publisher.class)

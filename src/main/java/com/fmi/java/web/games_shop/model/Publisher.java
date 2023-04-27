@@ -12,7 +12,7 @@ public class Publisher {
     @Column(name="NAME",length = 40)
     String name;
 
-    @Column(name = "LOGO_PICTURE", length = 255)
+    @Column(name = "LOGO_PICTURE")
     String logoPicture;
 
     @Column(name = "YEAR_OF_CREATION")
