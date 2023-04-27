@@ -11,8 +11,8 @@ import java.util.List;
 
 @Service
 public class GameService {
-    private GameRepository gameRepository;
-    private PublisherRepository publisherRepository;
+    private final GameRepository gameRepository;
+    private final PublisherRepository publisherRepository;
 
     @Autowired
     public GameService(GameRepository gameRepository, PublisherRepository publisherRepository) {
