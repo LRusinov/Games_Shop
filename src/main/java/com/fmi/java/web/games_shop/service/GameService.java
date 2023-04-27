@@ -1,5 +1,6 @@
 package com.fmi.java.web.games_shop.service;
 
+import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Game;
 import com.fmi.java.web.games_shop.model.Genre;
 import com.fmi.java.web.games_shop.model.Platform;
@@ -39,7 +40,7 @@ public class GameService {
 
     public List<Genre> getAllGenres() { return genresRepository.findAll();}
     public Game getGameById(String name){
-        return  gameRepository.findById(name).orElseThrow(()-> new IllegalArgumentException("No game with this name found."));
+        return  gameRepository.findById(name).orElseThrow(()-> new EntityNotFoundException(String.format("Game with name \"%s\" does not exist.",name)));
     }
 
     public Publisher getPublisherByName(String name){
@@ -51,7 +52,7 @@ public class GameService {
     }
 
     public Game deleteGame(String name){
-        Game gameToDelete = gameRepository.findById(name).orElseThrow(()-> new IllegalArgumentException("No game with this name found."));
+        Game gameToDelete = gameRepository.findById(name).orElseThrow(()-> new EntityNotFoundException(String.format("Game with name \"%s\" does not exist.",name)));
         gameRepository.delete(gameToDelete);
         return gameToDelete;
     }
