@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/games-shop/games")
+@RequestMapping("/games-shop")
 @CrossOrigin(origins = "http://localhost:4200")
 public class GameController {
     private final GameService gameService;
@@ -26,9 +26,24 @@ public class GameController {
         this.gameService = gameService;
     }
 
-    @GetMapping
+    @GetMapping("/games")
     List<GameDto> getAllGames() {
         return gameService.getAllGames().stream().map(this::entityToDto).toList();
+    }
+
+    @GetMapping("/publishers")
+    List<String> getAllPublishers() {
+        return gameService.getAllPublishers().stream().map(Publisher::getName).toList();
+    }
+
+    @GetMapping("/platforms")
+    List<String> getAllPlatforms() {
+        return gameService.getAllPlatforms().stream().map(Platform::getName).toList();
+    }
+
+    @GetMapping("/genres")
+    List<String> getAllGenres() {
+        return gameService.getAllGenres().stream().map(Genre::getName).toList();
     }
 
     @GetMapping("/{name}")
@@ -36,7 +51,7 @@ public class GameController {
         return entityToDto(gameService.getGameById(name));
     }
 
-    @PostMapping
+    @PostMapping("/games")
     @ResponseBody
     public ResponseEntity<Game> createCar(@RequestBody GameDto gameDto) {
         Game newGame = gameService.addGame(dtoToEntity(gameDto));
@@ -49,7 +64,7 @@ public class GameController {
         return new Game(gameDto.name(), gameDto.releaseDate(), gameDto.price(), platform, gameDto.description(), gameDto.picture(), publisher, genres);
     }
 
-    @DeleteMapping("/{name}")
+    @DeleteMapping("/games/{name}")
     @ResponseBody
     public GameDto deleteCar(@PathVariable String name) {
         Game game = gameService.deleteGame(name);
