@@ -37,7 +37,7 @@ export class CreateGameComponent implements OnInit {
       releaseDate: [null, [Validators.required]],
       publisher: [null, [Validators.required]],
       picture: [null, [Validators.required]],
-      genres: [this.genres.length != 0],
+      genres: [null, [Validators.required]],
     });
   }
 

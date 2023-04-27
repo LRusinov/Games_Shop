@@ -57,4 +57,9 @@ export class GameService {
       }
     );
   }
+  deleteGame(name: string): Observable<Game> {
+    return this.httpClient.delete<Game>(
+      `http://localhost:8080/games-shop/games/${name}`
+    );
+  }
 }
