@@ -16,7 +16,19 @@ export class GameService {
 
   getPlatforms(): Observable<string[]> {
     return this.httpClient.get<string[]>(
-      'http://localhost:8080/games-shop/games'
+      'http://localhost:8080/games-shop/platforms'
+    );
+  }
+
+  getGenres(): Observable<string[]> {
+    return this.httpClient.get<string[]>(
+      'http://localhost:8080/games-shop/genres'
+    );
+  }
+
+  getPublishers(): Observable<string[]> {
+    return this.httpClient.get<string[]>(
+      'http://localhost:8080/games-shop/publishers'
     );
   }
 
@@ -24,12 +36,13 @@ export class GameService {
     name: string,
     price: number,
     platform: string,
-    genres: [string],
+    genres: string[],
     description: string,
     releaseDate: Date,
     publisher: string,
     picture: string
   ): Observable<Game> {
+    console.log('111111');
     return this.httpClient.post<Game>(
       'http://localhost:8080/games-shop/games',
       {

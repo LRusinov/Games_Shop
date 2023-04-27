@@ -23,14 +23,36 @@
         </tr>
         <tr>
           <td>
-            <mat-form-field
+            <mat-form-field appearance="fill"
               ><mat-label>Platform</mat-label>
-              <mat-select formControlName="platform" required="">
+              <mat-select formControlName="platform" required>
                 <mat-option
-                  *ngFor="let platform of []"
+                  *ngFor="let platform of platforms"
                   [value]="platform"
-                ></mat-option> </mat-select
-            ></mat-form-field>
+                >
+                  {{ platform }}</mat-option
+                ></mat-select
+              ></mat-form-field
+            >
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <p>Genre</p>
+            <label *ngFor="let genre of genres">
+              <input
+                formControlName="genres"
+                type="checkbox"
+                name="genre"
+                [value]="genre"
+                [checked]="isChecked(genre)"
+                (change)="onCheckboxChange($event, genre)"
+              />
+              {{ genre }}
+            </label>
           </td>
         </tr>
         <tr>
@@ -45,7 +67,11 @@
           <td>
             <mat-form-field appearance="fill">
               <mat-label>Release date</mat-label>
-              <input matInput [matDatepicker]="picker" />
+              <input
+                matInput
+                formControlName="releaseDate"
+                [matDatepicker]="picker"
+              />
               <mat-datepicker-toggle
                 matIconSuffix
                 [for]="picker"
@@ -56,24 +82,16 @@
         </tr>
         <tr>
           <td>
-            <mat-checkbox formControlName="pepperoni">Pepperoni</mat-checkbox>
-
-            <mat-checkbox formControlName="extracheese"
-              >Extra Cheese</mat-checkbox
-            >
-            <mat-checkbox formControlName="mushroom">Mushroom</mat-checkbox>
-          </td>
-        </tr>
-        <tr>
-          <td>
             <mat-form-field
               ><mat-label>Publisher</mat-label>
               <mat-select formControlName="publisher" required="">
                 <mat-option
-                  *ngFor="let publisher of []"
+                  *ngFor="let publisher of publishers"
                   [value]="publisher"
-                ></mat-option> </mat-select
-            ></mat-form-field>
+                  >{{ publisher }}</mat-option
+                >
+              </mat-select></mat-form-field
+            >
           </td>
         </tr>
         <tr>
@@ -84,8 +102,16 @@
             /></mat-form-field>
           </td>
         </tr>
-        <tr></tr>
       </table>
     </form>
+    <button
+      mat-raised-button
+      color="primary"
+      [routerLink]="['../']"
+      [disabled]="createGameForm.invalid"
+      (click)="onSubmit()"
+    >
+      Submit
+    </button>
   </mat-card-content>
 </mat-card>
