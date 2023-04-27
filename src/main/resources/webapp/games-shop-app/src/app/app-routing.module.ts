@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ViewGamesComponent } from './module/game/components/view-games/view-games.component';
 
 const routes: Routes = [
   {
