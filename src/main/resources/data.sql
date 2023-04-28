@@ -3,6 +3,8 @@ VALUES ('SURVIVAL');
 INSERT INTO GENRE (NAME)
 VALUES ('HORROR');
 INSERT INTO GENRE (NAME)
+VALUES ('LIFE SIMULATION');
+INSERT INTO GENRE (NAME)
 VALUES ('FIRST-PERSON SHOOTER');
 INSERT INTO GENRE (NAME)
 VALUES ('ADVENTURE');
@@ -131,8 +133,13 @@ INSERT INTO GAME (NAME, RELEASE_DATE, PRICE, PLATFORM, DESCRIPTION, PUBLISHER_ID
 VALUES ('Sons of the Forest', '2023-02-23', 60, 'PC',
         'Similarly to The Forest, Sons of the Forest puts players in control of a protagonist stranded on an island inhabited by cannibals. Players can build weapons and buildings to aid in their survival.',
         1, 'https://upload.wikimedia.org/wikipedia/en/thumb/3/3d/Sons_of_the_Forest.jpg/330px-Sons_of_the_Forest.jpg');
+INSERT INTO GAME (NAME, RELEASE_DATE, PRICE, PLATFORM, DESCRIPTION, PUBLISHER_ID, PICTURE_URL)
+VALUES ('The Sims 4', '2017-11-17', 100, 'PLAYSTATION 4',
+        'The Sims 4 is a social simulation game, similar to preceding titles in the series. There is no primary objective or goal to achieve, and instead of fulfilling objectives, the player is encouraged to make choices.',
+        8, 'https://upload.wikimedia.org/wikipedia/en/7/7f/Sims4_Rebrand.png');
 
-
+INSERT INTO GAME_GENRE (GAME_NAME, GENRE_NAME)
+VALUES ('The Sims 4', 'LIFE SIMULATION');
 INSERT INTO GAME_GENRE (GAME_NAME, GENRE_NAME)
 VALUES ('Wolfenstein II: The New Colossus', 'ACTION');
 INSERT INTO GAME_GENRE (GAME_NAME, GENRE_NAME)
