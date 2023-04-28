@@ -29,10 +29,9 @@ public class GameService {
         return gameRepository.save(newGame);
     }
 
-    public Game deleteGame(String name) {
+    public void deleteGame(String name) {
         Game gameToDelete = gameRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format("Game with name \"%s\" does not exist.", name)));
         gameRepository.delete(gameToDelete);
-        return gameToDelete;
     }
 
 

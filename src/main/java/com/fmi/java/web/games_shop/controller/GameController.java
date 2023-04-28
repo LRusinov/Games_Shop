@@ -56,13 +56,13 @@ public class GameController {
 
     @DeleteMapping("/{name}")
     @ResponseBody
-    public boolean deleteCar(@PathVariable String name) {
-        Game game = gameService.deleteGame(name);
-        return true;
+    public ResponseEntity<Boolean> deleteCar(@PathVariable String name) {
+            gameService.deleteGame(name);
+        return new ResponseEntity<>(Boolean.TRUE,HttpStatus.OK);
     }
 
     private GameDto entityToDto(Game game) {
         Set<String> genres = game.getGenres().stream().map(Genre::getName).collect(Collectors.toSet());
-        return new GameDto(game.getName(), game.getPrice(), game.getPlatform().getName(),genres, game.getDescription(), game.getReleaseDate(), game.getPublisher().getName(), game.getPictureUrl());
+        return new GameDto(game.getName(), game.getPrice(), game.getPlatform().getName(), genres, game.getDescription(), game.getReleaseDate(), game.getPublisher().getName(), game.getPictureUrl());
     }
 }
