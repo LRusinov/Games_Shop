@@ -17,15 +17,13 @@ import java.util.List;
 @Service
 public class GameService {
     private final GameRepository gameRepository;
-    private final PublisherRepository publisherRepository;
 
     private final PlatformRepository platformRepository;
 
     private final GenresRepository genresRepository;
     @Autowired
-    public GameService(GameRepository gameRepository, PublisherRepository publisherRepository, PlatformRepository platformRepository,GenresRepository genresRepository) {
+    public GameService(GameRepository gameRepository, PlatformRepository platformRepository,GenresRepository genresRepository) {
         this.gameRepository = gameRepository;
-        this.publisherRepository = publisherRepository;
         this.platformRepository=platformRepository;
         this.genresRepository = genresRepository;
     }
@@ -34,17 +32,8 @@ public class GameService {
         return  gameRepository.findAll();
     }
 
-    public List<Publisher> getAllPublishers(){return publisherRepository.findAll();}
-
-    public List<Platform> getAllPlatforms() { return platformRepository.findAll();}
-
-    public List<Genre> getAllGenres() { return genresRepository.findAll();}
     public Game getGameById(String name){
         return  gameRepository.findById(name).orElseThrow(()-> new EntityNotFoundException(String.format("Game with name \"%s\" does not exist.",name)));
-    }
-
-    public Publisher getPublisherByName(String name){
-        return publisherRepository.findByname(name);
     }
 
     public Game addGame(Game newGame){
