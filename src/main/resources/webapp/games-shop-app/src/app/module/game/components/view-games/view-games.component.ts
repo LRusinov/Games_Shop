@@ -53,5 +53,6 @@ export class ViewGamesComponent implements OnInit {
   }
   onDeleteClick(name: string): void {
     this.gameService.deleteGame(name).subscribe();
+    window.location.reload();
   }
 }
