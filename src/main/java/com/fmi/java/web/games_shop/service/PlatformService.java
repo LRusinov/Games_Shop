@@ -8,11 +8,13 @@ import java.util.List;
 
 @Service
 public class PlatformService {
-private final PlatformRepository platformRepository;
+    private final PlatformRepository platformRepository;
 
     public PlatformService(PlatformRepository platformRepository) {
         this.platformRepository = platformRepository;
     }
 
-    public List<Platform> getAllPlatforms() { return platformRepository.findAll();}
+    public List<Platform> getAllPlatforms() {
+        return platformRepository.findAll();
+    }
 }

@@ -8,11 +8,13 @@ import java.util.List;
 
 @Service
 public class GenreService {
-private final GenresRepository genresRepository;
+    private final GenresRepository genresRepository;
 
     public GenreService(GenresRepository genresRepository) {
         this.genresRepository = genresRepository;
     }
 
-    public List<Genre> getAllGenres() { return genresRepository.findAll();}
+    public List<Genre> getAllGenres() {
+        return genresRepository.findAll();
+    }
 }
