@@ -13,6 +13,7 @@ public class Genre {
     private String name;
 
     protected Genre() {
+        //Needed for JPA.
     }
 
     public Genre(String name) {

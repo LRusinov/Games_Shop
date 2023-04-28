@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 @Table(name = "PLATFORM")
 public class Platform {
     protected Platform() {
-
+        //Needed for JPA.
     }
 
     public Platform(String name) {

@@ -41,6 +41,7 @@ public class Game {
     }
 
     protected Game() {
+        //Needed for JPA.
     }
 
     public Game(String name, Instant releaseDate, double price, Platform platform, String description, String pictureUrl, Publisher publisher, Set<Genre> genres) {
