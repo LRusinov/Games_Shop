@@ -36,6 +36,7 @@ export class ViewGamesComponent implements OnInit {
     'publisher',
     'releaseDate',
     'expand',
+    'edit',
     'delete',
   ];
   public dataSource = new MatTableDataSource<Game>();

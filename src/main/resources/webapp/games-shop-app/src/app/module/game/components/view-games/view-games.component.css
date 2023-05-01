@@ -54,3 +54,7 @@ table {
     width: 50%;
     padding-left: 5%;
   }
+
+  .delete-button{
+    padding-left: 1px;
+  }
