@@ -15,7 +15,7 @@ import java.util.List;
 public class GenreController {
     private final GenreService genreService;
 
-    public GenreController(GenreService genreService) {
+    public GenreController(final GenreService genreService) {
         this.genreService = genreService;
     }
 

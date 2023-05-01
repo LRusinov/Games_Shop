@@ -13,7 +13,7 @@ public class GameService {
     private final GameRepository gameRepository;
 
     @Autowired
-    public GameService(GameRepository gameRepository) {
+    public GameService(final GameRepository gameRepository) {
         this.gameRepository = gameRepository;
     }
 
@@ -21,16 +21,16 @@ public class GameService {
         return gameRepository.findAll();
     }
 
-    public Game getGameById(String name) {
+    public Game getGameById(final String name) {
         return gameRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format("Game with name \"%s\" does not exist.", name)));
     }
 
-    public Game addGame(Game newGame) {
+    public Game addGame(final Game newGame) {
         return gameRepository.save(newGame);
     }
 
-    public void deleteGame(String name) {
-        Game gameToDelete = gameRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format("Game with name \"%s\" does not exist.", name)));
+    public void deleteGame(final String name) {
+        final Game gameToDelete = gameRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format("Game with name \"%s\" does not exist.", name)));
         gameRepository.delete(gameToDelete);
     }
 

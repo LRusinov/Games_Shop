@@ -10,7 +10,7 @@ import java.util.List;
 public class PublisherService {
     private final PublisherRepository publisherRepository;
 
-    public PublisherService(PublisherRepository publisherRepository) {
+    public PublisherService(final PublisherRepository publisherRepository) {
         this.publisherRepository = publisherRepository;
     }
 
@@ -18,7 +18,7 @@ public class PublisherService {
         return publisherRepository.findAll();
     }
 
-    public Publisher getPublisherByName(String name) {
+    public Publisher getPublisherByName(final String name) {
         return publisherRepository.findByname(name);
     }
 }

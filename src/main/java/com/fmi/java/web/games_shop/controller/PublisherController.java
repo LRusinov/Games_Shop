@@ -16,11 +16,11 @@ public class PublisherController {
 
     private final PublisherService publisherService;
 
-    public PublisherController(PublisherService publisherService) {
+    public PublisherController(final PublisherService publisherService) {
         this.publisherService = publisherService;
     }
 
-    @GetMapping("/publishers")
+    @GetMapping
     List<String> getAllPublishers() {
         return publisherService.getAllPublishers().stream().map(Publisher::getName).toList();
     }

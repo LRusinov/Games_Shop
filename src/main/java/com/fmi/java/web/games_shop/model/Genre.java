@@ -9,14 +9,14 @@ import jakarta.persistence.Table;
 @Table(name = "GENRE")
 public class Genre {
     @Id
-    @Column(name = "NAME",length = 20, nullable = false)
+    @Column(name = "NAME", length = 20, nullable = false)
     private String name;
 
     protected Genre() {
         //Needed for JPA.
     }
 
-    public Genre(String name) {
+    public Genre(final String name) {
         this.name = name;
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 public class GenreService {
     private final GenresRepository genresRepository;
 
-    public GenreService(GenresRepository genresRepository) {
+    public GenreService(final GenresRepository genresRepository) {
         this.genresRepository = genresRepository;
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 public class PlatformService {
     private final PlatformRepository platformRepository;
 
-    public PlatformService(PlatformRepository platformRepository) {
+    public PlatformService(final PlatformRepository platformRepository) {
         this.platformRepository = platformRepository;
     }
 

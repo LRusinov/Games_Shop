@@ -16,7 +16,7 @@ public class PlatformController {
 
     private final PlatformService platformService;
 
-    public PlatformController(PlatformService platformService) {
+    public PlatformController(final PlatformService platformService) {
         this.platformService = platformService;
     }
 

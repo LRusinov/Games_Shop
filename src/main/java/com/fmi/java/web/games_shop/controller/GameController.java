@@ -25,7 +25,7 @@ public class GameController {
     private final PublisherService publisherService;
 
     @Autowired
-    public GameController(GameService gameService, PublisherService publisherService) {
+    public GameController(final GameService gameService, final PublisherService publisherService) {
         this.publisherService = publisherService;
         this.gameService = gameService;
     }
@@ -36,33 +36,33 @@ public class GameController {
     }
 
     @GetMapping("/{name}")
-    public GameDto getGameById(@PathVariable("name") String name) {
+    public GameDto getGameById(@PathVariable("name") final String name) {
         return entityToDto(gameService.getGameById(name));
     }
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Game> createCar(@RequestBody GameDto gameDto) {
-        Game newGame = gameService.addGame(dtoToEntity(gameDto));
+    public ResponseEntity<Game> createCar(@RequestBody final GameDto gameDto) {
+        final Game newGame = gameService.addGame(dtoToEntity(gameDto));
         return new ResponseEntity<>(newGame, HttpStatus.CREATED);
     }
 
-    private Game dtoToEntity(GameDto gameDto) {
-        Platform platform = new Platform(gameDto.platform());
-        Publisher publisher = publisherService.getPublisherByName(gameDto.publisher());
-        Set<Genre> genres = gameDto.genres().stream().map(Genre::new).collect(Collectors.toSet());
+    private Game dtoToEntity(final GameDto gameDto) {
+        final Platform platform = new Platform(gameDto.platform());
+        final Publisher publisher = publisherService.getPublisherByName(gameDto.publisher());
+        final Set<Genre> genres = gameDto.genres().stream().map(Genre::new).collect(Collectors.toSet());
         return new Game(gameDto.name(), gameDto.releaseDate(), gameDto.price(), platform, gameDto.description(), gameDto.picture(), publisher, genres);
     }
 
     @DeleteMapping("/{name}")
     @ResponseBody
-    public ResponseEntity<Boolean> deleteCar(@PathVariable String name) {
-            gameService.deleteGame(name);
-        return new ResponseEntity<>(Boolean.TRUE,HttpStatus.OK);
+    public ResponseEntity<Boolean> deleteCar(@PathVariable final String name) {
+        gameService.deleteGame(name);
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
 
-    private GameDto entityToDto(Game game) {
-        Set<String> genres = game.getGenres().stream().map(Genre::getName).collect(Collectors.toSet());
+    private GameDto entityToDto(final Game game) {
+        final Set<String> genres = game.getGenres().stream().map(Genre::getName).collect(Collectors.toSet());
         return new GameDto(game.getName(), game.getPrice(), game.getPlatform().getName(), genres, game.getDescription(), game.getReleaseDate(), game.getPublisher().getName(), game.getPictureUrl());
     }
 }

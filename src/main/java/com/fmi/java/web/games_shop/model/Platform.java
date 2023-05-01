@@ -12,12 +12,12 @@ public class Platform {
         //Needed for JPA.
     }
 
-    public Platform(String name) {
+    public Platform(final String name) {
         this.name = name;
     }
 
     @Id
-    @Column(name = "name",length = 30, nullable = false)
+    @Column(name = "name", length = 30, nullable = false)
     private String name;
 
     public String getName() {
