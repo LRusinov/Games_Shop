@@ -82,4 +82,36 @@ public class Game {
     public Publisher getPublisher() {
         return publisher;
     }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    public void setReleaseDate(final Instant releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public void setPrice(final double price) {
+        this.price = price;
+    }
+
+    public void setPlatform(final Platform platform) {
+        this.platform = platform;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
+    }
+
+    public void setPictureUrl(final String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+
+    public void setPublisher(final Publisher publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setGenres(final Set<Genre> genres) {
+        this.genres = genres;
+    }
 }

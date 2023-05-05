@@ -34,5 +34,18 @@ public class GameService {
         gameRepository.delete(gameToDelete);
     }
 
+    public Game updateGame(final String name, final Game updatedGame) {
+        return gameRepository.findById(name).map(game -> {
+            game.setDescription(updatedGame.getDescription());
+            game.setGenres(updatedGame.getGenres());
+            game.setPlatform(updatedGame.getPlatform());
+            game.setPublisher(updatedGame.getPublisher());
+            game.setPictureUrl(updatedGame.getPictureUrl());
+            game.setReleaseDate(updatedGame.getReleaseDate());
+            game.setPrice(updatedGame.getPrice());
+            return gameRepository.save(game);
+        }).orElseGet(() -> gameRepository.save(updatedGame));
+    }
+
 
 }

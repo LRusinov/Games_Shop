@@ -65,4 +65,10 @@ public class GameController {
         final Set<String> genres = game.getGenres().stream().map(Genre::getName).collect(Collectors.toSet());
         return new GameDto(game.getName(), game.getPrice(), game.getPlatform().getName(), genres, game.getDescription(), game.getReleaseDate(), game.getPublisher().getName(), game.getPictureUrl());
     }
+
+    @PutMapping("/{name}")
+    @ResponseBody
+    public Game updateGame(@PathVariable final String name, @RequestBody final GameDto gameDto) {
+        return gameService.updateGame(name, dtoToEntity(gameDto));
+    }
 }
