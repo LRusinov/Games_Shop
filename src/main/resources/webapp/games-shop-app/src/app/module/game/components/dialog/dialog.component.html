@@ -1,0 +1,105 @@
+<div mat-dialog-content>
+          <form novalidate [formGroup]="editGameForm">
+            <table>
+              <caption>
+                Edit game
+              </caption>
+              <tr>
+                <td>
+                  <mat-form-field
+                    ><mat-label>Name</mat-label>
+                    <input matInput formControlName="name" required
+                  /></mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field
+                      ><mat-label>Price</mat-label>
+                      <input matInput formControlName="price" required
+                    /></mat-form-field>
+                  </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                    <p>Genre</p>
+                    <mat-checkbox *ngFor="let genre of genres"
+                        type="checkbox"
+                        name="genre"
+                        [value]="genre"
+                        [checked]="isChecked(genre)"
+                        (change)="onCheckboxChange($event, genre)"
+                      >
+                      {{ genre }}
+                    </mat-checkbox>
+                  </td>
+              </tr>
+              <tr>
+                <td>
+                  <mat-form-field appearance="fill"
+                    ><mat-label>Platform</mat-label>
+                    <mat-select formControlName="platform" required>
+                      <mat-option
+                        *ngFor="let platform of platforms"
+                        [value]="platform"
+                      >
+                        {{ platform }}</mat-option
+                      ></mat-select
+                    ></mat-form-field
+                  >
+                </td>
+
+                <td>
+                    <mat-form-field
+                      ><mat-label>Publisher</mat-label>
+                      <mat-select formControlName="publisher" required="">
+                        <mat-option
+                          *ngFor="let publisher of publishers"
+                          [value]="publisher"
+                          >{{ publisher }}</mat-option
+                        >
+                      </mat-select></mat-form-field
+                    >
+                  </td>
+              </tr>
+              <tr>
+                <td></td>
+              </tr>
+              <tr>
+              </tr>
+              <tr>
+                <td>
+                  <mat-form-field 
+                    ><mat-label>Description</mat-label>
+                    <input matInput formControlName="description" required
+                  /></mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                      <mat-label>Release date</mat-label>
+                      <input
+                        matInput
+                        formControlName="releaseDate"
+                        [matDatepicker]="picker"
+                      />
+                      <mat-datepicker-toggle
+                        matIconSuffix
+                        [for]="picker"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <mat-form-field
+                      ><mat-label>Picture URL</mat-label>
+                      <input matInput formControlName="picture" required
+                    /></mat-form-field>
+                  </td>
+              </tr>
+            </table>
+          </form>  
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button (click)="onSubmit()"  cdkFocusInitial>Edit</button>
+  </div>
