@@ -62,4 +62,29 @@ export class GameService {
       `http://localhost:8080/games-shop/games/${name}`
     );
   }
+
+  editGame(
+    name: string,
+    price: number,
+    platform: string,
+    genres: string[],
+    description: string,
+    releaseDate: Date,
+    publisher: string,
+    picture: string
+  ): Observable<Game> {
+    return this.httpClient.put<Game>(
+      'http://localhost:8080/games-shop/games',
+      {
+        name,
+        price,
+        platform,
+        genres,
+        description,
+        releaseDate,
+        publisher,
+        picture,
+      }
+    );
+  }
 }
