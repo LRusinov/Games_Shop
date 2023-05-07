@@ -17,9 +17,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { DialogComponent } from './components/dialog/dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [ViewGamesComponent, CreateGameComponent],
+  declarations: [ViewGamesComponent, CreateGameComponent, DialogComponent],
   imports: [
     CommonModule,
     GameRoutingModule,
@@ -37,6 +39,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
+    MatDialogModule
   ],
 })
 export class GameModule {}
