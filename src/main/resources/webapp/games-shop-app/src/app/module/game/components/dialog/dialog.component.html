@@ -22,7 +22,6 @@
                 <td colspan="2">
                     <p>Genre</p>
                     <mat-checkbox *ngFor="let genre of genres"
-                        type="checkbox"
                         name="genre"
                         [value]="genre"
                         [checked]="isChecked(genre)"
@@ -50,7 +49,7 @@
                 <td>
                     <mat-form-field
                       ><mat-label>Publisher</mat-label>
-                      <mat-select formControlName="publisher" required="">
+                      <mat-select formControlName="publisher">
                         <mat-option
                           *ngFor="let publisher of publishers"
                           [value]="publisher"
@@ -67,7 +66,7 @@
               </tr>
               <tr>
                 <td>
-                  <mat-form-field 
+                  <mat-form-field
                     ><mat-label>Description</mat-label>
                     <input matInput formControlName="description" required
                   /></mat-form-field>
@@ -97,9 +96,9 @@
                   </td>
               </tr>
             </table>
-          </form>  
+          </form>
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button (click)="onSubmit()"  cdkFocusInitial>Edit</button>
+    <button mat-button (click)="onSubmit()" >Edit</button>
   </div>

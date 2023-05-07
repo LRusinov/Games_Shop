@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Game } from 'src/app/model/Game';
 import { GameService } from '../../services/game.service';
 import { MatSort } from '@angular/material/sort';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {
   animate,
   state,
@@ -11,7 +11,6 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Dialog } from '@angular/cdk/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
@@ -60,7 +59,7 @@ export class ViewGamesComponent implements OnInit {
     window.location.reload();
   }
   openDialog(game:Game): void {
-    const dialogRef = this.dialog.open(DialogComponent, {
+    this.dialog.open(DialogComponent, {
       data: {name: game.name,
         price: game.price,
         platform: game.platform,
