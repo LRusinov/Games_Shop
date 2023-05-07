@@ -37,7 +37,6 @@ export class CreateGameComponent implements OnInit {
       releaseDate: [null, [Validators.required]],
       publisher: [null, [Validators.required]],
       picture: [null, [Validators.required]],
-      genres: [null, [Validators.required]],
     });
   }
 
@@ -86,7 +85,7 @@ export class CreateGameComponent implements OnInit {
   }
 
   onCheckboxChange(event: any, genre: string) {
-    if (event.target.checked) {
+    if (this.checkedGenres.indexOf(genre)==-1) {
       this.checkedGenres.push(genre);
     } else {
       const index = this.checkedGenres.indexOf(genre);

@@ -42,17 +42,14 @@
         <tr>
           <td>
             <p>Genre</p>
-            <label *ngFor="let genre of genres">
-              <input
-                formControlName="genres"
-                type="checkbox"
-                name="genre"
+              <mat-checkbox
+                *ngFor="let genre of genres"
                 [value]="genre"
                 [checked]="isChecked(genre)"
                 (change)="onCheckboxChange($event, genre)"
-              />
-              {{ genre }}
-            </label>
+                name="genres">
+                {{ genre }}
+              </mat-checkbox>
           </td>
         </tr>
         <tr>
