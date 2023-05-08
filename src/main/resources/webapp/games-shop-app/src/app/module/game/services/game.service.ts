@@ -74,7 +74,7 @@ export class GameService {
     picture: string
   ): Observable<Game> {
     return this.httpClient.put<Game>(
-      'http://localhost:8080/games-shop/games',
+      `http://localhost:8080/games-shop/games/${name}`,
       {
         name,
         price,
