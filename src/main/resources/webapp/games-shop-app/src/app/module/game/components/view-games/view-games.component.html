@@ -44,12 +44,10 @@
       >
         <mat-icon *ngIf="expandedElement !== element">
           keyboard_arrow_down
-        </mat-icon
-        >
+        </mat-icon>
         <mat-icon *ngIf="expandedElement === element">
           keyboard_arrow_up
-        </mat-icon
-        >
+        </mat-icon>
       </button>
     </td>
   </ng-container>
@@ -85,7 +83,7 @@
         class="example-element-detail"
         [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
       >
-        <img class="image" ng-src="{{ element.picture }}" alt=""/>
+        <img class="image" src="{{ element.picture }}" alt="" />
         <div class="description">
           <b>Description: </b>{{ element.description }}
         </div>
