@@ -42,7 +42,7 @@ public class GameController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Game> createCar(@RequestBody final GameDto gameDto) {
+    public ResponseEntity<Game> createGame(@RequestBody final GameDto gameDto) {
         final Game newGame = gameService.addGame(dtoToEntity(gameDto));
         return new ResponseEntity<>(newGame, HttpStatus.CREATED);
     }
@@ -56,7 +56,7 @@ public class GameController {
 
     @DeleteMapping("/{name}")
     @ResponseBody
-    public ResponseEntity<Boolean> deleteCar(@PathVariable final String name) {
+    public ResponseEntity<Boolean> deleteGame(@PathVariable final String name) {
         gameService.deleteGame(name);
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
