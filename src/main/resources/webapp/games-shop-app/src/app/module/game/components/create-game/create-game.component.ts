@@ -8,7 +8,7 @@ import { GameService } from '../../services/game.service';
   styleUrls: ['./create-game.component.css'],
 })
 export class CreateGameComponent implements OnInit {
-  public createGameForm!: FormGroup;
+  public form!: FormGroup;
   publishers: string[] = [];
   platforms: string[] = [];
   genres: string[] = [];
@@ -16,20 +16,12 @@ export class CreateGameComponent implements OnInit {
   checked = false;
 
   constructor(
-    private readonly gameService: GameService,
-    private readonly formBuilder: FormBuilder
+    protected readonly gameService: GameService,
+    protected readonly formBuilder: FormBuilder
   ) {}
   ngOnInit(): void {
-    this.gameService.getPlatforms().subscribe((response) => {
-      this.platforms = response;
-    });
-    this.gameService.getPublishers().subscribe((response) => {
-      this.publishers = response;
-    });
-    this.gameService.getGenres().subscribe((response) => {
-      this.genres = response;
-    });
-    this.createGameForm = this.formBuilder.group({
+    this.initHelper();
+    this.form = this.formBuilder.group({
       name: [null, [Validators.required]],
       price: [null, [Validators.required]],
       platform: [null, [Validators.required]],
@@ -39,31 +31,42 @@ export class CreateGameComponent implements OnInit {
       picture: [null, [Validators.required]],
     });
   }
+  initHelper() {
+    this.gameService.getPlatforms().subscribe((response) => {
+      this.platforms = response;
+    });
+    this.gameService.getPublishers().subscribe((response) => {
+      this.publishers = response;
+    });
+    this.gameService.getGenres().subscribe((response) => {
+      this.genres = response;
+    });
+  }
 
   get name() {
-    return this.createGameForm.get('name');
+    return this.form.get('name');
   }
   get price() {
-    return this.createGameForm.get('price');
+    return this.form.get('price');
   }
   get platform() {
-    return this.createGameForm.get('platform');
+    return this.form.get('platform');
   }
   get description() {
-    return this.createGameForm.get('description');
+    return this.form.get('description');
   }
   get publisher() {
-    return this.createGameForm.get('publisher');
+    return this.form.get('publisher');
   }
   get picture() {
-    return this.createGameForm.get('picture');
+    return this.form.get('picture');
   }
   get releaseDate() {
-    return this.createGameForm.get('releaseDate');
+    return this.form.get('releaseDate');
   }
 
   onSubmit(): void {
-    if (this.createGameForm.invalid) {
+    if (this.form.invalid) {
       return;
     }
     this.gameService
@@ -85,7 +88,7 @@ export class CreateGameComponent implements OnInit {
   }
 
   onCheckboxChange(event: any, genre: string) {
-    if (this.checkedGenres.indexOf(genre)==-1) {
+    if (this.checkedGenres.indexOf(genre) == -1) {
       this.checkedGenres.push(genre);
     } else {
       const index = this.checkedGenres.indexOf(genre);

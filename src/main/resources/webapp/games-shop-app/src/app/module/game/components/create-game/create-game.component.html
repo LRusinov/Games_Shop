@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-content>
-    <form novalidate [formGroup]="createGameForm">
+    <form novalidate [formGroup]="form">
       <table>
         <caption>
           Create game
@@ -42,14 +42,15 @@
         <tr>
           <td>
             <p>Genre</p>
-              <mat-checkbox
-                *ngFor="let genre of genres"
-                [value]="genre"
-                [checked]="isChecked(genre)"
-                (change)="onCheckboxChange($event, genre)"
-                name="genres">
-                {{ genre }}
-              </mat-checkbox>
+            <mat-checkbox
+              *ngFor="let genre of genres"
+              [value]="genre"
+              [checked]="isChecked(genre)"
+              (change)="onCheckboxChange($event, genre)"
+              name="genres"
+            >
+              {{ genre }}
+            </mat-checkbox>
           </td>
         </tr>
         <tr>
@@ -105,7 +106,7 @@
       mat-raised-button
       color="primary"
       [routerLink]="['../']"
-      [disabled]="createGameForm.invalid"
+      [disabled]="form.invalid"
       (click)="onSubmit()"
     >
       Submit
