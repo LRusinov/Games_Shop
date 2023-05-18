@@ -5,11 +5,11 @@ import { CreateGameComponent } from './components/create-game/create-game.compon
 
 const routes: Routes = [
   { path: '', component: ViewGamesComponent },
-  { path: 'create', component: CreateGameComponent }
+  { path: 'create', component: CreateGameComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class GameRoutingModule { }
+export class GameRoutingModule {}
