@@ -1,1 +1,28 @@
+<mat-toolbar>
+  <button mat-icon-button routerLink="">
+    <mat-icon>home</mat-icon>
+  </button>
+  <span>Video Games Shop</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button routerLink="game/">
+    <mat-icon>videogame_asset</mat-icon>
+  </button>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="game/create/">
+      <span>Add game</span>
+    </button>
+    <button mat-menu-item disabled>
+      <span>Add genre</span>
+    </button>
+    <button mat-menu-item disabled>
+      <span>Add publisher</span>
+    </button>
+    <button mat-menu-item disabled>
+      <span>Add platform</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
 <router-outlet></router-outlet>

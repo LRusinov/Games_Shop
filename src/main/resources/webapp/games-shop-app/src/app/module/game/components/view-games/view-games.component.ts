@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Game } from 'src/app/model/Game';
 import { GameService } from '../../services/game.service';
 import { MatSort } from '@angular/material/sort';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import {
   animate,
   state,
@@ -46,7 +46,10 @@ export class ViewGamesComponent implements OnInit {
   @ViewChild(MatSort)
   sort: MatSort = new MatSort();
 
-  constructor(private readonly gameService: GameService, public dialog: MatDialog) {}
+  constructor(
+    private readonly gameService: GameService,
+    public dialog: MatDialog
+  ) {}
   ngOnInit(): void {
     this.gameService.getGames().subscribe((response) => {
       this.games = response;
@@ -58,16 +61,18 @@ export class ViewGamesComponent implements OnInit {
     this.gameService.deleteGame(name).subscribe();
     window.location.reload();
   }
-  openDialog(game:Game): void {
+  openDialog(game: Game): void {
     this.dialog.open(DialogComponent, {
-      data: {name: game.name,
+      data: {
+        name: game.name,
         price: game.price,
         platform: game.platform,
         description: game.description,
         releaseDate: game.releaseDate,
         publisher: game.publisher,
         picture: game.picture,
-        genres: game.genres,}
+        genres: game.genres,
+      },
     });
   }
 }
