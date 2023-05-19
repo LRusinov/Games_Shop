@@ -1,5 +1,6 @@
 package com.fmi.java.web.games_shop.service;
 
+import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Publisher;
 import com.fmi.java.web.games_shop.repository.PublisherRepository;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,15 @@ public class PublisherService {
     }
 
     public Publisher getPublisherByName(final String name) {
-        return publisherRepository.findByname(name);
+        return publisherRepository.findByname(name).orElseThrow(() -> new EntityNotFoundException(String.format("Platform with name \"%s\" does not exist.", name)));
+    }
+
+    public Publisher addPublisher(final Publisher publisher) {
+        return publisherRepository.save(publisher);
+    }
+
+    public void deletePublisher(final String name) {
+        final Publisher publisherToDelete = publisherRepository.findByname(name).orElseThrow(() -> new EntityNotFoundException(String.format("Platform with name \"%s\" does not exist.", name)));
+        publisherRepository.delete(publisherToDelete);
     }
 }

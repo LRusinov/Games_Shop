@@ -9,7 +9,7 @@ public class Publisher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name="NAME",length = 40, nullable = false)
+    @Column(name = "NAME", length = 40, nullable = false, unique = true)
     String name;
 
     @Column(name = "LOGO_PICTURE_URL", nullable = false)
@@ -18,9 +18,20 @@ public class Publisher {
     @Column(name = "YEAR_OF_CREATION", nullable = false)
     int yearOfCreation;
 
-    @Column(name = "DESCRIPTION",length = 350)
+    @Column(name = "DESCRIPTION", length = 350)
     String description;
 
+    protected Publisher() {
+        //Needed for JPA.
+    }
+
+    public Publisher(final Long id, final String name, final String logoPictureUrl, final int yearOfCreation, final String description) {
+        this.id = id;
+        this.name = name;
+        this.logoPictureUrl = logoPictureUrl;
+        this.yearOfCreation = yearOfCreation;
+        this.description = description;
+    }
 
     public Long getId() {
         return id;

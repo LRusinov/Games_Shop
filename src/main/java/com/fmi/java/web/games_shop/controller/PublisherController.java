@@ -1,11 +1,11 @@
 package com.fmi.java.web.games_shop.controller;
 
+import com.fmi.java.web.games_shop.dto.PublisherDto;
 import com.fmi.java.web.games_shop.model.Publisher;
 import com.fmi.java.web.games_shop.service.PublisherService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +23,32 @@ public class PublisherController {
     @GetMapping
     List<String> getAllPublishers() {
         return publisherService.getAllPublishers().stream().map(Publisher::getName).toList();
+    }
+
+    @GetMapping("/{name}")
+    public PublisherDto getGameById(@PathVariable("name") final String name) {
+        return entityToDto(publisherService.getPublisherByName(name));
+    }
+
+    private PublisherDto entityToDto(final Publisher publisherByName) {
+        return new PublisherDto(publisherByName.getId(), publisherByName.getName(), publisherByName.getLogoPictureUrl(), publisherByName.getYearOfCreation(), publisherByName.getDescription());
+    }
+
+    @PostMapping
+    @ResponseBody
+    public ResponseEntity<Publisher> createGame(@RequestBody final PublisherDto publisherDto) {
+        final Publisher newPlatform = publisherService.addPublisher(dtoToEntity(publisherDto));
+        return new ResponseEntity<>(newPlatform, HttpStatus.CREATED);
+    }
+
+    private static Publisher dtoToEntity(final PublisherDto publisherDto) {
+        return new Publisher(publisherDto.id(), publisherDto.name(), publisherDto.logoPictureUrl(), publisherDto.yearOfCreation(), publisherDto.description());
+    }
+
+    @DeleteMapping("/{name}")
+    @ResponseBody
+    public ResponseEntity<Boolean> deleteGame(@PathVariable final String name) {
+        publisherService.deletePublisher(name);
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
 }
