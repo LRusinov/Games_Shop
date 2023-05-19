@@ -1,11 +1,11 @@
 package com.fmi.java.web.games_shop.controller;
 
+import com.fmi.java.web.games_shop.dto.GenreDto;
 import com.fmi.java.web.games_shop.model.Genre;
 import com.fmi.java.web.games_shop.service.GenreService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +22,19 @@ public class GenreController {
     @GetMapping
     List<String> getAllGenres() {
         return genreService.getAllGenres().stream().map(Genre::getName).toList();
+    }
+
+    @PostMapping
+    @ResponseBody
+    public ResponseEntity<Genre> createGame(@RequestBody final GenreDto genreDto) {
+        final Genre newGenre = genreService.addGenre(new Genre(genreDto.name()));
+        return new ResponseEntity<>(newGenre, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{name}")
+    @ResponseBody
+    public ResponseEntity<Boolean> deleteGame(@PathVariable final String name) {
+        genreService.deleteGenre(name);
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
 }
