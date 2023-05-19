@@ -82,6 +82,9 @@ export class CreateGameComponent implements OnInit {
       )
       .subscribe();
   }
+  onCancel() {
+    window.history.back();
+  }
 
   isChecked(genre: string): boolean {
     return this.checkedGenres.includes(genre);

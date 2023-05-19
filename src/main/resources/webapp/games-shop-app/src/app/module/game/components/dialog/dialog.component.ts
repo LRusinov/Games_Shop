@@ -25,7 +25,7 @@ export class DialogComponent extends CreateGameComponent {
   override ngOnInit(): void {
     this.initHelper();
     this.form = this.formBuilder.group({
-      name: [this.game.name, [Validators.required]],
+      name: [{ value: this.game.name, disabled: true }, [Validators.required]],
       price: [this.game.price, [Validators.required]],
       platform: [this.game.platform, [Validators.required]],
       description: [this.game.description, [Validators.required]],

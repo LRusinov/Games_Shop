@@ -90,6 +90,14 @@
       </div>
     </td>
   </ng-container>
+  <ng-container matColumnDef="addGame">
+    <th mat-header-cell *matHeaderCellDef>
+      <button mat-icon-button matTooltip="Add game" routerLink="create/">
+        <mat-icon>add_circle</mat-icon>
+      </button>
+    </th>
+    <td mat-cell *matCellDef="let element"></td>
+  </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
   <tr

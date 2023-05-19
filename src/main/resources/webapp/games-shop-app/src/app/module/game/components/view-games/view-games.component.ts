@@ -40,6 +40,7 @@ export class ViewGamesComponent implements OnInit {
     'expand',
     'edit',
     'delete',
+    'addGame',
   ];
   public dataSource = new MatTableDataSource<Game>();
   expandedElement: Game | null = null;

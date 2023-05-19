@@ -96,6 +96,15 @@
   </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button (click)="onSubmit()">Edit</button>
+  <button
+    mat-raised-button
+    class="form-button"
+    color="primary"
+    (click)="onNoClick()"
+  >
+    Cancel
+  </button>
+  <button mat-raised-button class="form-button"  (click)="onSubmit()">
+    Edit
+  </button>
 </div>
