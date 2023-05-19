@@ -1,11 +1,11 @@
 package com.fmi.java.web.games_shop.controller;
 
+import com.fmi.java.web.games_shop.dto.PlatformDto;
 import com.fmi.java.web.games_shop.model.Platform;
 import com.fmi.java.web.games_shop.service.PlatformService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +23,19 @@ public class PlatformController {
     @GetMapping
     List<String> getAllPlatforms() {
         return platformService.getAllPlatforms().stream().map(Platform::getName).toList();
+    }
+
+    @PostMapping
+    @ResponseBody
+    public ResponseEntity<Platform> createGame(@RequestBody final PlatformDto platformDto) {
+        final Platform newPlatform = platformService.addPlatform(new Platform(platformDto.name()));
+        return new ResponseEntity<>(newPlatform, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{name}")
+    @ResponseBody
+    public ResponseEntity<Boolean> deleteGame(@PathVariable final String name) {
+        platformService.deletePlatform(name);
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
 }
