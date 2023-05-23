@@ -42,7 +42,6 @@ export class GameService {
     publisher: string,
     picture: string
   ): Observable<Game> {
-    console.log('111111');
     return this.httpClient.post<Game>(
       'http://localhost:8080/games-shop/games',
       {

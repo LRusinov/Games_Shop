@@ -16,6 +16,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { GenreModule } from './module/genre/genre.module';
+import { PlatformModule } from '@angular/cdk/platform';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],

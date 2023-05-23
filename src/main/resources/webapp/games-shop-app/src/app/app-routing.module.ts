@@ -12,6 +12,16 @@ const routes: Routes = [
     loadChildren: () =>
       import('./module/game/game.module').then((m) => m.GameModule),
   },
+  {
+    path: 'publishers',
+    loadChildren: () =>
+      import('./module/publisher/publisher.module').then((m) => m.PublisherModule),
+  },
+  {
+    path: 'genres',
+    loadChildren: () =>
+      import('./module/genre/genre.module').then((m) => m.GenreModule),
+  },
 ];
 
 @NgModule({
