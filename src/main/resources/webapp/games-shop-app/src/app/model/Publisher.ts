@@ -1,4 +1,4 @@
-export interface Publiher {
+export interface Publisher {
     name: string;
     yearOfCreation: number;
     description: string;
