@@ -21,8 +21,8 @@ public class PlatformController {
     }
 
     @GetMapping
-    List<String> getAllPlatforms() {
-        return platformService.getAllPlatforms().stream().map(Platform::getName).toList();
+    List<PlatformDto> getAllPlatforms() {
+        return platformService.getAllPlatforms().stream().map(platform -> new PlatformDto(platform.getName())).toList();
     }
 
     @PostMapping

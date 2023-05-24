@@ -1,6 +1,7 @@
 package com.fmi.java.web.games_shop.controller;
 
 import com.fmi.java.web.games_shop.dto.PublisherDto;
+import com.fmi.java.web.games_shop.model.Platform;
 import com.fmi.java.web.games_shop.model.Publisher;
 import com.fmi.java.web.games_shop.service.PublisherService;
 import org.springframework.http.HttpStatus;
@@ -21,8 +22,8 @@ public class PublisherController {
     }
 
     @GetMapping
-    List<String> getAllPublishers() {
-        return publisherService.getAllPublishers().stream().map(Publisher::getName).toList();
+    List<PublisherDto> getAllPublishers() {
+        return publisherService.getAllPublishers().stream().map(this::entityToDto).toList();
     }
 
     @GetMapping("/{name}")
@@ -30,8 +31,8 @@ public class PublisherController {
         return entityToDto(publisherService.getPublisherByName(name));
     }
 
-    private PublisherDto entityToDto(final Publisher publisherByName) {
-        return new PublisherDto(publisherByName.getId(), publisherByName.getName(), publisherByName.getLogoPictureUrl(), publisherByName.getYearOfCreation(), publisherByName.getDescription());
+    private PublisherDto entityToDto(final Publisher publisher) {
+        return new PublisherDto(publisher.getId(), publisher.getName(), publisher.getLogoPictureUrl(), publisher.getYearOfCreation(), publisher.getDescription());
     }
 
     @PostMapping

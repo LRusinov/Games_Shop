@@ -20,8 +20,8 @@ public class GenreController {
     }
 
     @GetMapping
-    List<String> getAllGenres() {
-        return genreService.getAllGenres().stream().map(Genre::getName).toList();
+    List<GenreDto> getAllGenres() {
+        return genreService.getAllGenres().stream().map(genre -> new GenreDto(genre.getName())).toList();
     }
 
     @PostMapping
