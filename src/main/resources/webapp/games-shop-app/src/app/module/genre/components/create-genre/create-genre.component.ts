@@ -32,7 +32,7 @@ export class CreateGenreComponent {
     }
 
     this.genreService.createGenre( this.name?.value).subscribe()
-
+    window.location.reload();
   }
   onCancel() {
     window.history.back();
