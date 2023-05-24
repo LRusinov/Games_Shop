@@ -12,9 +12,9 @@ export class CreatePlatformComponent {
 
   constructor(
     protected readonly platformService: PlatformService,
-    protected readonly formBuilder: FormBuilder
-  ) {}
-  
+    protected readonly formBuilder: FormBuilder,
+  ) { }
+
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       name: [null, [Validators.required]],
@@ -31,7 +31,7 @@ export class CreatePlatformComponent {
     }
 
     this.platformService.createPlatform(this.name?.value).subscribe()
-
+    window.location.reload()
   }
   onCancel() {
     window.history.back();
