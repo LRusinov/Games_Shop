@@ -20,12 +20,12 @@ public class PlatformService {
         return platformRepository.findAll();
     }
 
-    public Platform addPlatform(final Platform platform) {
-        String platformName= platform.getName();
+    public Platform addPlatform(final Platform newPlatform) {
+        String platformName= newPlatform.getName();
         if(platformRepository.existsById(platformName)){
             throw new EntityExistsException(String.format("Platform \"%s\" already exists.",platformName));
         }else{
-        return platformRepository.save(platform);}
+        return platformRepository.save(newPlatform);}
     }
 
     public void deletePlatform(final String name) {

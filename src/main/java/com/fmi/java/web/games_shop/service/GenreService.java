@@ -20,12 +20,12 @@ public class GenreService {
         return genresRepository.findAll();
     }
 
-    public Genre addGenre(final Genre genre) {
-        String genreName= genre.getName();
+    public Genre addGenre(final Genre newGenre) {
+        String genreName= newGenre.getName();
         if(genresRepository.existsById(genreName)){
             throw new EntityExistsException(String.format("Genre \"%s\" already exists.",genreName));
         }else{
-        return genresRepository.save(genre);}
+        return genresRepository.save(newGenre);}
     }
 
     public void deleteGenre(final String name) {

@@ -24,13 +24,13 @@ public class PublisherService {
         return publisherRepository.findByname(name).orElseThrow(() -> new EntityNotFoundException(String.format("Platform with name \"%s\" does not exist.", name)));
     }
 
-    public Publisher addPublisher(final Publisher publisher) {
+    public Publisher addPublisher(final Publisher newPublisher) {
 
-        String publisherName= publisher.getName();
+        String publisherName= newPublisher.getName();
         if(publisherRepository.findByname(publisherName).isPresent()){
             throw new EntityExistsException(String.format("Publisher with name \"%s\" already exists.",publisherName));
         }else{
-        return publisherRepository.save(publisher);}
+        return publisherRepository.save(newPublisher);}
     }
 
     public void deletePublisher(final String name) {
