@@ -1,5 +1,6 @@
 package com.fmi.java.web.games_shop.service;
 
+import com.fmi.java.web.games_shop.exception.EntityExistsException;
 import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Platform;
 import com.fmi.java.web.games_shop.repository.PlatformRepository;
@@ -20,7 +21,11 @@ public class PlatformService {
     }
 
     public Platform addPlatform(final Platform platform) {
-        return platformRepository.save(platform);
+        String platformName= platform.getName();
+        if(platformRepository.existsById(platformName)){
+            throw new EntityExistsException(String.format("Platform \"%s\" already exists.",platformName));
+        }else{
+        return platformRepository.save(platform);}
     }
 
     public void deletePlatform(final String name) {

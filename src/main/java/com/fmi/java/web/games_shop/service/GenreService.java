@@ -1,5 +1,6 @@
 package com.fmi.java.web.games_shop.service;
 
+import com.fmi.java.web.games_shop.exception.EntityExistsException;
 import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Genre;
 import com.fmi.java.web.games_shop.repository.GenresRepository;
@@ -20,7 +21,11 @@ public class GenreService {
     }
 
     public Genre addGenre(final Genre genre) {
-        return genresRepository.save(genre);
+        String genreName= genre.getName();
+        if(genresRepository.existsById(genreName)){
+            throw new EntityExistsException(String.format("Genre \"%s\" already exists.",genreName));
+        }else{
+        return genresRepository.save(genre);}
     }
 
     public void deleteGenre(final String name) {

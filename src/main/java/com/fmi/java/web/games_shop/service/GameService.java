@@ -1,5 +1,6 @@
 package com.fmi.java.web.games_shop.service;
 
+import com.fmi.java.web.games_shop.exception.EntityExistsException;
 import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Game;
 import com.fmi.java.web.games_shop.repository.GameRepository;
@@ -26,7 +27,11 @@ public class GameService {
     }
 
     public Game addGame(final Game newGame) {
-        return gameRepository.save(newGame);
+        String gameName= newGame.getName();
+        if(gameRepository.existsById(gameName)){
+            throw new EntityExistsException(String.format("Game with name \"%s\" already exists.",gameName));
+        }else{
+        return gameRepository.save(newGame);}
     }
 
     public void deleteGame(final String name) {

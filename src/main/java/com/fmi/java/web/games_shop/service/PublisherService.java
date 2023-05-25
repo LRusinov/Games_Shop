@@ -1,5 +1,6 @@
 package com.fmi.java.web.games_shop.service;
 
+import com.fmi.java.web.games_shop.exception.EntityExistsException;
 import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Publisher;
 import com.fmi.java.web.games_shop.repository.PublisherRepository;
@@ -24,7 +25,12 @@ public class PublisherService {
     }
 
     public Publisher addPublisher(final Publisher publisher) {
-        return publisherRepository.save(publisher);
+
+        String publisherName= publisher.getName();
+        if(publisherRepository.findByname(publisherName).isPresent()){
+            throw new EntityExistsException(String.format("Publisher with name \"%s\" already exists.",publisherName));
+        }else{
+        return publisherRepository.save(publisher);}
     }
 
     public void deletePublisher(final String name) {
