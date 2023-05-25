@@ -1,7 +1,8 @@
+<div >
+
 <mat-card>
-    <mat-card-content>
-      <app-view-genres></app-view-genres>
-      <form novalidate [formGroup]="form">
+    <mat-card-content class="container" >
+      <form novalidate [formGroup]="form" class="aa">
         <table>
           <caption>
             Create game
@@ -15,8 +16,7 @@
             </td>
           </tr>
         </table>
-      </form>
-      <button
+        <button
         mat-raised-button
         class="form-button"
         [routerLink]="['../']"
@@ -33,6 +33,9 @@
       >
         Cancel
       </button>
+      </form>
+      
+      <app-view-genres></app-view-genres>
     </mat-card-content>
   </mat-card>
-  
+  </div>

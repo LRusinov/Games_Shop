@@ -1,0 +1,7 @@
+.container{
+    display: flex;
+    flex-direction:row;
+}
+.aa{
+    margin: 30px;
+}
