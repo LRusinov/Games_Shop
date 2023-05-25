@@ -1,0 +1,361 @@
+{
+	"info": {
+		"_postman_id": "41c42794-43f9-4714-89f9-762996914b93",
+		"name": "video-games-shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Find all games",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games-shop/games",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games-shop",
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get game by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games-shop/games/Wolfenstein II: The New Colossus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games-shop",
+						"games",
+						"Wolfenstein II: The New Colossus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Game",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Halo 2\",\r\n    \"price\": 40.0,\r\n    \"platform\": \"PC\",\r\n    \"genres\": [\r\n        \"FIRST-PERSON SHOOTER\",\r\n        \"ADVENTURE\"\r\n    ],\r\n    \"description\": \"Description\",\r\n    \"releaseDate\": \"2004-11-09T00:00:00Z\",\r\n    \"publisher\": \"Xbox Game Studios\",\r\n    \"picture\": \"https://upload.wikimedia.org/wikipedia/en/9/92/Halo2-cover.png\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/games-shop/games",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games-shop",
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove game",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games-shop/games/Halo 2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games-shop",
+						"games",
+						"Halo 2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit game",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"name\": \"EA Sports UFC 4\",\r\n        \"price\": 120.0,\r\n        \"platform\": \"PLAYSTATION 5\",\r\n        \"genres\": [\r\n            \"SPORTS\"\r\n        ],\r\n        \"description\": \"Like its predecessor, UFC 4 is a fighting game based on the mixed martial arts promotion Ultimate Fighting Championship (UFC). There are 229 unique fighters, with 81 alternate versions.\",\r\n        \"releaseDate\": \"2020-08-13T21:00:00Z\",\r\n        \"publisher\": \"EA Sports\",\r\n        \"picture\": \"https://upload.wikimedia.org/wikipedia/en/3/35/UFC_4_cover_art.png\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/games-shop/games/EA Sports UFC 4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games-shop",
+						"games",
+						"EA Sports UFC 4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find all platforms",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games-shop/platforms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games-shop",
+						"platforms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Platform",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"PS6\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/games-shop/platforms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games-shop",
+						"platforms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete platform",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games-shop/platforms/PS6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games-shop",
+						"platforms",
+						"PS6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find all publishers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games-shop/publishers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games-shop",
+						"publishers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Publisher",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 100,\r\n    \"name\": \"Publisher\",\r\n    \"logoPictureUrl\": \"Pict\",\r\n    \"yearOfCreation\": 2011,\r\n    \"description\": \"Description\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/games-shop/publishers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games-shop",
+						"publishers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get publisher by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games-shop/publishers/Endnight",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games-shop",
+						"publishers",
+						"Endnight"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete publsiher",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games-shop/publishers/Publisher",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games-shop",
+						"publishers",
+						"Publisher"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find all genres",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games-shop/genres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games-shop",
+						"genres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Genre",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"GENRE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/games-shop/genres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games-shop",
+						"genres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Genre",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games-shop/genres/GENRE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games-shop",
+						"genres",
+						"GENRE"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
