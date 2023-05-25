@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
-    protected ResponseEntity<Object> EntityNotFoundMapper(
+    protected ResponseEntity<Object> handleNotFound(
             final RuntimeException ex, final WebRequest request) {
         final String message = ex.getMessage();
         final Error error = new Error(message);
@@ -23,7 +23,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(EntityExistsException.class)
-    protected ResponseEntity<Object> EntityExistsMapper(
+    protected ResponseEntity<Object> handleExists(
             final RuntimeException ex, final WebRequest request) {
         final String message = ex.getMessage();
         final Error error = new Error(message);
