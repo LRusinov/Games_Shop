@@ -50,6 +50,6 @@ public class PublisherController {
     @ResponseBody
     public ResponseEntity<Boolean> deleteGame(@PathVariable final String name) {
         publisherService.deletePublisher(name);
-        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.ACCEPTED);
     }
 }

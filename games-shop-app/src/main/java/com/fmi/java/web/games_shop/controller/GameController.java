@@ -58,7 +58,7 @@ public class GameController {
     @ResponseBody
     public ResponseEntity<Boolean> deleteGame(@PathVariable final String name) {
         gameService.deleteGame(name);
-        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.ACCEPTED);
     }
 
     private GameDto entityToDto(final Game game) {

@@ -36,6 +36,6 @@ public class PlatformController {
     @ResponseBody
     public ResponseEntity<Boolean> deleteGame(@PathVariable final String name) {
         platformService.deletePlatform(name);
-        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.ACCEPTED);
     }
 }

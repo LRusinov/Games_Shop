@@ -35,6 +35,6 @@ public class GenreController {
     @ResponseBody
     public ResponseEntity<Boolean> deleteGame(@PathVariable final String name) {
         genreService.deleteGenre(name);
-        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.ACCEPTED);
     }
 }
