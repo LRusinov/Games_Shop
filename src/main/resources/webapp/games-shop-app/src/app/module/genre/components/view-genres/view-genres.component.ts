@@ -21,7 +21,7 @@ export class ViewGenresComponent {
     private readonly genreService: GenreService,
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.genreService.getGenres().subscribe((response) => {
       this.genres = response;
       this.dataSource.data = this.genres;
