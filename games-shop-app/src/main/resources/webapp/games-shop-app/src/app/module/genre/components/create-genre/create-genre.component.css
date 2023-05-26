@@ -1,7 +1,8 @@
 .container{
     display: flex;
     flex-direction:row;
+    text-align: center;
 }
-.aa{
+.genre-form{
     margin: 30px;
 }

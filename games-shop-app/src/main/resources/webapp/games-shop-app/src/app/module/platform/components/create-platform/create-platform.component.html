@@ -1,21 +1,17 @@
 <mat-card>
-    <mat-card-content>
-      <form novalidate [formGroup]="form">
-        <app-view-platforms></app-view-platforms>
-        <table>
-          <caption>
-            Create game
-          </caption>
-          <tr>
-            <td>
-              <mat-form-field
-                ><mat-label>Name</mat-label>
-                <input matInput formControlName="name" required
-              /></mat-form-field>
-            </td>
-          </tr>
-        </table>
-      </form>
+  <mat-card-content class="container">
+    <form novalidate [formGroup]="form" class="platform-form">
+      <h2>Create platform</h2>
+      <table>
+        <tr>
+          <td>
+            <mat-form-field
+              ><mat-label>Name</mat-label>
+              <input matInput formControlName="name" required
+            /></mat-form-field>
+          </td>
+        </tr>
+      </table>
       <button
         mat-raised-button
         class="form-button"
@@ -23,7 +19,7 @@
         [disabled]="form.invalid"
         (click)="onSubmit()"
       >
-        Submit
+        Add
       </button>
       <button
         mat-raised-button
@@ -33,6 +29,7 @@
       >
         Cancel
       </button>
-    </mat-card-content>
-  </mat-card>
-  
+    </form>
+    <app-view-platforms></app-view-platforms>
+  </mat-card-content>
+</mat-card>
