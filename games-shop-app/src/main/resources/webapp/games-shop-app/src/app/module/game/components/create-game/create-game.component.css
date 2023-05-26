@@ -1,4 +1,19 @@
+.game-form{
+    display: flex;
+    flex-direction:column;
+    width: 13%;
+}
 .form-button{
     margin: 2px;
     background-color:#7411bb!important;
+}
+.title-container{
+    margin-bottom: 30px;
+}
+.title{
+    font-size: 50px;
+    color: #000
+}
+.big-field{
+    width: 1000px;
 }

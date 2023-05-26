@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GameService } from '../../services/game.service';
+import { Publisher } from 'src/app/model/Publisher';
+import { Platform } from 'src/app/model/Platform';
+import { Genre } from 'src/app/model/Genre';
+import { GenreService } from 'src/app/module/genre/services/genre.service';
+import { PlatformService } from 'src/app/module/platform/services/platform.service';
+import { PublisherService } from 'src/app/module/publisher/services/publisher.service';
 
 @Component({
   selector: 'app-create-game',
@@ -9,13 +15,16 @@ import { GameService } from '../../services/game.service';
 })
 export class CreateGameComponent implements OnInit {
   public form!: FormGroup;
-  publishers: string[] = [];
-  platforms: string[] = [];
-  genres: string[] = [];
+  publishers: Publisher[] = [];
+  platforms: Platform[] = [];
+  genres: Genre[] = [];
   checkedGenres: string[] = [];
   checked = false;
 
   constructor(
+    protected readonly platfromService: PlatformService,
+    protected readonly genreService: GenreService,
+    protected readonly publisherService: PublisherService,
     protected readonly gameService: GameService,
     protected readonly formBuilder: FormBuilder
   ) {}
@@ -32,13 +41,13 @@ export class CreateGameComponent implements OnInit {
     });
   }
   initHelper() {
-    this.gameService.getPlatforms().subscribe((response) => {
+    this.platfromService.getPlatforms().subscribe((response) => {
       this.platforms = response;
     });
-    this.gameService.getPublishers().subscribe((response) => {
+    this.publisherService.getPublishers().subscribe((response) => {
       this.publishers = response;
     });
-    this.gameService.getGenres().subscribe((response) => {
+    this.genreService.getGenres().subscribe((response) => {
       this.genres = response;
     });
   }

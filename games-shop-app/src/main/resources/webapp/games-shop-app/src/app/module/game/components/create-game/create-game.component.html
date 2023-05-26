@@ -1,106 +1,66 @@
 <mat-card>
   <mat-card-content>
-    <form novalidate [formGroup]="form">
-      <table>
-        <caption>
-          Create game
-        </caption>
-        <tr>
-          <td>
-            <mat-form-field
-              ><mat-label>Name</mat-label>
-              <input matInput formControlName="name" required
-            /></mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <mat-form-field
-              ><mat-label>Price</mat-label>
-              <input matInput formControlName="price" required
-            /></mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <mat-form-field appearance="fill"
-              ><mat-label>Platform</mat-label>
-              <mat-select formControlName="platform" required>
-                <mat-option
-                  *ngFor="let platform of platforms"
-                  [value]="platform"
-                >
-                  {{ platform }}</mat-option
-                ></mat-select
-              ></mat-form-field
-            >
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-        </tr>
-        <tr>
-          <td>
-            <p>Genre</p>
-            <mat-checkbox
-              *ngFor="let genre of genres"
-              [value]="genre"
-              [checked]="isChecked(genre)"
-              (change)="onCheckboxChange($event, genre)"
-              name="genres"
-            >
-              {{ genre }}
-            </mat-checkbox>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <mat-form-field
-              ><mat-label>Description</mat-label>
-              <input matInput formControlName="description" required
-            /></mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <mat-form-field appearance="fill">
-              <mat-label>Release date</mat-label>
-              <input
-                matInput
-                formControlName="releaseDate"
-                [matDatepicker]="picker"
-              />
-              <mat-datepicker-toggle
-                matIconSuffix
-                [for]="picker"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <mat-form-field
-              ><mat-label>Publisher</mat-label>
-              <mat-select formControlName="publisher">
-                <mat-option
-                  *ngFor="let publisher of publishers"
-                  [value]="publisher"
-                  >{{ publisher }}</mat-option
-                >
-              </mat-select></mat-form-field
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <mat-form-field
-              ><mat-label>Picture URL</mat-label>
-              <input matInput formControlName="picture" required
-            /></mat-form-field>
-          </td>
-        </tr>
-      </table>
+    <div class="title-container">
+      <h1 class="title">Add game</h1>
+    </div>
+    <form novalidate [formGroup]="form" class="game-form">
+      <mat-form-field
+        ><mat-label>Name</mat-label>
+        <input matInput formControlName="name" required
+      /></mat-form-field>
+      <mat-form-field
+        ><mat-label>Price</mat-label>
+        <input matInput formControlName="price" required
+      /></mat-form-field>
+      <mat-form-field appearance="fill"
+        ><mat-label>Platform</mat-label>
+        <mat-select formControlName="platform" required>
+          <mat-option *ngFor="let platform of platforms" [value]="platform">
+            {{ platform.name }}</mat-option
+          ></mat-select
+        ></mat-form-field
+      >
+      <h2>Genre</h2>
+      <mat-checkbox
+        *ngFor="let genre of genres"
+        [value]="genre.name"
+        [checked]="isChecked(genre.name)"
+        (change)="onCheckboxChange($event, genre.name)"
+        name="genres"
+      >
+        {{ genre.name }}
+      </mat-checkbox>
+      <mat-form-field class="big-field"
+        ><mat-label>Description</mat-label>
+        <input matInput formControlName="description" required
+      /></mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Release date</mat-label>
+        <input
+          matInput
+          formControlName="releaseDate"
+          [matDatepicker]="picker"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field
+        ><mat-label>Publisher</mat-label>
+        <mat-select formControlName="publisher">
+          <mat-option
+            *ngFor="let publisher of publishers"
+            [value]="publisher"
+            >{{ publisher.name }}</mat-option
+          >
+        </mat-select></mat-form-field
+      >
+      <mat-form-field class="big-field"
+        ><mat-label>Picture URL</mat-label>
+        <input matInput formControlName="picture" required
+      /></mat-form-field>
     </form>
     <button
       mat-raised-button
