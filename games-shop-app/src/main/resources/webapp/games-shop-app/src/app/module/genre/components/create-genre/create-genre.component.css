@@ -4,5 +4,8 @@
     text-align: center;
 }
 .genre-form{
-    margin: 30px;
+    margin: 25px;
+}
+.title{
+    font-size: 30px;
 }

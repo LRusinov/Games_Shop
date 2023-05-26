@@ -3,11 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { ViewPlatformsComponent } from './components/view-platforms/view-platforms.component';
 import { CreatePlatformComponent } from './components/create-platform/create-platform.component';
 
-const routes: Routes = [{ path: '', component: ViewPlatformsComponent },
-{ path: 'create', component: CreatePlatformComponent },];
+const routes: Routes = [{ path: '', component: CreatePlatformComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class PlatformRoutingModule { }
+export class PlatformRoutingModule {}

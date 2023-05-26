@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Game } from 'src/app/model/Game';
+import { Platform } from '@angular/cdk/platform';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,24 +12,6 @@ export class GameService {
   getGames(): Observable<Game[]> {
     return this.httpClient.get<Game[]>(
       'http://localhost:8080/games-shop/games'
-    );
-  }
-
-  getPlatforms(): Observable<string[]> {
-    return this.httpClient.get<string[]>(
-      'http://localhost:8080/games-shop/platforms'
-    );
-  }
-
-  getGenres(): Observable<string[]> {
-    return this.httpClient.get<string[]>(
-      'http://localhost:8080/games-shop/genres'
-    );
-  }
-
-  getPublishers(): Observable<string[]> {
-    return this.httpClient.get<string[]>(
-      'http://localhost:8080/games-shop/publishers'
     );
   }
 
