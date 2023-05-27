@@ -2,20 +2,23 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GameService } from 'src/app/module/game/services/game.service';
 import { PublisherService } from '../../services/publisher.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-publisher',
   templateUrl: './create-publisher.component.html',
-  styleUrls: ['./create-publisher.component.css']
+  styleUrls: ['./create-publisher.component.css'],
 })
 export class CreatePublisherComponent {
   public form!: FormGroup;
 
   constructor(
-    protected readonly publisherService: PublisherService,
-    protected readonly formBuilder: FormBuilder
+    public readonly snackBar: MatSnackBar,
+    public readonly publisherService: PublisherService,
+    public readonly formBuilder: FormBuilder
   ) {}
-  
+
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       name: [null, [Validators.required]],
@@ -43,11 +46,32 @@ export class CreatePublisherComponent {
       return;
     }
 
-    this.publisherService.createPublisher( this.name?.value,
-      this.yearOfCreation?.value,
-      this.description?.value,
-      this.logoPictureUrl?.value).subscribe()
-
+    this.publisherService
+      .createPublisher(
+        this.name?.value,
+        this.yearOfCreation?.value,
+        this.description?.value,
+        this.logoPictureUrl?.value
+      )
+      .subscribe({
+        next: (response) => {
+          this.snackBar.open('Publisher created successfully!', 'Okay');
+          window.location.reload();
+        },
+        error: (err: HttpErrorResponse) => {
+          if (err.status == 409) {
+            this.snackBar.open(
+              'Publisher with this name already exists.',
+              'Okay'
+            );
+          } else {
+            this.snackBar.open(
+              'An error occured. Publisher was not created',
+              'Okay'
+            );
+          }
+        },
+      });
   }
   onCancel() {
     window.history.back();

@@ -29,7 +29,6 @@ import { PlatformModule } from '@angular/cdk/platform';
     MatPaginatorModule,
     MatSortModule,
     CommonModule,
-    GameModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,

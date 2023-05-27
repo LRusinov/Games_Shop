@@ -7,6 +7,8 @@ import { CreateGameComponent } from '../create-game/create-game.component';
 import { PlatformService } from 'src/app/module/platform/services/platform.service';
 import { GenreService } from 'src/app/module/genre/services/genre.service';
 import { PublisherService } from 'src/app/module/publisher/services/publisher.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 export interface DialogData {
   animal: string;
 }
@@ -17,6 +19,8 @@ export interface DialogData {
 })
 export class DialogComponent extends CreateGameComponent {
   constructor(
+    router: Router,
+    private readonly snackBar_: MatSnackBar,
     private readonly platformService_: PlatformService,
     private readonly genreService_: GenreService,
     private readonly publisherService_: PublisherService,
@@ -26,6 +30,8 @@ export class DialogComponent extends CreateGameComponent {
     @Inject(MAT_DIALOG_DATA) public game: Game
   ) {
     super(
+      router,
+      snackBar_,
       platformService_,
       genreService_,
       publisherService_,

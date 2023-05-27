@@ -15,7 +15,10 @@
       <mat-form-field appearance="fill"
         ><mat-label>Platform</mat-label>
         <mat-select formControlName="platform" required>
-          <mat-option *ngFor="let platform of platforms" [value]="platform">
+          <mat-option
+            *ngFor="let platform of platforms"
+            [value]="platform.name"
+          >
             {{ platform.name }}</mat-option
           ></mat-select
         ></mat-form-field
@@ -52,7 +55,7 @@
         <mat-select formControlName="publisher">
           <mat-option
             *ngFor="let publisher of publishers"
-            [value]="publisher"
+            [value]="publisher.name"
             >{{ publisher.name }}</mat-option
           >
         </mat-select></mat-form-field
@@ -65,7 +68,6 @@
     <button
       mat-raised-button
       class="form-button"
-      [routerLink]="['../']"
       [disabled]="form.invalid"
       (click)="onSubmit()"
     >

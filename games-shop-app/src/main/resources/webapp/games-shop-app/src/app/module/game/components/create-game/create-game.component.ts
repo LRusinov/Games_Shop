@@ -7,6 +7,9 @@ import { Genre } from 'src/app/model/Genre';
 import { GenreService } from 'src/app/module/genre/services/genre.service';
 import { PlatformService } from 'src/app/module/platform/services/platform.service';
 import { PublisherService } from 'src/app/module/publisher/services/publisher.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-game',
@@ -22,11 +25,13 @@ export class CreateGameComponent implements OnInit {
   checked = false;
 
   constructor(
-    protected readonly platfromService: PlatformService,
-    protected readonly genreService: GenreService,
-    protected readonly publisherService: PublisherService,
-    protected readonly gameService: GameService,
-    protected readonly formBuilder: FormBuilder
+    private router: Router,
+    public readonly snackBar: MatSnackBar,
+    public readonly platfromService: PlatformService,
+    public readonly genreService: GenreService,
+    public readonly publisherService: PublisherService,
+    public readonly gameService: GameService,
+    public readonly formBuilder: FormBuilder
   ) {}
   ngOnInit(): void {
     this.initHelper();
@@ -89,7 +94,26 @@ export class CreateGameComponent implements OnInit {
         this.publisher?.value,
         this.picture?.value
       )
-      .subscribe();
+      .subscribe({
+        next: (response) => {
+          this.snackBar
+            .open('Game created successfully!', 'Okay')
+            .afterDismissed()
+            .subscribe(() => {
+              this.router.navigate(['/game']);
+            });
+        },
+        error: (err: HttpErrorResponse) => {
+          if (err.status == 409) {
+            this.snackBar.open('Game with this name already exists.', 'Okay');
+          } else {
+            this.snackBar.open(
+              'An error occured. Game was not created',
+              'Okay'
+            );
+          }
+        },
+      });
   }
   onCancel() {
     window.history.back();
