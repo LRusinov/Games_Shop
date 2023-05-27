@@ -27,7 +27,7 @@ public class PublisherController {
     }
 
     @GetMapping("/{name}")
-    public PublisherDto getGameById(@PathVariable("name") final String name) {
+    public PublisherDto getPublisherById(@PathVariable("name") final String name) {
         return entityToDto(publisherService.getPublisherByName(name));
     }
 
@@ -37,7 +37,7 @@ public class PublisherController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Publisher> createGame(@RequestBody final PublisherDto publisherDto) {
+    public ResponseEntity<Publisher> createPublisher(@RequestBody final PublisherDto publisherDto) {
         final Publisher newPlatform = publisherService.addPublisher(dtoToEntity(publisherDto));
         return new ResponseEntity<>(newPlatform, HttpStatus.CREATED);
     }
@@ -48,7 +48,7 @@ public class PublisherController {
 
     @DeleteMapping("/{name}")
     @ResponseBody
-    public ResponseEntity<Boolean> deleteGame(@PathVariable final String name) {
+    public ResponseEntity<Boolean> deletePublisher(@PathVariable final String name) {
         publisherService.deletePublisher(name);
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.ACCEPTED);
 
