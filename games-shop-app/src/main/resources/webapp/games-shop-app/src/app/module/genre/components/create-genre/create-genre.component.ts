@@ -36,8 +36,12 @@ export class CreateGenreComponent {
 
     this.genreService.createGenre(this.name?.value).subscribe({
       next: (response) => {
-        this.snackBar.open('Genre created successfully!', 'Okay');
-        window.location.reload();
+        this.snackBar
+          .open('Genre added successfully!', 'Okay')
+          .afterDismissed()
+          .subscribe(() => {
+            window.location.reload();
+          });
       },
       error: (err: HttpErrorResponse) => {
         if (err.status == 409) {

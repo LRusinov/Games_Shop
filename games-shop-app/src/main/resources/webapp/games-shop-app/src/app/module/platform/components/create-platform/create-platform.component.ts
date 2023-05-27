@@ -35,8 +35,12 @@ export class CreatePlatformComponent {
 
     this.platformService.createPlatform(this.name?.value).subscribe({
       next: (response) => {
-        this.snackBar.open('Platform created successfully!', 'Okay');
-        window.location.reload();
+        this.snackBar
+          .open('Platform added successfully!', 'Okay')
+          .afterDismissed()
+          .subscribe(() => {
+            window.location.reload();
+          });
       },
       error: (err: HttpErrorResponse) => {
         if (err.status == 409) {

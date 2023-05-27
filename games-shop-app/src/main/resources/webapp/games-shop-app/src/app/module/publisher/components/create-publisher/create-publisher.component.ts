@@ -55,8 +55,12 @@ export class CreatePublisherComponent {
       )
       .subscribe({
         next: (response) => {
-          this.snackBar.open('Publisher created successfully!', 'Okay');
-          window.location.reload();
+          this.snackBar
+            .open('Publisher added successfully!', 'Okay')
+            .afterDismissed()
+            .subscribe(() => {
+              window.location.reload();
+            });
         },
         error: (err: HttpErrorResponse) => {
           if (err.status == 409) {
