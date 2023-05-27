@@ -72,6 +72,7 @@ export class DialogComponent extends CreateGameComponent {
       )
       .subscribe();
     this.dialogRef.close();
+    window.location.reload();
   }
 
   onNoClick(): void {
