@@ -1,9 +1,9 @@
 <div mat-dialog-content>
   <form novalidate [formGroup]="form">
     <table>
-      <caption>
-        Edit game
-      </caption>
+      <div class="title-containter">
+        <h1 class="title">Edit game</h1>
+      </div>
       <tr>
         <td>
           <mat-form-field
@@ -20,15 +20,15 @@
       </tr>
       <tr>
         <td colspan="2">
-          <p>Genre</p>
+          <h2>Genre</h2>
           <mat-checkbox
             *ngFor="let genre of genres"
             name="genre"
-            [value]="genre"
-            [checked]="isChecked(genre)"
-            (change)="onCheckboxChange($event, genre)"
+            [value]="genre.name"
+            [checked]="isChecked(genre.name)"
+            (change)="onCheckboxChange($event, genre.name)"
           >
-            {{ genre }}
+            {{ genre.name }}
           </mat-checkbox>
         </td>
       </tr>
@@ -37,8 +37,11 @@
           <mat-form-field appearance="fill"
             ><mat-label>Platform</mat-label>
             <mat-select formControlName="platform" required>
-              <mat-option *ngFor="let platform of platforms" [value]="platform">
-                {{ platform }}</mat-option
+              <mat-option
+                *ngFor="let platform of platforms"
+                [value]="platform.name"
+              >
+                {{ platform.name }}</mat-option
               ></mat-select
             ></mat-form-field
           >
@@ -50,8 +53,8 @@
             <mat-select formControlName="publisher">
               <mat-option
                 *ngFor="let publisher of publishers"
-                [value]="publisher"
-                >{{ publisher }}</mat-option
+                [value]="publisher.name"
+                >{{ publisher.name }}</mat-option
               >
             </mat-select></mat-form-field
           >
@@ -104,7 +107,7 @@
   >
     Cancel
   </button>
-  <button mat-raised-button class="form-button"  (click)="onSubmit()">
+  <button mat-raised-button class="form-button" (click)="onSubmit()">
     Edit
   </button>
 </div>

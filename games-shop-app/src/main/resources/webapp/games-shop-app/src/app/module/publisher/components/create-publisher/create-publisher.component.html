@@ -1,53 +1,48 @@
 <mat-card>
-    <mat-card-content>
-      <app-view-publisher></app-view-publisher>
-      <form novalidate [formGroup]="form">
-        <table>
-          <caption>
-            Create game
-          </caption>
-          <tr>
-            <td>
-              <mat-form-field
-                ><mat-label>Name</mat-label>
-                <input matInput formControlName="name" required
-              /></mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <mat-form-field
-                ><mat-label>Year of creation</mat-label>
-                <input matInput formControlName="yearOfCreation" required
-              /></mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <mat-form-field
-                ><mat-label>Description</mat-label>
-                <input matInput formControlName="description" required
-              /></mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <mat-form-field
-                ><mat-label>Logo picture URL</mat-label>
-                <input matInput formControlName="logoPictureUrl" required
-              /></mat-form-field>
-            </td>
-          </tr>
-        </table>
-      </form>
+  <mat-card-content class="container">
+    <form novalidate [formGroup]="form" class="publisher-form">
+      <h2 class="title">Add publisher</h2>
+      <table>
+        <tr>
+          <td>
+            <mat-form-field
+              ><mat-label>Name</mat-label>
+              <input matInput formControlName="name" required
+            /></mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field
+              ><mat-label>Year of creation</mat-label>
+              <input matInput formControlName="yearOfCreation" required
+            /></mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field
+              ><mat-label>Description</mat-label>
+              <input matInput formControlName="description" required
+            /></mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field
+              ><mat-label>Logo picture URL</mat-label>
+              <input matInput formControlName="logoPictureUrl" required
+            /></mat-form-field>
+          </td>
+        </tr>
+      </table>
       <button
         mat-raised-button
         class="form-button"
-        [routerLink]="['../']"
         [disabled]="form.invalid"
         (click)="onSubmit()"
       >
-        Submit
+        Add
       </button>
       <button
         mat-raised-button
@@ -57,6 +52,7 @@
       >
         Cancel
       </button>
-    </mat-card-content>
-  </mat-card>
-  
+    </form>
+    <app-view-publisher></app-view-publisher>
+  </mat-card-content>
+</mat-card>

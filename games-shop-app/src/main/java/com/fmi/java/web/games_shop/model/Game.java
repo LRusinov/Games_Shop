@@ -83,10 +83,6 @@ public class Game {
         return publisher;
     }
 
-    public void setName(final String name) {
-        this.name = name;
-    }
-
     public void setReleaseDate(final Instant releaseDate) {
         this.releaseDate = releaseDate;
     }

@@ -26,14 +26,14 @@ public class GenreController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Genre> createGame(@RequestBody final GenreDto genreDto) {
+    public ResponseEntity<Genre> createGenre(@RequestBody final GenreDto genreDto) {
         final Genre newGenre = genreService.addGenre(new Genre(genreDto.name()));
         return new ResponseEntity<>(newGenre, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{name}")
     @ResponseBody
-    public ResponseEntity<Boolean> deleteGame(@PathVariable final String name) {
+    public ResponseEntity<Boolean> deleteGenre(@PathVariable final String name) {
         genreService.deleteGenre(name);
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.ACCEPTED);
     }

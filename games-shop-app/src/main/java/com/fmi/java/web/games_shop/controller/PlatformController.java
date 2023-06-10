@@ -27,14 +27,14 @@ public class PlatformController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Platform> createGame(@RequestBody final PlatformDto platformDto) {
+    public ResponseEntity<Platform> createPlatform(@RequestBody final PlatformDto platformDto) {
         final Platform newPlatform = platformService.addPlatform(new Platform(platformDto.name()));
         return new ResponseEntity<>(newPlatform, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{name}")
     @ResponseBody
-    public ResponseEntity<Boolean> deleteGame(@PathVariable final String name) {
+    public ResponseEntity<Boolean> deletePlatform(@PathVariable final String name) {
         platformService.deletePlatform(name);
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.ACCEPTED);
     }

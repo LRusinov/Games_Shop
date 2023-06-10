@@ -20,6 +20,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { GenreRoutingModule } from '../genre/genre-routing.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { GenreRoutingModule } from '../genre/genre-routing.module';
     MatCheckboxModule,
     MatDialogModule,
     MatTooltipModule,
+    MatSnackBarModule
   ]
 })
 export class PlatformModule { }

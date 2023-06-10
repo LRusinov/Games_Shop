@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GameService } from '../../services/game.service';
+import { Publisher } from 'src/app/model/Publisher';
+import { Platform } from 'src/app/model/Platform';
+import { Genre } from 'src/app/model/Genre';
+import { GenreService } from 'src/app/module/genre/services/genre.service';
+import { PlatformService } from 'src/app/module/platform/services/platform.service';
+import { PublisherService } from 'src/app/module/publisher/services/publisher.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-game',
@@ -9,15 +18,20 @@ import { GameService } from '../../services/game.service';
 })
 export class CreateGameComponent implements OnInit {
   public form!: FormGroup;
-  publishers: string[] = [];
-  platforms: string[] = [];
-  genres: string[] = [];
+  publishers: Publisher[] = [];
+  platforms: Platform[] = [];
+  genres: Genre[] = [];
   checkedGenres: string[] = [];
   checked = false;
 
   constructor(
-    protected readonly gameService: GameService,
-    protected readonly formBuilder: FormBuilder
+    private router: Router,
+    public readonly snackBar: MatSnackBar,
+    public readonly platfromService: PlatformService,
+    public readonly genreService: GenreService,
+    public readonly publisherService: PublisherService,
+    public readonly gameService: GameService,
+    public readonly formBuilder: FormBuilder
   ) {}
   ngOnInit(): void {
     this.initHelper();
@@ -32,13 +46,13 @@ export class CreateGameComponent implements OnInit {
     });
   }
   initHelper() {
-    this.gameService.getPlatforms().subscribe((response) => {
+    this.platfromService.getPlatforms().subscribe((response) => {
       this.platforms = response;
     });
-    this.gameService.getPublishers().subscribe((response) => {
+    this.publisherService.getPublishers().subscribe((response) => {
       this.publishers = response;
     });
-    this.gameService.getGenres().subscribe((response) => {
+    this.genreService.getGenres().subscribe((response) => {
       this.genres = response;
     });
   }
@@ -80,7 +94,26 @@ export class CreateGameComponent implements OnInit {
         this.publisher?.value,
         this.picture?.value
       )
-      .subscribe();
+      .subscribe({
+        next: (response) => {
+          this.snackBar
+            .open('Game created successfully!', 'Okay')
+            .afterDismissed()
+            .subscribe(() => {
+              this.router.navigate(['/game']);
+            });
+        },
+        error: (err: HttpErrorResponse) => {
+          if (err.status == 409) {
+            this.snackBar.open('Game with this name already exists.', 'Okay');
+          } else {
+            this.snackBar.open(
+              'An error occured. Game was not created',
+              'Okay'
+            );
+          }
+        },
+      });
   }
   onCancel() {
     window.history.back();

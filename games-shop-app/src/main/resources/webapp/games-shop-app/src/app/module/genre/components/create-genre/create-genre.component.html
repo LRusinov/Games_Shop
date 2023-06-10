@@ -1,12 +1,9 @@
-<div >
-
-<mat-card>
-    <mat-card-content class="container" >
-      <form novalidate [formGroup]="form" class="aa">
+<div>
+  <mat-card>
+    <mat-card-content class="container">
+      <form novalidate [formGroup]="form" class="genre-form">
+        <h2 class="title">Add genre</h2>
         <table>
-          <caption>
-            Create game
-          </caption>
           <tr>
             <td>
               <mat-form-field
@@ -17,25 +14,24 @@
           </tr>
         </table>
         <button
-        mat-raised-button
-        class="form-button"
-        [routerLink]="['../']"
-        [disabled]="form.invalid"
-        (click)="onSubmit()"
-      >
-        Submit
-      </button>
-      <button
-        mat-raised-button
-        class="form-button"
-        [routerLink]="['../']"
-        (click)="onCancel()"
-      >
-        Cancel
-      </button>
+          mat-raised-button
+          class="form-button"
+          [disabled]="form.invalid"
+          (click)="onSubmit()"
+        >
+          Add
+        </button>
+        <button
+          mat-raised-button
+          class="form-button"
+          [routerLink]="['../']"
+          (click)="onCancel()"
+        >
+          Cancel
+        </button>
       </form>
-      
+
       <app-view-genres></app-view-genres>
     </mat-card-content>
   </mat-card>
-  </div>
+</div>

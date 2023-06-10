@@ -1,7 +1,11 @@
 .container{
     display: flex;
     flex-direction:row;
+    text-align: center;
 }
-.aa{
-    margin: 30px;
+.genre-form{
+    margin: 25px;
+}
+.title{
+    font-size: 30px;
 }

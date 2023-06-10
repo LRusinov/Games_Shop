@@ -19,16 +19,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
-  declarations: [
-    ViewGenresComponent,
-    CreateGenreComponent
-  ],
+  declarations: [ViewGenresComponent, CreateGenreComponent],
   imports: [
     CommonModule,
-    GenreRoutingModule,MatTableModule,
+    GenreRoutingModule,
+    MatTableModule,
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
@@ -44,6 +42,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatCheckboxModule,
     MatDialogModule,
     MatTooltipModule,
-  ]
+    MatSnackBarModule,
+  ],
 })
-export class GenreModule { }
+export class GenreModule {}

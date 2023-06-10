@@ -1,2 +1,11 @@
+.container{
+    text-align: center;
+}
 
-  
+.title{
+    font-size: 25px;
+}
+.header-cell {
+    background-color: #7411bb!important;
+    color: white;
+}

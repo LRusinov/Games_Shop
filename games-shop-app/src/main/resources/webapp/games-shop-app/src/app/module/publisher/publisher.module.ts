@@ -19,13 +19,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
-  declarations: [
-    CreatePublisherComponent,
-    ViewPublisherComponent
-  ],
+  declarations: [CreatePublisherComponent, ViewPublisherComponent],
   imports: [
     CommonModule,
     PublisherRoutingModule,
@@ -45,6 +42,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatCheckboxModule,
     MatDialogModule,
     MatTooltipModule,
+    MatSnackBarModule,
   ],
 })
-export class PublisherModule { }
+export class PublisherModule {}

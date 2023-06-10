@@ -13,17 +13,19 @@ const routes: Routes = [
       import('./module/game/game.module').then((m) => m.GameModule),
   },
   {
-    path: 'publishers',
+    path: 'add-publisher',
     loadChildren: () =>
-      import('./module/publisher/publisher.module').then((m) => m.PublisherModule),
+      import('./module/publisher/publisher.module').then(
+        (m) => m.PublisherModule
+      ),
   },
   {
-    path: 'genres',
+    path: 'add-genre',
     loadChildren: () =>
       import('./module/genre/genre.module').then((m) => m.GenreModule),
   },
   {
-    path: 'platforms',
+    path: 'add-platform',
     loadChildren: () =>
       import('./module/platform/platform.module').then((m) => m.PlatformModule),
   },
