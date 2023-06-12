@@ -28,8 +28,8 @@ public class GameService {
 
     public Game addGame(final Game newGame) {
         String gameName= newGame.getName();
-        if(gameRepository.existsById(gameName)){
-            throw new EntityExistsException(String.format("Game with name \"%s\" already exists.",gameName));
+        if(gameRepository.existsById(gameName)){ //TODO Fix this to - if there is no game with same name and platform
+            throw new EntityExistsException(String.format("Game: \"%s\" already exists.",gameName));
         }else{
         return gameRepository.save(newGame);}
     }
@@ -39,8 +39,8 @@ public class GameService {
         gameRepository.delete(gameToDelete);
     }
 
-    public Game updateGame(final String name, final Game updatedGame) {
-        return gameRepository.findById(name).map(game -> {
+    public Game updateGame(final Game updatedGame) {
+        return gameRepository.findById(updatedGame.getName()).map(game -> {
             game.setDescription(updatedGame.getDescription());
             game.setGenres(updatedGame.getGenres());
             game.setPlatform(updatedGame.getPlatform());
