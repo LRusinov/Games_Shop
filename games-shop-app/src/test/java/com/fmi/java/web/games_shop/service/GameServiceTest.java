@@ -57,9 +57,10 @@ public final class GameServiceTest {
         when(gameRepository.findAll()).thenReturn(List.of(games.get("Counter Strike"), games.get("Need For Speed MW")));
 
         List<Game> gamesList = gameService.getAllGames();
+        
         assertThat(gamesList).hasSize(2).extracting(Game::getName, game -> game.getReleaseDate().toString(),
-                Game::getPrice, game -> game.getPlatform().getName(), Game::getDescription, Game::getPictureUrl,
-                game -> game.getPublisher().getName(), game -> {
+                Game::getPrice, Game::getPlatformName, Game::getDescription, Game::getPictureUrl,
+                Game::getPublisherName, game -> {
                     ArrayList<Genre> genres = new ArrayList<>(game.getGenres());
                     if (!genres.isEmpty()) {
                         return genres.get(0).getName();
@@ -74,14 +75,15 @@ public final class GameServiceTest {
     @Test
     public void shouldGetGameById() {
         Game cs = games.get("Counter Strike");
+
         when(gameRepository.findById("Counter Strike")).thenReturn(Optional.of(games.get("Counter Strike")));
 
         Game foundGame = gameService.getGameById("Counter Strike");
         assertThat(foundGame).extracting(Game::getName, game -> game.getReleaseDate().toString(), Game::getPrice,
-                game -> game.getPlatform().getName(), Game::getDescription, Game::getPictureUrl,
-                game -> game.getPublisher().getName()).containsExactly(cs.getName(), cs.getReleaseDate().toString(),
-                cs.getPrice(), cs.getPlatform().getName(), cs.getDescription(), cs.getPictureUrl(),
-                cs.getPublisher().getName());
+                Game::getPlatformName, Game::getDescription, Game::getPictureUrl,
+                Game::getPublisherName).containsExactly(cs.getName(), cs.getReleaseDate().toString(),
+                cs.getPrice(), cs.getPlatformName(), cs.getDescription(), cs.getPictureUrl(),
+                cs.getPublisherName());
     }
 
     @Test
@@ -94,18 +96,38 @@ public final class GameServiceTest {
         Game godOfWar = new Game("God Of War", Instant.parse("2022-11-09T00:00:00Z"), 70.0, ps5, "Description",
                 "picUrl", sonyInteractiveEntertainment, Set.of(action, adventure));
 
+        when(gameRepository.findById(godOfWar.getName())).thenReturn(Optional.empty());
         when(gameRepository.save(godOfWar)).thenReturn(godOfWar);
 
         Game newGame = gameService.addGame(godOfWar);
         verify(gameRepository).save(godOfWar);
         assertThat(newGame).extracting(Game::getName, game -> game.getReleaseDate().toString(), Game::getPrice,
-                        game -> game.getPlatform().getName(), Game::getDescription, Game::getPictureUrl,
-                        game -> game.getPublisher().getName()).containsExactly(godOfWar.getName(),
-                        godOfWar.getReleaseDate().toString(), godOfWar.getPrice(), godOfWar.getPlatform().getName(),
-                        godOfWar.getDescription(), godOfWar.getPictureUrl(), godOfWar.getPublisher().getName())
-                .containsExactly(godOfWar.getName(), godOfWar.getReleaseDate().toString(), godOfWar.getPrice(),
-                        godOfWar.getPlatform().getName(), godOfWar.getDescription(), godOfWar.getPictureUrl(),
-                        godOfWar.getPublisher().getName());
+                Game::getPlatformName, Game::getDescription, Game::getPictureUrl,
+                Game::getPublisherName).containsExactly(godOfWar.getName(),
+                godOfWar.getReleaseDate().toString(), godOfWar.getPrice(), godOfWar.getPlatformName(),
+                godOfWar.getDescription(), godOfWar.getPictureUrl(), godOfWar.getPublisherName());
+    }
+
+    @Test
+    public void shouldAddGameWithExistingName() {
+        Platform ps5 = new Platform("PS5");
+        Publisher electronicArts = new Publisher(2L, "Electronic Arts", "LogoPictureUrl", 2000, "Publisher " +
+                "description");
+        Genre racing = new Genre("RACING");
+        Game gameToAdd = new Game("Need For Speed: Most Wanted", Instant.parse("2012-10-30T00:00:00Z"), 80.0, ps5
+                , "Descript", "picUrl", electronicArts, Set.of(racing));
+        Game existingGame = games.get("Need For Speed MW");
+
+        when(gameRepository.findById(gameToAdd.getName())).thenReturn(Optional.of(existingGame));
+        when(gameRepository.save(gameToAdd)).thenReturn(gameToAdd);
+
+        Game newGame = gameService.addGame(gameToAdd);
+        verify(gameRepository).save(gameToAdd);
+        assertThat(newGame).extracting(Game::getName, game -> game.getReleaseDate().toString(), Game::getPrice,
+                Game::getPlatformName, Game::getDescription, Game::getPictureUrl,
+                Game::getPublisherName).containsExactly(gameToAdd.getName(),
+                gameToAdd.getReleaseDate().toString(), gameToAdd.getPrice(), gameToAdd.getPlatformName(),
+                gameToAdd.getDescription(), gameToAdd.getPictureUrl(), gameToAdd.getPublisherName());
     }
 
     @Test
@@ -117,7 +139,7 @@ public final class GameServiceTest {
         Game counterStrike = new Game("Counter Strike 2.0", Instant.parse("2023-04-10T00:00:00Z"), 100.0, pc,
                 "Description", "picUrl", sonyInteractiveEntertainment, Set.of(adventure));
 
-        when(gameRepository.existsById(counterStrike.getName())).thenReturn(true);
+        when(gameRepository.findById(counterStrike.getName())).thenReturn(Optional.of(counterStrike));
 
         assertThrows(EntityExistsException.class, () -> gameService.addGame(counterStrike));
     }
@@ -125,6 +147,7 @@ public final class GameServiceTest {
     @Test
     public void shouldDeleteGame() {
         Game gameToDelete = games.get("Need For Speed C");
+
         when(gameRepository.findById(gameToDelete.getName())).thenReturn(Optional.of(gameToDelete));
         gameService.deleteGame(gameToDelete.getName());
 
@@ -134,6 +157,7 @@ public final class GameServiceTest {
     @Test
     public void deleteGameShouldThrowException() {
         Game gameToDelete = games.get("Need For Speed C");
+
         when(gameRepository.findById(gameToDelete.getName())).thenReturn(Optional.empty());
 
         assertThrows(EntityNotFoundException.class, () -> gameService.deleteGame(gameToDelete.getName()));
@@ -155,9 +179,9 @@ public final class GameServiceTest {
         Game result = gameService.updateGame(updatedGame);
 
         assertThat(result).extracting(Game::getName, game -> game.getReleaseDate().toString(), Game::getPrice,
-                game -> game.getPlatform().getName(), Game::getDescription, Game::getPictureUrl,
-                game -> game.getPublisher().getName()).containsExactly(updatedGame.getName(),
-                updatedGame.getReleaseDate().toString(), updatedGame.getPrice(), updatedGame.getPlatform().getName(),
-                updatedGame.getDescription(), updatedGame.getPictureUrl(), updatedGame.getPublisher().getName());
+                Game::getPlatformName, Game::getDescription, Game::getPictureUrl,
+                Game::getPublisherName).containsExactly(updatedGame.getName(),
+                updatedGame.getReleaseDate().toString(), updatedGame.getPrice(), updatedGame.getPlatformName(),
+                updatedGame.getDescription(), updatedGame.getPictureUrl(), updatedGame.getPublisherName());
     }
 }
