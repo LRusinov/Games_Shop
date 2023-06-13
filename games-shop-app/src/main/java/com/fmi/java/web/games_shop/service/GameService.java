@@ -23,19 +23,24 @@ public class GameService {
     }
 
     public Game getGameById(final String name) {
-        return gameRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format("Game with name \"%s\" does not exist.", name)));
+        return gameRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format("Game with " +
+                "name \"%s\" does not exist.", name)));
     }
 
     public Game addGame(final Game newGame) {
-        String gameName= newGame.getName();
-        if(gameRepository.existsById(gameName)){ //TODO Fix this to - if there is no game with same name and platform
-            throw new EntityExistsException(String.format("Game: \"%s\" already exists.",gameName));
-        }else{
-        return gameRepository.save(newGame);}
+        String gameName = newGame.getName();
+        if (gameRepository.existsById(gameName)) { //TODO Fix this to - if there is no game with same name and platform
+            throw new EntityExistsException(String.format("Game: \"%s\" for console \"%s\" already exists.", gameName
+                    , newGame.getPlatform().getName()));
+        } else {
+            return gameRepository.save(newGame);
+        }
     }
 
     public void deleteGame(final String name) {
-        final Game gameToDelete = gameRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format("Game with name \"%s\" does not exist.", name)));
+        final Game gameToDelete =
+                gameRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format("Game with " +
+                        "name \"%s\" does not exist.", name)));
         gameRepository.delete(gameToDelete);
     }
 
