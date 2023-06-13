@@ -1,6 +1,7 @@
 package com.fmi.java.web.games_shop.service;
 
 import com.fmi.java.web.games_shop.exception.EntityExistsException;
+import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Game;
 import com.fmi.java.web.games_shop.model.Genre;
 import com.fmi.java.web.games_shop.model.Platform;
@@ -18,7 +19,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.tuple;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-class GameServiceTest {
+public final class GameServiceTest {
 
     @Mock
     private static GameRepository gameRepository;
@@ -28,7 +29,7 @@ class GameServiceTest {
     private static Map<String, Game> games;
 
     @BeforeAll
-    static void setUp() {
+    private static void setUp() {
         Platform pc = new Platform("PC");
         Publisher valve = new Publisher(1L, "Valve", "LogoPictureUrl", 2000, "Publisher description");
         Publisher electronicArts = new Publisher(2L, "Electronic Arts", "LogoPictureUrl", 2000, "Publisher " +
@@ -52,7 +53,7 @@ class GameServiceTest {
     }
 
     @Test
-    void shouldGetAllGames() {
+    public void shouldGetAllGames() {
         when(gameRepository.findAll()).thenReturn(List.of(games.get("Counter Strike"), games.get("Need For Speed MW")));
 
         List<Game> gamesList = gameService.getAllGames();
@@ -71,7 +72,7 @@ class GameServiceTest {
     }
 
     @Test
-    void shouldGetGameById() {
+    public void shouldGetGameById() {
         Game cs = games.get("Counter Strike");
         when(gameRepository.findById("Counter Strike")).thenReturn(Optional.of(games.get("Counter Strike")));
 
@@ -84,7 +85,7 @@ class GameServiceTest {
     }
 
     @Test
-    void shouldAddGame() {
+    public void shouldAddGame() {
         Platform ps5 = new Platform("PS5");
         Publisher sonyInteractiveEntertainment = new Publisher(1L, "Sony Interactive Entertainment", "LogoPictureUrl"
                 , 1993, "Publisher description");
@@ -108,7 +109,7 @@ class GameServiceTest {
     }
 
     @Test
-    void addGameShouldThrowException() {
+    public void addGameShouldThrowException() {
         Platform pc = new Platform("PC");
         Publisher sonyInteractiveEntertainment = new Publisher(1L, "Sony Interactive Entertainment", "LogoPictureUrl"
                 , 1993, "Publisher description");
@@ -122,7 +123,7 @@ class GameServiceTest {
     }
 
     @Test
-    void shouldDeleteGame() {
+    public void shouldDeleteGame() {
         Game gameToDelete = games.get("Need For Speed C");
         when(gameRepository.findById(gameToDelete.getName())).thenReturn(Optional.of(gameToDelete));
         gameService.deleteGame(gameToDelete.getName());
@@ -131,7 +132,16 @@ class GameServiceTest {
     }
 
     @Test
-    void shouldUpdateGame() {
+    public void deleteGameShouldThrowException() {
+        Game gameToDelete = games.get("Need For Speed C");
+        when(gameRepository.findById(gameToDelete.getName())).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> gameService.deleteGame(gameToDelete.getName()));
+    }
+
+
+    @Test
+    public void shouldUpdateGame() {
         Platform ps3 = new Platform("PS3");
         Publisher electronicArts = new Publisher(1L, "Electronic Arts", "LogoPictureUrl", 2000, "Publisher " +
                 "description");
