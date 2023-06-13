@@ -75,7 +75,7 @@ class PublisherServiceTest {
 
         Publisher newPublisher = publisherService.addPublisher(sonyInteractiveEntertainment);
         verify(publisherRepository).save(sonyInteractiveEntertainment);
-        assertThat(sonyInteractiveEntertainment).extracting(Publisher::getId, Publisher::getName,
+        assertThat(newPublisher).extracting(Publisher::getId, Publisher::getName,
                         Publisher::getLogoPictureUrl, Publisher::getYearOfCreation, Publisher::getDescription)
                 .containsExactly(sonyInteractiveEntertainment.getId(), sonyInteractiveEntertainment.getName(),
                         sonyInteractiveEntertainment.getLogoPictureUrl(),
