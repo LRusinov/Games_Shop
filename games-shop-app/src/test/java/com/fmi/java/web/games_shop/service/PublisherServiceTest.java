@@ -35,8 +35,6 @@ public final class PublisherServiceTest {
         Publisher ubisoft = new Publisher(3L, "Ubisoft",
                 "LogoPictureUrl", 1986,
                 "Description");
-
-
         publishers = Map.of("Valve", valve, "Electronic Arts", electronicArts, "Ubisoft", ubisoft);
 
         publisherRepository = mock(PublisherRepository.class);
@@ -49,6 +47,7 @@ public final class PublisherServiceTest {
                 publishers.get("Electronic " + "Arts")));
 
         List<Publisher> publishersList = publisherService.getAllPublishers();
+
         assertThat(publishersList).extracting(Publisher::getId, Publisher::getName, Publisher::getLogoPictureUrl,
                 Publisher::getYearOfCreation, Publisher::getDescription).contains(tuple(1L, "Valve", "LogoPictureUrl"
                 , 2000, "Publisher " + "description"), tuple(2L, "Electronic Arts", "LogoPictureUrl", 2000,
@@ -58,6 +57,7 @@ public final class PublisherServiceTest {
     @Test
     public void shouldGetPublisherByName() {
         Publisher valve = publishers.get("Valve");
+
         when(publisherRepository.findByname("Valve")).thenReturn(Optional.of(publishers.get("Valve")));
 
         Publisher foundPublisher = publisherService.getPublisherByName("Valve");
@@ -71,9 +71,10 @@ public final class PublisherServiceTest {
         Publisher sonyInteractiveEntertainment = new Publisher(3L, "Sony Interactive Entertainment", "LogoPictureUrl"
                 , 1993, "Publisher description");
 
+        when(publisherRepository.findByname(sonyInteractiveEntertainment.getName())).thenReturn(Optional.empty());
         when(publisherRepository.save(sonyInteractiveEntertainment)).thenReturn(sonyInteractiveEntertainment);
-
         Publisher newPublisher = publisherService.addPublisher(sonyInteractiveEntertainment);
+
         verify(publisherRepository).save(sonyInteractiveEntertainment);
         assertThat(newPublisher).extracting(Publisher::getId, Publisher::getName,
                         Publisher::getLogoPictureUrl, Publisher::getYearOfCreation, Publisher::getDescription)
@@ -96,6 +97,7 @@ public final class PublisherServiceTest {
     @Test
     public void shouldDeletePublisher() {
         Publisher publisherToDelete = publishers.get("Ubisoft");
+
         when(publisherRepository.findByname(publisherToDelete.getName())).thenReturn(Optional.of(publisherToDelete));
         publisherService.deletePublisher(publisherToDelete.getName());
 
@@ -105,7 +107,9 @@ public final class PublisherServiceTest {
     @Test
     public void deletePublisherShouldThrowException() {
         Publisher publisherToDelete = publishers.get("Ubisoft");
+
         when(publisherRepository.findByname(publisherToDelete.getName())).thenReturn(Optional.empty());
+        
         assertThrows(EntityNotFoundException.class,
                 () -> publisherService.deletePublisher(publisherToDelete.getName()));
     }

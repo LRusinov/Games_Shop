@@ -31,7 +31,6 @@ public final class GenreServiceTest {
         Genre racing = new Genre("RACING");
         Genre adventure = new Genre("ADVENTURE");
         Genre sport = new Genre("SPORT");
-
         genres = Map.of("ACTION", action, "RACING", racing, "ADVENTURE", adventure, "SPORT", sport);
 
         genreRepository = mock(GenreRepository.class);
@@ -42,19 +41,20 @@ public final class GenreServiceTest {
     public void shouldGetAllGenres() {
         when(genreRepository.findAll()).thenReturn(List.of(genres.get("ACTION"), genres.get("RACING"), genres.get(
                 "ADVENTURE")));
-
         List<Genre> genresList = genreService.getAllGenres();
+
         assertThat(genresList).extracting(Genre::getName).contains("ACTION", "RACING", "ADVENTURE");
     }
 
     @Test
     public void shouldAddGenre() {
         Genre newGenre = new Genre("HORROR");
+
+        when(genreRepository.existsById(newGenre.getName())).thenReturn(false);
         when(genreRepository.save(newGenre)).thenReturn(newGenre);
-
         Genre result = genreService.addGenre(newGenre);
-        verify(genreRepository).save(newGenre);
 
+        verify(genreRepository).save(newGenre);
         assertEquals(result.getName(), newGenre.getName());
     }
 
