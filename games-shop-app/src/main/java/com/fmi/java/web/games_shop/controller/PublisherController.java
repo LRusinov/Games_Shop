@@ -31,7 +31,8 @@ public class PublisherController {
     }
 
     private PublisherDto entityToDto(final Publisher publisher) {
-        return new PublisherDto(publisher.getId(), publisher.getName(), publisher.getLogoPictureUrl(), publisher.getYearOfCreation(), publisher.getDescription());
+        return new PublisherDto(publisher.getId(), publisher.getName(), publisher.getLogoPictureUrl(),
+                publisher.getYearOfCreation(), publisher.getDescription());
     }
 
     @PostMapping
@@ -42,7 +43,8 @@ public class PublisherController {
     }
 
     private static Publisher dtoToEntity(final PublisherDto publisherDto) {
-        return new Publisher(publisherDto.id(), publisherDto.name(), publisherDto.logoPictureUrl(), publisherDto.yearOfCreation(), publisherDto.description());
+        return new Publisher(publisherDto.id(), publisherDto.name(), publisherDto.logoPictureUrl(),
+                publisherDto.yearOfCreation(), publisherDto.description());
     }
 
     @DeleteMapping("/{name}")

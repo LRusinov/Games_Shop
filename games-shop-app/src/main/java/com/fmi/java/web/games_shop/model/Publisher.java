@@ -25,7 +25,8 @@ public class Publisher {
         //Needed for JPA.
     }
 
-    public Publisher(final Long id, final String name, final String logoPictureUrl, final int yearOfCreation, final String description) {
+    public Publisher(final Long id, final String name, final String logoPictureUrl, final int yearOfCreation,
+                     final String description) {
         this.id = id;
         this.name = name;
         this.logoPictureUrl = logoPictureUrl;
