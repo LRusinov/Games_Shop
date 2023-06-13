@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class GameService {
     private final GameRepository gameRepository;
+
+    private static final String EXCEPTIONMESSAGE = "Game with name \"%s\" does not exist.";
 
     @Autowired
     public GameService(final GameRepository gameRepository) {
@@ -24,16 +25,13 @@ public class GameService {
     }
 
     public Game getGameById(final String name) {
-        return gameRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format("Game with " +
-                "name \"%s\" does not exist.", name)));
+        return gameRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTIONMESSAGE, name)));
     }
 
     public Game addGame(final Game newGame) {
         String gameName = newGame.getName();
-        Optional<Game> result = gameRepository.findById(gameName);
-        if (result.isPresent() && result.get().getPlatformName().equals(newGame.getPlatformName())) {
-            throw new EntityExistsException(String.format("Game: \"%s\" for console \"%s\" already exists.", gameName
-                    , newGame.getPlatformName()));
+        if (gameRepository.existsById(gameName)) {
+            throw new EntityExistsException(String.format(EXCEPTIONMESSAGE, gameName));
         }
         return gameRepository.save(newGame);
     }
@@ -49,7 +47,7 @@ public class GameService {
         return gameRepository.findById(gameName).map(game -> {
             game.setDescription(updatedGame.getDescription());
             game.setGenres(updatedGame.getGenres());
-            game.setPlatform(updatedGame.getPlatform());
+            game.setPlatform(updatedGame.getPlatforms());
             game.setPublisher(updatedGame.getPublisher());
             game.setPictureUrl(updatedGame.getPictureUrl());
             game.setReleaseDate(updatedGame.getReleaseDate());

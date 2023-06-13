@@ -18,9 +18,11 @@ public class Game {
     @Column(name = "PRICE", nullable = false)
     private double price;
 
-    @ManyToOne(targetEntity = Platform.class)
-    @JoinColumn(name = "PLATFORM", referencedColumnName = "NAME")
-    private Platform platform;
+
+    @ManyToMany(targetEntity = Platform.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "GAME_PLATFORM", joinColumns = @JoinColumn(name = "GAME_NAME"), inverseJoinColumns =
+    @JoinColumn(name = "PLATFORM_NAME"))
+    private Set<Platform> platforms;
 
     @Column(name = "DESCRIPTION")
     private String description;
@@ -45,12 +47,12 @@ public class Game {
         //Needed for JPA.
     }
 
-    public Game(final String name, final Instant releaseDate, final double price, final Platform platform,
+    public Game(final String name, final Instant releaseDate, final double price, final Set<Platform> platforms,
                 final String description, final String pictureUrl, final Publisher publisher, final Set<Genre> genres) {
         this.name = name;
         this.releaseDate = releaseDate;
         this.price = price;
-        this.platform = platform;
+        this.platforms = platforms;
         this.description = description;
         this.pictureUrl = pictureUrl;
         this.publisher = publisher;
@@ -65,16 +67,12 @@ public class Game {
         return price;
     }
 
-    public Platform getPlatform() {
-        return platform;
+    public Set<Platform> getPlatforms() {
+        return platforms;
     }
 
     public Set<Genre> getGenres() {
         return genres;
-    }
-
-    public String getPlatformName() {
-        return platform.getName();
     }
 
     public String getDescription() {
@@ -101,8 +99,8 @@ public class Game {
         this.price = price;
     }
 
-    public void setPlatform(final Platform platform) {
-        this.platform = platform;
+    public void setPlatform(final Set<Platform> platform) {
+        this.platforms = platform;
     }
 
     public void setDescription(final String description) {
