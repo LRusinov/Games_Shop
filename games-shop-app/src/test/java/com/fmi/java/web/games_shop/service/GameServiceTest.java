@@ -57,7 +57,7 @@ public final class GameServiceTest {
         when(gameRepository.findAll()).thenReturn(List.of(games.get("Counter Strike"), games.get("Need For Speed MW")));
 
         List<Game> gamesList = gameService.getAllGames();
-        
+
         assertThat(gamesList).hasSize(2).extracting(Game::getName, game -> game.getReleaseDate().toString(),
                 Game::getPrice, Game::getPlatformName, Game::getDescription, Game::getPictureUrl,
                 Game::getPublisherName, game -> {
@@ -176,7 +176,7 @@ public final class GameServiceTest {
         Game gameToUpdate = games.get("Need For Speed U");
         when(gameRepository.findById(gameToUpdate.getName())).thenReturn(Optional.of(gameToUpdate));
         when(gameRepository.save(updatedGame)).thenReturn(updatedGame);
-        Game result = gameService.updateGame(updatedGame);
+        Game result = gameService.updateGame(updatedGame.getName(), updatedGame);
 
         assertThat(result).extracting(Game::getName, game -> game.getReleaseDate().toString(), Game::getPrice,
                 Game::getPlatformName, Game::getDescription, Game::getPictureUrl,

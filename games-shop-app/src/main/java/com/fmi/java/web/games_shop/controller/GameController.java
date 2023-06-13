@@ -71,6 +71,6 @@ public class GameController {
     @PutMapping("/{name}")
     @ResponseBody
     public Game updateGame(@PathVariable final String name, @RequestBody final GameDto gameDto) {
-        return gameService.updateGame(dtoToEntity(gameDto));
+        return gameService.updateGame(name, dtoToEntity(gameDto));
     }
 }
