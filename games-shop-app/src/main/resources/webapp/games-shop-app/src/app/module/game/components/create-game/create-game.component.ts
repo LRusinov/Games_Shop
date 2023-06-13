@@ -21,8 +21,8 @@ export class CreateGameComponent implements OnInit {
   publishers: Publisher[] = [];
   platforms: Platform[] = [];
   genres: Genre[] = [];
+  checkedPlatforms: string[] = [];
   checkedGenres: string[] = [];
-  checked = false;
 
   constructor(
     private router: Router,
@@ -38,7 +38,6 @@ export class CreateGameComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: [null, [Validators.required]],
       price: [null, [Validators.required]],
-      platform: [null, [Validators.required]],
       description: [null, [Validators.required]],
       releaseDate: [null, [Validators.required]],
       publisher: [null, [Validators.required]],
@@ -63,9 +62,6 @@ export class CreateGameComponent implements OnInit {
   get price() {
     return this.form.get('price');
   }
-  get platform() {
-    return this.form.get('platform');
-  }
   get description() {
     return this.form.get('description');
   }
@@ -87,7 +83,7 @@ export class CreateGameComponent implements OnInit {
       .createGame(
         this.name?.value,
         this.price?.value,
-        this.platform?.value,
+        this.checkedPlatforms,
         this.checkedGenres,
         this.description?.value,
         this.releaseDate?.value,
@@ -119,11 +115,26 @@ export class CreateGameComponent implements OnInit {
     window.history.back();
   }
 
-  isChecked(genre: string): boolean {
+  isPlatformChecked(platform: string): boolean {
+    return this.checkedPlatforms.includes(platform);
+  }
+
+  onPlatformCheckboxChange(event: any, platform: string) {
+    if (this.checkedPlatforms.indexOf(platform) == -1) {
+      this.checkedPlatforms.push(platform);
+    } else {
+      const index = this.checkedPlatforms.indexOf(platform);
+      if (index >= 0) {
+        this.checkedPlatforms.splice(index, 1);
+      }
+    }
+  }
+
+  isGenreChecked(genre: string): boolean {
     return this.checkedGenres.includes(genre);
   }
 
-  onCheckboxChange(event: any, genre: string) {
+  onGenreCheckboxChange(event: any, genre: string) {
     if (this.checkedGenres.indexOf(genre) == -1) {
       this.checkedGenres.push(genre);
     } else {

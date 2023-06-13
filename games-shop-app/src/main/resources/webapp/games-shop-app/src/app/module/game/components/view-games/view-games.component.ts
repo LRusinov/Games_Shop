@@ -67,7 +67,7 @@ export class ViewGamesComponent implements OnInit {
       data: {
         name: game.name,
         price: game.price,
-        platform: game.platform,
+        platforms: game.platforms,
         description: game.description,
         releaseDate: game.releaseDate,
         publisher: game.publisher,

@@ -12,23 +12,22 @@
         ><mat-label>Price</mat-label>
         <input matInput formControlName="price" required
       /></mat-form-field>
-      <mat-form-field appearance="fill"
-        ><mat-label>Platform</mat-label>
-        <mat-select formControlName="platform" required>
-          <mat-option
-            *ngFor="let platform of platforms"
-            [value]="platform.name"
-          >
-            {{ platform.name }}</mat-option
-          ></mat-select
-        ></mat-form-field
+      <h2>Platforms</h2>
+      <mat-checkbox
+        *ngFor="let platform of platforms"
+        [value]="platform.name"
+        [checked]="isPlatformChecked(platform.name)"
+        (change)="onPlatformCheckboxChange($event, platform.name)"
+        name="platforms"
       >
-      <h2>Genre</h2>
+        {{ platform.name }}
+      </mat-checkbox>
+      <h2>Genres</h2>
       <mat-checkbox
         *ngFor="let genre of genres"
         [value]="genre.name"
-        [checked]="isChecked(genre.name)"
-        (change)="onCheckboxChange($event, genre.name)"
+        [checked]="isGenreChecked(genre.name)"
+        (change)="onGenreCheckboxChange($event, genre.name)"
         name="genres"
       >
         {{ genre.name }}

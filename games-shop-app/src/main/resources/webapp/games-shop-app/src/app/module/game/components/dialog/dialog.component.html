@@ -20,33 +20,34 @@
       </tr>
       <tr>
         <td colspan="2">
-          <h2>Genre</h2>
+          <h2>Genres</h2>
           <mat-checkbox
             *ngFor="let genre of genres"
             name="genre"
             [value]="genre.name"
-            [checked]="isChecked(genre.name)"
-            (change)="onCheckboxChange($event, genre.name)"
+            [checked]="isGenreChecked(genre.name)"
+            (change)="onGenreCheckboxChange($event, genre.name)"
           >
             {{ genre.name }}
           </mat-checkbox>
         </td>
       </tr>
       <tr>
-        <td>
-          <mat-form-field appearance="fill"
-            ><mat-label>Platform</mat-label>
-            <mat-select formControlName="platform" required>
-              <mat-option
-                *ngFor="let platform of platforms"
-                [value]="platform.name"
-              >
-                {{ platform.name }}</mat-option
-              ></mat-select
-            ></mat-form-field
+        <td colspan="2">
+          <h2>Platforms</h2>
+          <mat-checkbox
+            *ngFor="let platform of platforms"
+            name="platform"
+            [value]="platform.name"
+            [checked]="isPlatformChecked(platform.name)"
+            (change)="onPlatformCheckboxChange($event, platform.name)"
           >
+            {{ platform.name }}
+          </mat-checkbox>
         </td>
+      </tr>
 
+      <tr>
         <td>
           <mat-form-field
             ><mat-label>Publisher</mat-label>

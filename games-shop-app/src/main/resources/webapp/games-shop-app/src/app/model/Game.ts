@@ -1,7 +1,7 @@
 export interface Game {
   name: string;
   price: number;
-  platform: string;
+  platforms: string[];
   genres: string[];
   description: string;
   releaseDate: Date;

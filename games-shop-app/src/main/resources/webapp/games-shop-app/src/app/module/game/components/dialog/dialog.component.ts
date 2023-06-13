@@ -45,13 +45,12 @@ export class DialogComponent extends CreateGameComponent {
     this.form = this.formBuilder.group({
       name: [{ value: this.game.name, disabled: true }, [Validators.required]],
       price: [this.game.price, [Validators.required]],
-      platform: [this.game.platform, [Validators.required]],
       description: [this.game.description, [Validators.required]],
       releaseDate: [this.game.releaseDate, [Validators.required]],
       publisher: [this.game.publisher, [Validators.required]],
       picture: [this.game.picture, [Validators.required]],
-      genres: this.checkedGenres,
     });
+    this.checkedPlatforms = this.game.platforms;
     this.checkedGenres = this.game.genres;
   }
 
@@ -63,7 +62,7 @@ export class DialogComponent extends CreateGameComponent {
       .editGame(
         this.name?.value,
         this.price?.value,
-        this.platform?.value,
+        this.checkedPlatforms,
         this.checkedGenres,
         this.description?.value,
         this.releaseDate?.value,

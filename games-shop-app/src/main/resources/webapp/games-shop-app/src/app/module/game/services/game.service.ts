@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Game } from 'src/app/model/Game';
-import { Platform } from '@angular/cdk/platform';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,7 +17,7 @@ export class GameService {
   createGame(
     name: string,
     price: number,
-    platform: string,
+    platforms: string[],
     genres: string[],
     description: string,
     releaseDate: Date,
@@ -30,7 +29,7 @@ export class GameService {
       {
         name,
         price,
-        platform,
+        platforms,
         genres,
         description,
         releaseDate,
@@ -48,7 +47,7 @@ export class GameService {
   editGame(
     name: string,
     price: number,
-    platform: string,
+    platforms: string[],
     genres: string[],
     description: string,
     releaseDate: Date,
@@ -60,7 +59,7 @@ export class GameService {
       {
         name,
         price,
-        platform,
+        platforms,
         genres,
         description,
         releaseDate,
