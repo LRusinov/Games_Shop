@@ -17,7 +17,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.tuple;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-class PublisherServiceTest {
+public final class PublisherServiceTest {
 
     @Mock
     private static PublisherRepository publisherRepository;
@@ -27,7 +27,7 @@ class PublisherServiceTest {
     private static Map<String, Publisher> publishers;
 
     @BeforeAll
-    static void setUp() {
+    public static void setUp() {
 
         Publisher valve = new Publisher(1L, "Valve", "LogoPictureUrl", 2000, "Publisher description");
         Publisher electronicArts = new Publisher(2L, "Electronic Arts", "LogoPictureUrl", 2000, "Publisher " +
@@ -44,7 +44,7 @@ class PublisherServiceTest {
     }
 
     @Test
-    void shouldGetAllPublishers() {
+    public void shouldGetAllPublishers() {
         when(publisherRepository.findAll()).thenReturn(List.of(publishers.get("Valve"),
                 publishers.get("Electronic " + "Arts")));
 
@@ -56,7 +56,7 @@ class PublisherServiceTest {
     }
 
     @Test
-    void shouldGetPublisherByName() {
+    public void shouldGetPublisherByName() {
         Publisher valve = publishers.get("Valve");
         when(publisherRepository.findByname("Valve")).thenReturn(Optional.of(publishers.get("Valve")));
 
@@ -67,7 +67,7 @@ class PublisherServiceTest {
     }
 
     @Test
-    void shouldAddPublisher() {
+    public void shouldAddPublisher() {
         Publisher sonyInteractiveEntertainment = new Publisher(3L, "Sony Interactive Entertainment", "LogoPictureUrl"
                 , 1993, "Publisher description");
 
@@ -84,7 +84,7 @@ class PublisherServiceTest {
     }
 
     @Test
-    void addPublisherShouldThrowException() {
+    public void addPublisherShouldThrowException() {
         Publisher sonyInteractiveEntertainment = new Publisher(1L, "Sony Interactive Entertainment", "LogoPictureUrl"
                 , 1993, "Publisher description");
 
@@ -94,7 +94,7 @@ class PublisherServiceTest {
     }
 
     @Test
-    void shouldDeletePublisher() {
+    public void shouldDeletePublisher() {
         Publisher publisherToDelete = publishers.get("Ubisoft");
         when(publisherRepository.findByname(publisherToDelete.getName())).thenReturn(Optional.of(publisherToDelete));
         publisherService.deletePublisher(publisherToDelete.getName());
@@ -103,7 +103,7 @@ class PublisherServiceTest {
     }
 
     @Test
-    void deletePublisherShouldThrowException() {
+    public void deletePublisherShouldThrowException() {
         Publisher publisherToDelete = publishers.get("Ubisoft");
         when(publisherRepository.findByname(publisherToDelete.getName())).thenReturn(Optional.empty());
         assertThrows(EntityNotFoundException.class,

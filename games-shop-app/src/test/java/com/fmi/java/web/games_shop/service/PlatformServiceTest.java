@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-class PlatformServiceTest {
+public final class PlatformServiceTest {
 
     @Mock
     private static PlatformRepository platformRepository;
@@ -39,7 +39,7 @@ class PlatformServiceTest {
     }
 
     @Test
-    void shouldGetAllPlatforms() {
+    public void shouldGetAllPlatforms() {
         when(platformRepository.findAll()).thenReturn(List.of(platforms.get("PC"), platforms.get("PS4")));
 
         List<Platform> platformsList = platformService.getAllPlatforms();
@@ -47,7 +47,7 @@ class PlatformServiceTest {
     }
 
     @Test
-    void shouldAddPlatform() {
+    public void shouldAddPlatform() {
         Platform newPlatform = new Platform("XBOX ONE");
         when(platformRepository.save(newPlatform)).thenReturn(newPlatform);
 
@@ -58,7 +58,7 @@ class PlatformServiceTest {
     }
 
     @Test
-    void addPlatformShouldThrowException() {
+    public void addPlatformShouldThrowException() {
         Platform newPlatform = new Platform("OPEN-WORLD");
         when(platformRepository.existsById(newPlatform.getName())).thenReturn(true);
 
@@ -66,7 +66,7 @@ class PlatformServiceTest {
     }
 
     @Test
-    void shouldDeletePlatform() {
+    public void shouldDeletePlatform() {
         Platform platformToDelete = platforms.get("PS5");
         when(platformRepository.findById(platformToDelete.getName())).thenReturn(Optional.of(platformToDelete));
         platformService.deletePlatform(platformToDelete.getName());
@@ -75,7 +75,7 @@ class PlatformServiceTest {
     }
 
     @Test
-    void deletePlatformShouldThrowException() {
+    public void deletePlatformShouldThrowException() {
         Platform platformToDelete = platforms.get("PS5");
         when(platformRepository.findById(platformToDelete.getName())).thenReturn(Optional.empty());
 

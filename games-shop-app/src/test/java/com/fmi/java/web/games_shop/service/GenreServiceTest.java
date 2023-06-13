@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-class GenreServiceTest {
+public final class GenreServiceTest {
     @Mock
     private static GenreRepository genreRepository;
 
@@ -26,7 +26,7 @@ class GenreServiceTest {
     private static Map<String, Genre> genres;
 
     @BeforeAll
-    static void setUp() {
+    public static void setUp() {
         Genre action = new Genre("ACTION");
         Genre racing = new Genre("RACING");
         Genre adventure = new Genre("ADVENTURE");
@@ -39,7 +39,7 @@ class GenreServiceTest {
     }
 
     @Test
-    void shouldGetAllGenres() {
+    public void shouldGetAllGenres() {
         when(genreRepository.findAll()).thenReturn(List.of(genres.get("ACTION"), genres.get("RACING"), genres.get(
                 "ADVENTURE")));
 
@@ -48,7 +48,7 @@ class GenreServiceTest {
     }
 
     @Test
-    void shouldAddGenre() {
+    public void shouldAddGenre() {
         Genre newGenre = new Genre("HORROR");
         when(genreRepository.save(newGenre)).thenReturn(newGenre);
 
@@ -59,7 +59,7 @@ class GenreServiceTest {
     }
 
     @Test
-    void addGenreShouldThrowException() {
+    public void addGenreShouldThrowException() {
         Genre newGenre = new Genre("OPEN-WORLD");
         when(genreRepository.existsById(newGenre.getName())).thenReturn(true);
 
@@ -67,7 +67,7 @@ class GenreServiceTest {
     }
 
     @Test
-    void shouldDeleteGenre() {
+    public void shouldDeleteGenre() {
         Genre genreToDelete = genres.get("SPORT");
         when(genreRepository.findById(genreToDelete.getName())).thenReturn(Optional.of(genreToDelete));
         genreService.deleteGenre(genreToDelete.getName());
@@ -76,7 +76,7 @@ class GenreServiceTest {
     }
 
     @Test
-    void deleteGenreShouldThrowException() {
+    public void deleteGenreShouldThrowException() {
         Genre genreToDelete = genres.get("SPORT");
         when(genreRepository.findById(genreToDelete.getName())).thenReturn(Optional.empty());
 
