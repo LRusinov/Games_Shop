@@ -31,7 +31,7 @@ class GameServiceTest {
     static void setUp() {
         Platform pc = new Platform("PC");
         Publisher valve = new Publisher(1L, "Valve", "LogoPictureUrl", 2000, "Publisher description");
-        Publisher electronicArts = new Publisher(1L, "Electronic Arts", "LogoPictureUrl", 2000, "Publisher " +
+        Publisher electronicArts = new Publisher(2L, "Electronic Arts", "LogoPictureUrl", 2000, "Publisher " +
                 "description");
         Genre action = new Genre("ACTION");
         Genre racing = new Genre("RACING");
