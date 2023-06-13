@@ -51,7 +51,8 @@ public class GameController {
         final Platform platform = new Platform(gameDto.platform());
         final Publisher publisher = publisherService.getPublisherByName(gameDto.publisher());
         final Set<Genre> genres = gameDto.genres().stream().map(Genre::new).collect(Collectors.toSet());
-        return new Game(gameDto.name(), gameDto.releaseDate(), gameDto.price(), platform, gameDto.description(), gameDto.picture(), publisher, genres);
+        return new Game(gameDto.name(), gameDto.releaseDate(), gameDto.price(), platform, gameDto.description(),
+                gameDto.picture(), publisher, genres);
     }
 
     @DeleteMapping("/{name}")
@@ -63,7 +64,8 @@ public class GameController {
 
     private GameDto entityToDto(final Game game) {
         final Set<String> genres = game.getGenres().stream().map(Genre::getName).collect(Collectors.toSet());
-        return new GameDto(game.getName(), game.getPrice(), game.getPlatform().getName(), genres, game.getDescription(), game.getReleaseDate(), game.getPublisher().getName(), game.getPictureUrl());
+        return new GameDto(game.getName(), game.getPrice(), game.getPublisherName(), genres, game.getDescription(),
+                game.getReleaseDate(), game.getPlatformName(), game.getPictureUrl());
     }
 
     @PutMapping("/{name}")

@@ -33,7 +33,8 @@ public class Game {
     private Publisher publisher;
 
     @ManyToMany(targetEntity = Genre.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "GAME_GENRE", joinColumns = @JoinColumn(name = "GAME_NAME"), inverseJoinColumns = @JoinColumn(name = "GENRE_NAME"))
+    @JoinTable(name = "GAME_GENRE", joinColumns = @JoinColumn(name = "GAME_NAME"), inverseJoinColumns =
+    @JoinColumn(name = "GENRE_NAME"))
     private Set<Genre> genres;
 
     public String getName() {
@@ -44,7 +45,8 @@ public class Game {
         //Needed for JPA.
     }
 
-    public Game(final String name, final Instant releaseDate, final double price, final Platform platform, final String description, final String pictureUrl, final Publisher publisher, final Set<Genre> genres) {
+    public Game(final String name, final Instant releaseDate, final double price, final Platform platform,
+                final String description, final String pictureUrl, final Publisher publisher, final Set<Genre> genres) {
         this.name = name;
         this.releaseDate = releaseDate;
         this.price = price;
@@ -71,6 +73,10 @@ public class Game {
         return genres;
     }
 
+    public String getPlatformName() {
+        return platform.getName();
+    }
+
     public String getDescription() {
         return description;
     }
@@ -81,6 +87,10 @@ public class Game {
 
     public Publisher getPublisher() {
         return publisher;
+    }
+
+    public String getPublisherName() {
+        return publisher.getName();
     }
 
     public void setReleaseDate(final Instant releaseDate) {
