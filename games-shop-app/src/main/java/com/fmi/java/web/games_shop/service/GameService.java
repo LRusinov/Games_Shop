@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GameService {
@@ -29,12 +30,12 @@ public class GameService {
 
     public Game addGame(final Game newGame) {
         String gameName = newGame.getName();
-        if (gameRepository.existsById(gameName)) { //TODO Fix this to - if there is no game with same name and platform
+        Optional<Game> result = gameRepository.findById(gameName);
+        if (result.isPresent() && result.get().getPlatformName().equals(newGame.getPlatformName())) {
             throw new EntityExistsException(String.format("Game: \"%s\" for console \"%s\" already exists.", gameName
-                    , newGame.getPlatform().getName()));
-        } else {
-            return gameRepository.save(newGame);
+                    , newGame.getPlatformName()));
         }
+        return gameRepository.save(newGame);
     }
 
     public void deleteGame(final String name) {
