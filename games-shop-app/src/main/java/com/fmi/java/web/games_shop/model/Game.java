@@ -18,7 +18,6 @@ public class Game {
     @Column(name = "PRICE", nullable = false)
     private double price;
 
-
     @ManyToMany(targetEntity = Platform.class, fetch = FetchType.EAGER)
     @JoinTable(name = "GAME_PLATFORM", joinColumns = @JoinColumn(name = "GAME_NAME"), inverseJoinColumns =
     @JoinColumn(name = "PLATFORM_NAME"))
@@ -99,8 +98,8 @@ public class Game {
         this.price = price;
     }
 
-    public void setPlatform(final Set<Platform> platform) {
-        this.platforms = platform;
+    public void setPlatform(final Set<Platform> platforms) {
+        this.platforms = platforms;
     }
 
     public void setDescription(final String description) {

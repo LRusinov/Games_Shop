@@ -36,13 +36,13 @@ public final class GameServiceTest {
                 "description");
         Genre action = new Genre("ACTION");
         Genre racing = new Genre("RACING");
-        Game counterStrike = new Game("Counter Strike 2.0", Instant.parse("2023-04-10T00:00:00Z"), 100.0, pc,
+        Game counterStrike = new Game("Counter Strike 2.0", Instant.parse("2023-04-10T00:00:00Z"), 100.0, Set.of(pc),
                 "Description", "picUrl", valve, Set.of(action));
-        Game needForSpeedMW = new Game("Need For Speed: Most Wanted", Instant.parse("2012-10-30T00:00:00Z"), 80.0, pc
+        Game needForSpeedMW = new Game("Need For Speed: Most Wanted", Instant.parse("2012-10-30T00:00:00Z"), 80.0, Set.of(pc)
                 , "Descript", "picUrl", electronicArts, Set.of(racing));
-        Game needForSpeedU = new Game("Need For Speed: Underground", Instant.parse("2012-11-17T00:00:00Z"), 50.0, pc,
+        Game needForSpeedU = new Game("Need For Speed: Underground", Instant.parse("2012-11-17T00:00:00Z"), 50.0, Set.of(pc),
                 "Descript", "picUrl", electronicArts, Set.of(racing));
-        Game needForSpeedC = new Game("Need For Speed: Carbon", Instant.parse("2012-10-27T00:00:00Z"), 70.0, pc,
+        Game needForSpeedC = new Game("Need For Speed: Carbon", Instant.parse("2012-10-27T00:00:00Z"), 70.0, Set.of(pc),
                 "Descript", "picUrl", electronicArts, Set.of(racing));
 
         games = Map.of("Counter Strike", counterStrike, "Need For Speed MW", needForSpeedMW, "Need For Speed U",
@@ -59,16 +59,16 @@ public final class GameServiceTest {
         List<Game> gamesList = gameService.getAllGames();
 
         assertThat(gamesList).hasSize(2).extracting(Game::getName, game -> game.getReleaseDate().toString(),
-                Game::getPrice, Game::getPlatformName, Game::getDescription, Game::getPictureUrl,
+                Game::getPrice, Game::getDescription, Game::getPictureUrl,
                 Game::getPublisherName, game -> {
                     ArrayList<Genre> genres = new ArrayList<>(game.getGenres());
                     if (!genres.isEmpty()) {
                         return genres.get(0).getName();
                     }
                     return "";
-                }).contains(tuple("Counter Strike 2.0", "2023-04-10T00:00:00Z", 100.0, "PC", "Description", "picUrl",
+                }).contains(tuple("Counter Strike 2.0", "2023-04-10T00:00:00Z", 100.0, "Description", "picUrl",
                 "Valve"
-                , "ACTION"), tuple("Need For Speed: Most Wanted", "2012-10-30T00:00:00Z", 80.0, "PC", "Descript",
+                , "ACTION"), tuple("Need For Speed: Most Wanted", "2012-10-30T00:00:00Z", 80.0, "Descript",
                 "picUrl", "Electronic Arts", "RACING"));
     }
 
@@ -80,9 +80,9 @@ public final class GameServiceTest {
 
         Game foundGame = gameService.getGameById("Counter Strike");
         assertThat(foundGame).extracting(Game::getName, game -> game.getReleaseDate().toString(), Game::getPrice,
-                Game::getPlatformName, Game::getDescription, Game::getPictureUrl,
+                Game::getPlatforms, Game::getDescription, Game::getPictureUrl,
                 Game::getPublisherName).containsExactly(cs.getName(), cs.getReleaseDate().toString(),
-                cs.getPrice(), cs.getPlatformName(), cs.getDescription(), cs.getPictureUrl(),
+                cs.getPrice(), cs.getPlatforms(), cs.getDescription(), cs.getPictureUrl(),
                 cs.getPublisherName());
     }
 
@@ -93,7 +93,7 @@ public final class GameServiceTest {
                 , 1993, "Publisher description");
         Genre action = new Genre("ACTION");
         Genre adventure = new Genre("ADVENTURE");
-        Game godOfWar = new Game("God Of War", Instant.parse("2022-11-09T00:00:00Z"), 70.0, ps5, "Description",
+        Game godOfWar = new Game("God Of War", Instant.parse("2022-11-09T00:00:00Z"), 70.0, Set.of(ps5), "Description",
                 "picUrl", sonyInteractiveEntertainment, Set.of(action, adventure));
 
         when(gameRepository.findById(godOfWar.getName())).thenReturn(Optional.empty());
@@ -102,32 +102,10 @@ public final class GameServiceTest {
         Game newGame = gameService.addGame(godOfWar);
         verify(gameRepository).save(godOfWar);
         assertThat(newGame).extracting(Game::getName, game -> game.getReleaseDate().toString(), Game::getPrice,
-                Game::getPlatformName, Game::getDescription, Game::getPictureUrl,
+                Game::getPlatforms, Game::getDescription, Game::getPictureUrl,
                 Game::getPublisherName).containsExactly(godOfWar.getName(),
-                godOfWar.getReleaseDate().toString(), godOfWar.getPrice(), godOfWar.getPlatformName(),
+                godOfWar.getReleaseDate().toString(), godOfWar.getPrice(), godOfWar.getPlatforms(),
                 godOfWar.getDescription(), godOfWar.getPictureUrl(), godOfWar.getPublisherName());
-    }
-
-    @Test
-    public void shouldAddGameWithExistingName() {
-        Platform ps5 = new Platform("PS5");
-        Publisher electronicArts = new Publisher(2L, "Electronic Arts", "LogoPictureUrl", 2000, "Publisher " +
-                "description");
-        Genre racing = new Genre("RACING");
-        Game gameToAdd = new Game("Need For Speed: Most Wanted", Instant.parse("2012-10-30T00:00:00Z"), 80.0, ps5
-                , "Descript", "picUrl", electronicArts, Set.of(racing));
-        Game existingGame = games.get("Need For Speed MW");
-
-        when(gameRepository.findById(gameToAdd.getName())).thenReturn(Optional.of(existingGame));
-        when(gameRepository.save(gameToAdd)).thenReturn(gameToAdd);
-
-        Game newGame = gameService.addGame(gameToAdd);
-        verify(gameRepository).save(gameToAdd);
-        assertThat(newGame).extracting(Game::getName, game -> game.getReleaseDate().toString(), Game::getPrice,
-                Game::getPlatformName, Game::getDescription, Game::getPictureUrl,
-                Game::getPublisherName).containsExactly(gameToAdd.getName(),
-                gameToAdd.getReleaseDate().toString(), gameToAdd.getPrice(), gameToAdd.getPlatformName(),
-                gameToAdd.getDescription(), gameToAdd.getPictureUrl(), gameToAdd.getPublisherName());
     }
 
     @Test
@@ -136,10 +114,10 @@ public final class GameServiceTest {
         Publisher sonyInteractiveEntertainment = new Publisher(1L, "Sony Interactive Entertainment", "LogoPictureUrl"
                 , 1993, "Publisher description");
         Genre adventure = new Genre("ADVENTURE");
-        Game counterStrike = new Game("Counter Strike 2.0", Instant.parse("2023-04-10T00:00:00Z"), 100.0, pc,
+        Game counterStrike = new Game("Counter Strike 2.0", Instant.parse("2023-04-10T00:00:00Z"), 100.0, Set.of(pc),
                 "Description", "picUrl", sonyInteractiveEntertainment, Set.of(adventure));
 
-        when(gameRepository.findById(counterStrike.getName())).thenReturn(Optional.of(counterStrike));
+        when(gameRepository.existsById(counterStrike.getName())).thenReturn(true);
 
         assertThrows(EntityExistsException.class, () -> gameService.addGame(counterStrike));
     }
@@ -170,7 +148,7 @@ public final class GameServiceTest {
         Publisher electronicArts = new Publisher(1L, "Electronic Arts", "LogoPictureUrl", 2000, "Publisher " +
                 "description");
         Genre racing = new Genre("RACING");
-        Game updatedGame = new Game("Need For Speed: Underground", Instant.parse("2012-10-30T00:00:00Z"), 70.0, ps3,
+        Game updatedGame = new Game("Need For Speed: Underground", Instant.parse("2012-10-30T00:00:00Z"), 70.0, Set.of(ps3),
                 "Updated description", "picUrl", electronicArts, Set.of(racing));
 
         Game gameToUpdate = games.get("Need For Speed U");
@@ -179,9 +157,9 @@ public final class GameServiceTest {
         Game result = gameService.updateGame(updatedGame.getName(), updatedGame);
 
         assertThat(result).extracting(Game::getName, game -> game.getReleaseDate().toString(), Game::getPrice,
-                Game::getPlatformName, Game::getDescription, Game::getPictureUrl,
+                Game::getPlatforms, Game::getDescription, Game::getPictureUrl,
                 Game::getPublisherName).containsExactly(updatedGame.getName(),
-                updatedGame.getReleaseDate().toString(), updatedGame.getPrice(), updatedGame.getPlatformName(),
+                updatedGame.getReleaseDate().toString(), updatedGame.getPrice(), updatedGame.getPlatforms(),
                 updatedGame.getDescription(), updatedGame.getPictureUrl(), updatedGame.getPublisherName());
     }
 }

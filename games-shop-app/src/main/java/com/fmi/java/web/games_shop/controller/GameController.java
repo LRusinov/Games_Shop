@@ -47,19 +47,17 @@ public class GameController {
         return new ResponseEntity<>(newGame, HttpStatus.CREATED);
     }
 
-    private Game dtoToEntity(final GameDto gameDto) {
-        final Publisher publisher = publisherService.getPublisherByName(gameDto.publisher());
-        final Set<Genre> genres = gameDto.genres().stream().map(Genre::new).collect(Collectors.toSet());
-        final Set<Platform> platforms = gameDto.platforms().stream().map(Platform::new).collect(Collectors.toSet());
-        return new Game(gameDto.name(), gameDto.releaseDate(), gameDto.price(), platforms, gameDto.description(),
-                gameDto.picture(), publisher, genres);
-    }
-
     @DeleteMapping("/{name}")
     @ResponseBody
     public ResponseEntity<Boolean> deleteGame(@PathVariable final String name) {
         gameService.deleteGame(name);
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/{name}")
+    @ResponseBody
+    public Game updateGame(@PathVariable final String name, @RequestBody final GameDto gameDto) {
+        return gameService.updateGame(name, dtoToEntity(gameDto));
     }
 
     private GameDto entityToDto(final Game game) {
@@ -69,9 +67,11 @@ public class GameController {
                 game.getReleaseDate(), game.getPublisherName(), game.getPictureUrl());
     }
 
-    @PutMapping("/{name}")
-    @ResponseBody
-    public Game updateGame(@PathVariable final String name, @RequestBody final GameDto gameDto) {
-        return gameService.updateGame(name, dtoToEntity(gameDto));
+    private Game dtoToEntity(final GameDto gameDto) {
+        final Publisher publisher = publisherService.getPublisherByName(gameDto.publisher());
+        final Set<Genre> genres = gameDto.genres().stream().map(Genre::new).collect(Collectors.toSet());
+        final Set<Platform> platforms = gameDto.platforms().stream().map(Platform::new).collect(Collectors.toSet());
+        return new Game(gameDto.name(), gameDto.releaseDate(), gameDto.price(), platforms, gameDto.description(),
+                gameDto.picture(), publisher, genres);
     }
 }
