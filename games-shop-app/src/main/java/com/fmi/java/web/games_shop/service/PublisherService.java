@@ -12,6 +12,8 @@ import java.util.List;
 public class PublisherService {
     private final PublisherRepository publisherRepository;
 
+    private static final String EXCEPTIONMESSAGE = "Publisher with name \"%s\" does not exist.";
+
     public PublisherService(final PublisherRepository publisherRepository) {
         this.publisherRepository = publisherRepository;
     }
@@ -21,20 +23,20 @@ public class PublisherService {
     }
 
     public Publisher getPublisherByName(final String name) {
-        return publisherRepository.findByname(name).orElseThrow(() -> new EntityNotFoundException(String.format("Platform with name \"%s\" does not exist.", name)));
+        return publisherRepository.findByname(name).orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTIONMESSAGE, name)));
     }
 
     public Publisher addPublisher(final Publisher newPublisher) {
-
-        String publisherName= newPublisher.getName();
-        if(publisherRepository.findByname(publisherName).isPresent()){
-            throw new EntityExistsException(String.format("Publisher with name \"%s\" already exists.",publisherName));
-        }else{
-        return publisherRepository.save(newPublisher);}
+        String publisherName = newPublisher.getName();
+        if (publisherRepository.findByname(publisherName).isPresent()) {
+            throw new EntityExistsException(String.format("Publisher with name \"%s\" already exists.", publisherName));
+        } else {
+            return publisherRepository.save(newPublisher);
+        }
     }
 
     public void deletePublisher(final String name) {
-        final Publisher publisherToDelete = publisherRepository.findByname(name).orElseThrow(() -> new EntityNotFoundException(String.format("Platform with name \"%s\" does not exist.", name)));
+        final Publisher publisherToDelete = publisherRepository.findByname(name).orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTIONMESSAGE, name)));
         publisherRepository.delete(publisherToDelete);
     }
 }
