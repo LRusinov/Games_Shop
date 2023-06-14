@@ -31,15 +31,14 @@ public class GameService {
     public Game addGame(final Game newGame) {
         String gameName = newGame.getName();
         if (gameRepository.existsById(gameName)) {
-            throw new EntityExistsException(String.format(EXCEPTIONMESSAGE, gameName));
+            throw new EntityExistsException(String.format("Game with name \"%s\" already exists.", gameName));
         }
         return gameRepository.save(newGame);
     }
 
     public void deleteGame(final String name) {
         final Game gameToDelete =
-                gameRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format("Game with " +
-                        "name \"%s\" does not exist.", name)));
+                gameRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTIONMESSAGE, name)));
         gameRepository.delete(gameToDelete);
     }
 
@@ -52,9 +51,7 @@ public class GameService {
             game.setPictureUrl(updatedGame.getPictureUrl());
             game.setReleaseDate(updatedGame.getReleaseDate());
             game.setPrice(updatedGame.getPrice());
-            return gameRepository.save(game);
+            return gameRepository.save(updatedGame);
         }).orElseGet(() -> gameRepository.save(updatedGame));
     }
-
-
 }
