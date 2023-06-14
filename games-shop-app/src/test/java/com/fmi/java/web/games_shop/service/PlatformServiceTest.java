@@ -63,7 +63,8 @@ public final class PlatformServiceTest {
 
         when(platformRepository.existsById(newPlatform.getName())).thenReturn(true);
 
-        assertThrows(EntityExistsException.class, () -> platformService.addPlatform(newPlatform));
+        EntityExistsException exception = assertThrows(EntityExistsException.class, () -> platformService.addPlatform(newPlatform));
+        assertEquals(exception.getMessage(), (String.format("Platform \"%s\" already exists.", newPlatform.getName())));
     }
 
     @Test
@@ -79,9 +80,10 @@ public final class PlatformServiceTest {
     @Test
     public void deletePlatformShouldThrowException() {
         Platform platformToDelete = platforms.get("PS5");
-        
+
         when(platformRepository.findById(platformToDelete.getName())).thenReturn(Optional.empty());
 
-        assertThrows(EntityNotFoundException.class, () -> platformService.deletePlatform(platformToDelete.getName()));
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> platformService.deletePlatform(platformToDelete.getName()));
+        assertEquals(exception.getMessage(), (String.format("Platform with name \"%s\" does not exist.", platformToDelete.getName())));
     }
 }

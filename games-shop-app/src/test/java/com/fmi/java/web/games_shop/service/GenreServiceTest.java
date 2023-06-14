@@ -63,7 +63,8 @@ public final class GenreServiceTest {
         Genre newGenre = new Genre("OPEN-WORLD");
         when(genreRepository.existsById(newGenre.getName())).thenReturn(true);
 
-        assertThrows(EntityExistsException.class, () -> genreService.addGenre(newGenre));
+        EntityExistsException exception = assertThrows(EntityExistsException.class, () -> genreService.addGenre(newGenre));
+        assertEquals(exception.getMessage(), String.format("Genre \"%s\" already exists.", newGenre.getName()));
     }
 
     @Test
@@ -80,6 +81,8 @@ public final class GenreServiceTest {
         Genre genreToDelete = genres.get("SPORT");
         when(genreRepository.findById(genreToDelete.getName())).thenReturn(Optional.empty());
 
-        assertThrows(EntityNotFoundException.class, () -> genreService.deleteGenre(genreToDelete.getName()));
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> genreService.deleteGenre(genreToDelete.getName()));
+        assertEquals(exception.getMessage(), String.format("Genre " +
+                "with name \"%s\" does not exist.", genreToDelete.getName()));
     }
 }

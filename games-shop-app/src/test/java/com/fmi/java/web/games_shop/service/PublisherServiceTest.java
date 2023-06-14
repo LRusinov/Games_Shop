@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.tuple;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -28,7 +29,6 @@ public final class PublisherServiceTest {
 
     @BeforeAll
     public static void setUp() {
-
         Publisher valve = new Publisher(1L, "Valve", "LogoPictureUrl", 2000, "Publisher description");
         Publisher electronicArts = new Publisher(2L, "Electronic Arts", "LogoPictureUrl", 2000, "Publisher " +
                 "description");
@@ -67,6 +67,16 @@ public final class PublisherServiceTest {
     }
 
     @Test
+    public void getPublisherByNameShouldThrowException() {
+        Publisher valve = publishers.get("Valve");
+
+        when(publisherRepository.findByname("Valve")).thenReturn(Optional.empty());
+
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> publisherService.getPublisherByName(valve.getName()));
+        assertEquals(exception.getMessage(), String.format("Publisher with name \"%s\" does not exist.", valve.getName()));
+    }
+
+    @Test
     public void shouldAddPublisher() {
         Publisher sonyInteractiveEntertainment = new Publisher(3L, "Sony Interactive Entertainment", "LogoPictureUrl"
                 , 1993, "Publisher description");
@@ -91,7 +101,8 @@ public final class PublisherServiceTest {
 
         when(publisherRepository.findByname(sonyInteractiveEntertainment.getName())).thenReturn(Optional.of(sonyInteractiveEntertainment));
 
-        assertThrows(EntityExistsException.class, () -> publisherService.addPublisher(sonyInteractiveEntertainment));
+        EntityExistsException exception = assertThrows(EntityExistsException.class, () -> publisherService.addPublisher(sonyInteractiveEntertainment));
+        assertEquals(exception.getMessage(), String.format("Publisher with name \"%s\" already exists.", sonyInteractiveEntertainment.getName()));
     }
 
     @Test
@@ -109,8 +120,9 @@ public final class PublisherServiceTest {
         Publisher publisherToDelete = publishers.get("Ubisoft");
 
         when(publisherRepository.findByname(publisherToDelete.getName())).thenReturn(Optional.empty());
-        
-        assertThrows(EntityNotFoundException.class,
+
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
                 () -> publisherService.deletePublisher(publisherToDelete.getName()));
+        assertEquals(exception.getMessage(), String.format("Publisher with name \"%s\" does not exist.", publisherToDelete.getName()));
     }
 }

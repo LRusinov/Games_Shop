@@ -16,6 +16,7 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.tuple;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -119,7 +120,9 @@ public final class GameServiceTest {
 
         when(gameRepository.existsById(counterStrike.getName())).thenReturn(true);
 
-        assertThrows(EntityExistsException.class, () -> gameService.addGame(counterStrike));
+        EntityExistsException exception = assertThrows(EntityExistsException.class, () -> gameService.addGame(counterStrike));
+
+        assertEquals(exception.getMessage(), String.format("Game with name \"%s\" already exists.", counterStrike.getName()));
     }
 
     @Test
@@ -138,7 +141,8 @@ public final class GameServiceTest {
 
         when(gameRepository.findById(gameToDelete.getName())).thenReturn(Optional.empty());
 
-        assertThrows(EntityNotFoundException.class, () -> gameService.deleteGame(gameToDelete.getName()));
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> gameService.deleteGame(gameToDelete.getName()));
+        assertEquals(exception.getMessage(), String.format("Game with name \"%s\" does not exist.", gameToDelete.getName()));
     }
 
 
