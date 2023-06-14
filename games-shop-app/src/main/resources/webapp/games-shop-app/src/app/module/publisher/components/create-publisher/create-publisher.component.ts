@@ -21,10 +21,10 @@ export class CreatePublisherComponent {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      name: [null, [Validators.required]],
+      name: [null, [Validators.required, Validators.maxLength(40)]],
       yearOfCreation: [null, [Validators.required]],
       logoPictureUrl: [null, [Validators.required]],
-      description: [null, [Validators.required]],
+      description: [null, [Validators.required, Validators.maxLength(350)]],
     });
   }
 

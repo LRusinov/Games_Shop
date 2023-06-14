@@ -36,8 +36,14 @@ export class CreateGameComponent implements OnInit {
   ngOnInit(): void {
     this.initHelper();
     this.form = this.formBuilder.group({
-      name: [null, [Validators.required]],
-      price: [null, [Validators.required]],
+      name: [null, [Validators.required, Validators.maxLength(50)]],
+      price: [
+        null,
+        [
+          Validators.required,
+          Validators.pattern('^\\d{1,4}$|(?=^.{1,5}$)^\\d+.\\d{0,2}$'),
+        ],
+      ],
       description: [null, [Validators.required]],
       releaseDate: [null, [Validators.required]],
       publisher: [null, [Validators.required]],

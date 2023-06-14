@@ -21,7 +21,7 @@ export class CreateGenreComponent {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      name: [null, [Validators.required]],
+      name: [null, [Validators.required, Validators.maxLength(20)]],
     });
   }
 
