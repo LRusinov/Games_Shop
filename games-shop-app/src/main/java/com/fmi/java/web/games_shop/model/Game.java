@@ -83,10 +83,6 @@ public class Game {
         return pictureUrl;
     }
 
-    public Publisher getPublisher() {
-        return publisher;
-    }
-
     public String getPublisherName() {
         return publisher.getName();
     }
