@@ -85,7 +85,7 @@ class GenreServiceTest {
         when(genreRepository.findById(genreToDelete.getName())).thenReturn(Optional.empty());
 
         EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> genreService.deleteGenre(genreToDelete.getName()));
-        assertEquals(exception.getMessage(), String.format("Genre " +
-                "with name \"%s\" does not exist.", genreToDelete.getName()));
+        assertEquals(exception.getMessage(),
+                String.format("Genre " + "with name \"%s\" does not exist.", genreToDelete.getName()));
     }
 }

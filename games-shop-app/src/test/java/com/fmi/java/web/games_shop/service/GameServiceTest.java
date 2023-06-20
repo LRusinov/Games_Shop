@@ -86,32 +86,36 @@ class GameServiceTest {
 
         List<GameDto> gamesList = gameService.getAllGames();
 
-        assertThat(gamesList).hasSize(2).extracting(GameDto::name, game -> game.releaseDate().toString(),
-                GameDto::price, GameDto::description, GameDto::pictureUrl,
-                GameDto::publisher, game -> {
-                    ArrayList<String> genres = new ArrayList<>(game.genres());
-                    if (!genres.isEmpty()) {
-                        return genres.get(0);
-                    }
-                    return "";
-                }).contains(tuple("Counter Strike 2.0", "2023-04-10T00:00:00Z", 100.0, "Description", "picUrl",
-                "Valve"
-                , "ACTION"), tuple("Need For Speed: Most Wanted", "2012-10-30T00:00:00Z", 80.0, "Descript",
-                "picUrl", "Electronic Arts", "RACING"));
+        assertThat(gamesList)
+                .hasSize(2)
+                .extracting(GameDto::name, game -> game.releaseDate().toString(),
+                        GameDto::price, GameDto::description, GameDto::pictureUrl,
+                        GameDto::publisher, game -> {
+                            ArrayList<String> genres = new ArrayList<>(game.genres());
+                            if (!genres.isEmpty()) {
+                                return genres.get(0);
+                            }
+                            return "";
+                        })
+                .contains(tuple("Counter Strike 2.0", "2023-04-10T00:00:00Z", 100.0, "Description", "picUrl",
+                                "Valve", "ACTION"),
+                        tuple("Need For Speed: Most Wanted", "2012-10-30T00:00:00Z", 80.0, "Descript",
+                                "picUrl", "Electronic Arts", "RACING"));
     }
 
     @Test
-    public void shouldGetGameById() {//TODO platform and genres
+    public void shouldGetGameById() {
         Game cs = games.get("Counter Strike");
 
         when(gameRepository.findById("Counter Strike")).thenReturn(Optional.of(games.get("Counter Strike")));
 
         GameDto foundGame = gameService.getGameById("Counter Strike");
-        assertThat(foundGame).extracting(GameDto::name, game -> game.releaseDate().toString(), GameDto::price,
-                GameDto::description, GameDto::pictureUrl,
-                GameDto::publisher).containsExactly(cs.getName(), cs.getReleaseDate().toString(),
-                cs.getPrice(), cs.getDescription(), cs.getPictureUrl(),
-                cs.getPublisherName());
+        assertThat(foundGame).extracting(GameDto::name, GameDto::price, gameDto -> gameDto.genres().toArray().length,
+                        gameDto -> gameDto.platforms().toArray().length, GameDto::description, game -> game.releaseDate().toString(),
+                        GameDto::publisher, GameDto::pictureUrl)
+                .containsExactly(cs.getName(), cs.getGenres().toArray().length, cs.getPlatforms().toArray().length,
+                        cs.getPrice(), cs.getDescription(), cs.getReleaseDate().toString(),
+                        cs.getPublisherName(), cs.getPictureUrl());
     }
 
     @Test
@@ -128,10 +132,10 @@ class GameServiceTest {
 
         GameDto newGame = gameService.addGame(dtoGodOfWar);
         assertThat(newGame).extracting(GameDto::name, game -> game.releaseDate().toString(), GameDto::price,
-                GameDto::platforms, GameDto::description, GameDto::pictureUrl,
-                GameDto::publisher).containsExactly(dtoGodOfWar.name(),
-                dtoGodOfWar.releaseDate().toString(), dtoGodOfWar.price(), dtoGodOfWar.platforms(),
-                dtoGodOfWar.description(), dtoGodOfWar.pictureUrl(), dtoGodOfWar.publisher());
+                        GameDto::platforms, GameDto::description, GameDto::pictureUrl, GameDto::publisher)
+                .containsExactly(dtoGodOfWar.name(), dtoGodOfWar.releaseDate().toString(),
+                        dtoGodOfWar.price(), dtoGodOfWar.platforms(), dtoGodOfWar.description(),
+                        dtoGodOfWar.pictureUrl(), dtoGodOfWar.publisher());
     }
 
     @Test
@@ -184,9 +188,9 @@ class GameServiceTest {
         GameDto result = gameService.updateGame(updatedGame.name(), updatedGame);
 
         assertThat(result).extracting(GameDto::name, game -> game.releaseDate().toString(), GameDto::price,
-                GameDto::platforms, GameDto::description, GameDto::pictureUrl,
-                GameDto::publisher).containsExactly(updatedGame.name(),
-                updatedGame.releaseDate().toString(), updatedGame.price(), updatedGame.platforms(),
-                updatedGame.description(), updatedGame.pictureUrl(), updatedGame.publisher());
+                        GameDto::platforms, GameDto::description, GameDto::pictureUrl, GameDto::publisher)
+                .containsExactly(updatedGame.name(), updatedGame.releaseDate().toString(),
+                        updatedGame.price(), updatedGame.platforms(), updatedGame.description(),
+                        updatedGame.pictureUrl(), updatedGame.publisher());
     }
 }

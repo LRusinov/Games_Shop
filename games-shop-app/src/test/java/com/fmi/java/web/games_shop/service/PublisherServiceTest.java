@@ -31,11 +31,11 @@ class PublisherServiceTest {
 
     @BeforeAll
     public static void setUp() {
-        Publisher valve = new Publisher(1L, "Valve", "LogoPictureUrl", 2000, "Publisher description");
-        Publisher electronicArts = new Publisher(2L, "Electronic Arts", "LogoPictureUrl", 2000, "Publisher " +
-                "description");
-        Publisher ubisoft = new Publisher(3L, "Ubisoft",
-                "LogoPictureUrl", 1986,
+        Publisher valve = new Publisher(1L, "Valve", "LogoPictureUrl", 2000,
+                "Publisher description");
+        Publisher electronicArts = new Publisher(2L, "Electronic Arts", "LogoPictureUrl", 2000,
+                "Publisher description");
+        Publisher ubisoft = new Publisher(3L, "Ubisoft", "LogoPictureUrl", 1986,
                 "Description");
         publishers = Map.of("Valve", valve, "Electronic Arts", electronicArts, "Ubisoft", ubisoft);
 
@@ -50,10 +50,11 @@ class PublisherServiceTest {
 
         List<Publisher> publishersList = publisherService.getAllPublishers();
 
-        assertThat(publishersList).extracting(Publisher::getId, Publisher::getName, Publisher::getLogoPictureUrl,
-                Publisher::getYearOfCreation, Publisher::getDescription).contains(tuple(1L, "Valve", "LogoPictureUrl"
-                , 2000, "Publisher " + "description"), tuple(2L, "Electronic Arts", "LogoPictureUrl", 2000,
-                "Publisher " + "description"));
+        assertThat(publishersList)
+                .extracting(Publisher::getId, Publisher::getName, Publisher::getLogoPictureUrl,
+                        Publisher::getYearOfCreation, Publisher::getDescription)
+                .contains(tuple(1L, "Valve", "LogoPictureUrl", 2000, "Publisher " + "description"),
+                        tuple(2L, "Electronic Arts", "LogoPictureUrl", 2000, "Publisher " + "description"));
     }
 
     @Test
@@ -63,9 +64,11 @@ class PublisherServiceTest {
         when(publisherRepository.findByname("Valve")).thenReturn(Optional.of(publishers.get("Valve")));
 
         Publisher foundPublisher = publisherService.getPublisherByName("Valve");
-        assertThat(foundPublisher).extracting(Publisher::getId, Publisher::getName, Publisher::getLogoPictureUrl,
-                Publisher::getYearOfCreation, Publisher::getDescription).containsExactly(valve.getId(),
-                valve.getName(), valve.getLogoPictureUrl(), valve.getYearOfCreation(), valve.getDescription());
+        assertThat(foundPublisher)
+                .extracting(Publisher::getId, Publisher::getName, Publisher::getLogoPictureUrl,
+                        Publisher::getYearOfCreation, Publisher::getDescription)
+                .containsExactly(valve.getId(), valve.getName(), valve.getLogoPictureUrl(), valve.getYearOfCreation(),
+                        valve.getDescription());
     }
 
     @Test

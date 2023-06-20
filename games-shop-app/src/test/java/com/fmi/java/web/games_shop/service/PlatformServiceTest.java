@@ -85,7 +85,9 @@ class PlatformServiceTest {
 
         when(platformRepository.findById(platformToDelete.getName())).thenReturn(Optional.empty());
 
-        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> platformService.deletePlatform(platformToDelete.getName()));
-        assertEquals(exception.getMessage(), (String.format("Platform with name \"%s\" does not exist.", platformToDelete.getName())));
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
+                () -> platformService.deletePlatform(platformToDelete.getName()));
+        assertEquals(exception.getMessage(),
+                (String.format("Platform with name \"%s\" does not exist.", platformToDelete.getName())));
     }
 }
