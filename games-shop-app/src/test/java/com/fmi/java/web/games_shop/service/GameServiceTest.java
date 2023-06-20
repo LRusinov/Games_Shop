@@ -113,8 +113,8 @@ class GameServiceTest {
         assertThat(foundGame).extracting(GameDto::name, GameDto::price, gameDto -> gameDto.genres().toArray().length,
                         gameDto -> gameDto.platforms().toArray().length, GameDto::description, game -> game.releaseDate().toString(),
                         GameDto::publisher, GameDto::pictureUrl)
-                .containsExactly(cs.getName(), cs.getGenres().toArray().length, cs.getPlatforms().toArray().length,
-                        cs.getPrice(), cs.getDescription(), cs.getReleaseDate().toString(),
+                .containsExactly(cs.getName(), cs.getPrice(), cs.getGenres().toArray().length, cs.getPlatforms().toArray().length,
+                        cs.getDescription(), cs.getReleaseDate().toString(),
                         cs.getPublisherName(), cs.getPictureUrl());
     }
 
