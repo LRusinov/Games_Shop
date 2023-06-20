@@ -1,5 +1,6 @@
 package com.fmi.java.web.games_shop.service;
 
+import com.fmi.java.web.games_shop.dto.GenreDto;
 import com.fmi.java.web.games_shop.exception.EntityExistsException;
 import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Genre;
@@ -16,16 +17,16 @@ public class GenreService {
         this.genreRepository = genreRepository;
     }
 
-    public List<Genre> getAllGenres() {
-        return genreRepository.findAll();
+    public List<GenreDto> getAllGenres() {
+        return genreRepository.findAll().stream().map(this::entityToDto).toList();
     }
 
-    public Genre addGenre(final Genre newGenre) {
-        String genreName = newGenre.getName();
+    public GenreDto addGenre(final GenreDto newGenre) {
+        String genreName = newGenre.name();
         if (genreRepository.existsById(genreName)) {
             throw new EntityExistsException(String.format("Genre \"%s\" already exists.", genreName));
         } else {
-            return genreRepository.save(newGenre);
+            return entityToDto(genreRepository.save(dtoToEntity(newGenre)));
         }
     }
 
@@ -34,5 +35,13 @@ public class GenreService {
                 genreRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format("Genre " +
                         "with name \"%s\" does not exist.", name)));
         genreRepository.delete(genreToDelete);
+    }
+
+    private Genre dtoToEntity(GenreDto genreDto) {
+        return new Genre(genreDto.name());
+    }
+
+    private GenreDto entityToDto(Genre genre) {
+        return new GenreDto(genre.getName());
     }
 }

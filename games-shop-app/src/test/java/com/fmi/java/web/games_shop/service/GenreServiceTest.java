@@ -1,5 +1,6 @@
 package com.fmi.java.web.games_shop.service;
 
+import com.fmi.java.web.games_shop.dto.GenreDto;
 import com.fmi.java.web.games_shop.exception.EntityExistsException;
 import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Genre;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-public final class GenreServiceTest {
+class GenreServiceTest {
     @Mock
     private static GenreRepository genreRepository;
 
@@ -41,30 +42,32 @@ public final class GenreServiceTest {
     public void shouldGetAllGenres() {
         when(genreRepository.findAll()).thenReturn(List.of(genres.get("ACTION"), genres.get("RACING"), genres.get(
                 "ADVENTURE")));
-        List<Genre> genresList = genreService.getAllGenres();
+        List<GenreDto> genresList = genreService.getAllGenres();
 
-        assertThat(genresList).extracting(Genre::getName).contains("ACTION", "RACING", "ADVENTURE");
+        assertThat(genresList).extracting(GenreDto::name).contains("ACTION", "RACING", "ADVENTURE");
     }
 
     @Test
     public void shouldAddGenre() {
-        Genre newGenre = new Genre("HORROR");
+        Genre entityGenre = new Genre("HORROR");
+        GenreDto dtoGenre = new GenreDto("HORROR");
 
-        when(genreRepository.existsById(newGenre.getName())).thenReturn(false);
-        when(genreRepository.save(newGenre)).thenReturn(newGenre);
-        Genre result = genreService.addGenre(newGenre);
+        when(genreRepository.existsById(dtoGenre.name())).thenReturn(false);
+        when(genreRepository.save(entityGenre)).thenReturn(entityGenre);
+        GenreDto result = genreService.addGenre(dtoGenre);
 
-        verify(genreRepository).save(newGenre);
-        assertEquals(result.getName(), newGenre.getName());
+        verify(genreRepository).save(entityGenre);
+        assertEquals(entityGenre.getName(), result.name());
     }
 
     @Test
     public void addGenreShouldThrowException() {
-        Genre newGenre = new Genre("OPEN-WORLD");
-        when(genreRepository.existsById(newGenre.getName())).thenReturn(true);
+        GenreDto dtoGenre = new GenreDto("OPEN-WORLD");
 
-        EntityExistsException exception = assertThrows(EntityExistsException.class, () -> genreService.addGenre(newGenre));
-        assertEquals(exception.getMessage(), String.format("Genre \"%s\" already exists.", newGenre.getName()));
+        when(genreRepository.existsById(dtoGenre.name())).thenReturn(true);
+
+        EntityExistsException exception = assertThrows(EntityExistsException.class, () -> genreService.addGenre(dtoGenre));
+        assertEquals(exception.getMessage(), String.format("Genre \"%s\" already exists.", dtoGenre.name()));
     }
 
     @Test

@@ -1,7 +1,6 @@
 package com.fmi.java.web.games_shop.controller;
 
 import com.fmi.java.web.games_shop.dto.GenreDto;
-import com.fmi.java.web.games_shop.model.Genre;
 import com.fmi.java.web.games_shop.service.GenreService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +20,13 @@ public class GenreController {
 
     @GetMapping
     List<GenreDto> getAllGenres() {
-        return genreService.getAllGenres().stream().map(genre -> new GenreDto(genre.getName())).toList();
+        return genreService.getAllGenres().stream().map(genre -> new GenreDto(genre.name())).toList();
     }
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Genre> createGenre(@RequestBody final GenreDto genreDto) {
-        final Genre newGenre = genreService.addGenre(new Genre(genreDto.name()));
-        return new ResponseEntity<>(newGenre, HttpStatus.CREATED);
+    public ResponseEntity<GenreDto> createGenre(@RequestBody final GenreDto genreDto) {
+        return new ResponseEntity<>(genreService.addGenre(genreDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{name}")

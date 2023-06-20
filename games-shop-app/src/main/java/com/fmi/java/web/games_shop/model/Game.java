@@ -3,6 +3,7 @@ package com.fmi.java.web.games_shop.model;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -46,8 +47,8 @@ public class Game {
         //Needed for JPA.
     }
 
-    public Game(final String name, final Instant releaseDate, final double price, final Set<Platform> platforms,
-                final String description, final String pictureUrl, final Publisher publisher, final Set<Genre> genres) {
+    public Game(final String name, final double price, final Set<Genre> genres, final Set<Platform> platforms,
+                final String description, final Instant releaseDate, final Publisher publisher, final String pictureUrl) {
         this.name = name;
         this.releaseDate = releaseDate;
         this.price = price;
@@ -116,5 +117,18 @@ public class Game {
 
     public void setGenres(final Set<Genre> genres) {
         this.genres = genres;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return Double.compare(game.price, price) == 0 && Objects.equals(name, game.name) && Objects.equals(releaseDate, game.releaseDate) && Objects.equals(platforms, game.platforms) && Objects.equals(description, game.description) && Objects.equals(pictureUrl, game.pictureUrl) && Objects.equals(publisher, game.publisher) && Objects.equals(genres, game.genres);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, releaseDate, price, platforms, description, pictureUrl, publisher, genres);
     }
 }

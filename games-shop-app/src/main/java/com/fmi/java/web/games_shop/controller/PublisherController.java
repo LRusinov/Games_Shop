@@ -30,21 +30,10 @@ public class PublisherController {
         return entityToDto(publisherService.getPublisherByName(name));
     }
 
-    private PublisherDto entityToDto(final Publisher publisher) {
-        return new PublisherDto(publisher.getId(), publisher.getName(), publisher.getLogoPictureUrl(),
-                publisher.getYearOfCreation(), publisher.getDescription());
-    }
-
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Publisher> createPublisher(@RequestBody final PublisherDto publisherDto) {
-        final Publisher newPlatform = publisherService.addPublisher(dtoToEntity(publisherDto));
-        return new ResponseEntity<>(newPlatform, HttpStatus.CREATED);
-    }
-
-    private static Publisher dtoToEntity(final PublisherDto publisherDto) {
-        return new Publisher(publisherDto.id(), publisherDto.name(), publisherDto.logoPictureUrl(),
-                publisherDto.yearOfCreation(), publisherDto.description());
+    public ResponseEntity<PublisherDto> createPublisher(@RequestBody final PublisherDto publisherDto) {
+        return new ResponseEntity<>(publisherService.addPublisher(publisherDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{name}")
@@ -52,6 +41,10 @@ public class PublisherController {
     public ResponseEntity<Boolean> deletePublisher(@PathVariable final String name) {
         publisherService.deletePublisher(name);
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.ACCEPTED);
+    }
 
+    private PublisherDto entityToDto(final Publisher publisher) {
+        return new PublisherDto(publisher.getId(), publisher.getName(), publisher.getLogoPictureUrl(),
+                publisher.getYearOfCreation(), publisher.getDescription());
     }
 }

@@ -1,7 +1,6 @@
 package com.fmi.java.web.games_shop.controller;
 
 import com.fmi.java.web.games_shop.dto.PlatformDto;
-import com.fmi.java.web.games_shop.model.Platform;
 import com.fmi.java.web.games_shop.service.PlatformService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +21,14 @@ public class PlatformController {
 
     @GetMapping
     List<PlatformDto> getAllPlatforms() {
-        return platformService.getAllPlatforms().stream().map(platform -> new PlatformDto(platform.getName())).toList();
+        return platformService.getAllPlatforms().stream().map(platform -> new PlatformDto(platform.name())).toList();
     }
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Platform> createPlatform(@RequestBody final PlatformDto platformDto) {
-        final Platform newPlatform = platformService.addPlatform(new Platform(platformDto.name()));
-        return new ResponseEntity<>(newPlatform, HttpStatus.CREATED);
+    public ResponseEntity<PlatformDto> createPlatform(@RequestBody final PlatformDto platformDto) {
+
+        return new ResponseEntity<>(platformService.addPlatform(platformDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{name}")

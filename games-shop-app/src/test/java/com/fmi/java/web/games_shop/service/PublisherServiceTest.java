@@ -1,5 +1,6 @@
 package com.fmi.java.web.games_shop.service;
 
+import com.fmi.java.web.games_shop.dto.PublisherDto;
 import com.fmi.java.web.games_shop.exception.EntityExistsException;
 import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Publisher;
@@ -16,9 +17,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.tuple;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
-public final class PublisherServiceTest {
+class PublisherServiceTest {
 
     @Mock
     private static PublisherRepository publisherRepository;
@@ -78,31 +80,35 @@ public final class PublisherServiceTest {
 
     @Test
     public void shouldAddPublisher() {
-        Publisher sonyInteractiveEntertainment = new Publisher(3L, "Sony Interactive Entertainment", "LogoPictureUrl"
+        PublisherDto dtoPublisher = new PublisherDto(3L, "Sony Interactive Entertainment", "LogoPictureUrl"
+                , 1993, "Publisher description");
+        Publisher entityPublisher = new Publisher(3L, "Sony Interactive Entertainment", "LogoPictureUrl"
                 , 1993, "Publisher description");
 
-        when(publisherRepository.findByname(sonyInteractiveEntertainment.getName())).thenReturn(Optional.empty());
-        when(publisherRepository.save(sonyInteractiveEntertainment)).thenReturn(sonyInteractiveEntertainment);
-        Publisher newPublisher = publisherService.addPublisher(sonyInteractiveEntertainment);
+        when(publisherRepository.findByname(dtoPublisher.name())).thenReturn(Optional.empty());
+        given(publisherRepository.save(entityPublisher)).willReturn(entityPublisher);
+        PublisherDto newPublisher = publisherService.addPublisher(dtoPublisher);
 
-        verify(publisherRepository).save(sonyInteractiveEntertainment);
-        assertThat(newPublisher).extracting(Publisher::getId, Publisher::getName,
-                        Publisher::getLogoPictureUrl, Publisher::getYearOfCreation, Publisher::getDescription)
-                .containsExactly(sonyInteractiveEntertainment.getId(), sonyInteractiveEntertainment.getName(),
-                        sonyInteractiveEntertainment.getLogoPictureUrl(),
-                        sonyInteractiveEntertainment.getYearOfCreation(),
-                        sonyInteractiveEntertainment.getDescription());
+        verify(publisherRepository).save(entityPublisher);
+        assertThat(newPublisher).extracting(PublisherDto::id, PublisherDto::name,
+                        PublisherDto::logoPictureUrl, PublisherDto::yearOfCreation, PublisherDto::description)
+                .containsExactly(dtoPublisher.id(), dtoPublisher.name(),
+                        dtoPublisher.logoPictureUrl(),
+                        dtoPublisher.yearOfCreation(),
+                        dtoPublisher.description());
     }
 
     @Test
     public void addPublisherShouldThrowException() {
-        Publisher sonyInteractiveEntertainment = new Publisher(1L, "Sony Interactive Entertainment", "LogoPictureUrl"
+        PublisherDto dtoPublisher = new PublisherDto(1L, "Sony Interactive Entertainment", "LogoPictureUrl"
+                , 1993, "Publisher description");
+        Publisher entityPublisher = new Publisher(1L, "Sony Interactive Entertainment", "LogoPictureUrl"
                 , 1993, "Publisher description");
 
-        when(publisherRepository.findByname(sonyInteractiveEntertainment.getName())).thenReturn(Optional.of(sonyInteractiveEntertainment));
+        when(publisherRepository.findByname(dtoPublisher.name())).thenReturn(Optional.of(entityPublisher));
 
-        EntityExistsException exception = assertThrows(EntityExistsException.class, () -> publisherService.addPublisher(sonyInteractiveEntertainment));
-        assertEquals(exception.getMessage(), String.format("Publisher with name \"%s\" already exists.", sonyInteractiveEntertainment.getName()));
+        EntityExistsException exception = assertThrows(EntityExistsException.class, () -> publisherService.addPublisher(dtoPublisher));
+        assertEquals(exception.getMessage(), String.format("Publisher with name \"%s\" already exists.", dtoPublisher.name()));
     }
 
     @Test

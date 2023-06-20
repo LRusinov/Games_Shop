@@ -1,5 +1,6 @@
 package com.fmi.java.web.games_shop.service;
 
+import com.fmi.java.web.games_shop.dto.PlatformDto;
 import com.fmi.java.web.games_shop.exception.EntityExistsException;
 import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Platform;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-public final class PlatformServiceTest {
+class PlatformServiceTest {
 
     @Mock
     private static PlatformRepository platformRepository;
@@ -40,31 +41,32 @@ public final class PlatformServiceTest {
     @Test
     public void shouldGetAllPlatforms() {
         when(platformRepository.findAll()).thenReturn(List.of(platforms.get("PC"), platforms.get("PS4")));
-        List<Platform> platformsList = platformService.getAllPlatforms();
+        List<PlatformDto> platformsList = platformService.getAllPlatforms();
 
-        assertThat(platformsList).extracting(Platform::getName).contains("PC", "PS4");
+        assertThat(platformsList).extracting(PlatformDto::name).contains("PC", "PS4");
     }
 
     @Test
     public void shouldAddPlatform() {
-        Platform newPlatform = new Platform("XBOX ONE");
+        PlatformDto dtoPlatform = new PlatformDto("XBOX ONE");
+        Platform entityPlatform = new Platform("XBOX ONE");
 
-        when(platformRepository.existsById(newPlatform.getName())).thenReturn(false);
-        when(platformRepository.save(newPlatform)).thenReturn(newPlatform);
-        Platform result = platformService.addPlatform(newPlatform);
+        when(platformRepository.existsById(dtoPlatform.name())).thenReturn(false);
+        when(platformRepository.save(entityPlatform)).thenReturn(entityPlatform);
+        PlatformDto result = platformService.addPlatform(dtoPlatform);
 
-        verify(platformRepository).save(newPlatform);
-        assertEquals(result.getName(), newPlatform.getName());
+        verify(platformRepository).save(entityPlatform);
+        assertEquals(result.name(), dtoPlatform.name());
     }
 
     @Test
     public void addPlatformShouldThrowException() {
-        Platform newPlatform = new Platform("OPEN-WORLD");
+        PlatformDto newPlatform = new PlatformDto("OPEN-WORLD");
 
-        when(platformRepository.existsById(newPlatform.getName())).thenReturn(true);
+        when(platformRepository.existsById(newPlatform.name())).thenReturn(true);
 
         EntityExistsException exception = assertThrows(EntityExistsException.class, () -> platformService.addPlatform(newPlatform));
-        assertEquals(exception.getMessage(), (String.format("Platform \"%s\" already exists.", newPlatform.getName())));
+        assertEquals(exception.getMessage(), (String.format("Platform \"%s\" already exists.", newPlatform.name())));
     }
 
     @Test
