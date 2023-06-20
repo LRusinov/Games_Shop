@@ -124,7 +124,10 @@ public class Game {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
-        return Double.compare(game.price, price) == 0 && Objects.equals(name, game.name) && Objects.equals(releaseDate, game.releaseDate) && Objects.equals(platforms, game.platforms) && Objects.equals(description, game.description) && Objects.equals(pictureUrl, game.pictureUrl) && Objects.equals(publisher, game.publisher) && Objects.equals(genres, game.genres);
+        return Double.compare(game.price, price) == 0 && Objects.equals(name, game.name) &&
+                Objects.equals(releaseDate, game.releaseDate) && Objects.equals(platforms, game.platforms) &&
+                Objects.equals(description, game.description) && Objects.equals(pictureUrl, game.pictureUrl) &&
+                Objects.equals(publisher, game.publisher) && Objects.equals(genres, game.genres);
     }
 
     @Override

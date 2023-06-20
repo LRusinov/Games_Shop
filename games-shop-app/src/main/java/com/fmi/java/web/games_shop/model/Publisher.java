@@ -61,7 +61,9 @@ public class Publisher {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Publisher publisher = (Publisher) o;
-        return yearOfCreation == publisher.yearOfCreation && Objects.equals(id, publisher.id) && Objects.equals(name, publisher.name) && Objects.equals(logoPictureUrl, publisher.logoPictureUrl) && Objects.equals(description, publisher.description);
+        return yearOfCreation == publisher.yearOfCreation && Objects.equals(id, publisher.id) &&
+                Objects.equals(name, publisher.name) && Objects.equals(logoPictureUrl, publisher.logoPictureUrl) &&
+                Objects.equals(description, publisher.description);
     }
 
     @Override
