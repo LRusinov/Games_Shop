@@ -71,7 +71,7 @@ export class ViewGamesComponent implements OnInit {
         description: game.description,
         releaseDate: game.releaseDate,
         publisher: game.publisher,
-        picture: game.picture,
+        pictureUrl: game.pictureUrl,
         genres: game.genres,
       },
     });

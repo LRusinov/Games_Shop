@@ -47,7 +47,7 @@ export class CreateGameComponent implements OnInit {
       description: [null, [Validators.required]],
       releaseDate: [null, [Validators.required]],
       publisher: [null, [Validators.required]],
-      picture: [null, [Validators.required]],
+      pictureUrl: [null, [Validators.required]],
     });
   }
   initHelper() {
@@ -74,8 +74,8 @@ export class CreateGameComponent implements OnInit {
   get publisher() {
     return this.form.get('publisher');
   }
-  get picture() {
-    return this.form.get('picture');
+  get pictureUrl() {
+    return this.form.get('pictureUrl');
   }
   get releaseDate() {
     return this.form.get('releaseDate');
@@ -94,7 +94,7 @@ export class CreateGameComponent implements OnInit {
         this.description?.value,
         this.releaseDate?.value,
         this.publisher?.value,
-        this.picture?.value
+        this.pictureUrl?.value
       )
       .subscribe({
         next: (response) => {

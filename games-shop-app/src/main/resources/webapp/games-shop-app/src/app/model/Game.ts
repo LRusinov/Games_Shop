@@ -6,5 +6,5 @@ export interface Game {
   description: string;
   releaseDate: Date;
   publisher: string;
-  picture: string;
+  pictureUrl: string;
 }

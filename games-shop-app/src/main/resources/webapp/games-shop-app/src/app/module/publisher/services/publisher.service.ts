@@ -4,10 +4,9 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Publisher } from 'src/app/model/Publisher';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PublisherService {
-
   constructor(private readonly httpClient: HttpClient) {}
 
   getPublishers(): Observable<Publisher[]> {

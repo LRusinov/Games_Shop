@@ -22,7 +22,7 @@ export class GameService {
     description: string,
     releaseDate: Date,
     publisher: string,
-    picture: string
+    pictureUrl: string
   ): Observable<Game> {
     return this.httpClient.post<Game>(
       'http://localhost:8080/games-shop/games',
@@ -34,7 +34,7 @@ export class GameService {
         description,
         releaseDate,
         publisher,
-        picture,
+        pictureUrl,
       }
     );
   }
@@ -52,7 +52,7 @@ export class GameService {
     description: string,
     releaseDate: Date,
     publisher: string,
-    picture: string
+    pictureUrl: string
   ): Observable<Game> {
     return this.httpClient.put<Game>(
       `http://localhost:8080/games-shop/games/${name}`,
@@ -64,7 +64,7 @@ export class GameService {
         description,
         releaseDate,
         publisher,
-        picture,
+        pictureUrl,
       }
     );
   }

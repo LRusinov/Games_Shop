@@ -57,7 +57,7 @@ export class DialogComponent extends CreateGameComponent {
       description: [this.game.description, [Validators.required]],
       releaseDate: [this.game.releaseDate, [Validators.required]],
       publisher: [this.game.publisher, [Validators.required]],
-      picture: [this.game.picture, [Validators.required]],
+      pictureUrl: [this.game.pictureUrl, [Validators.required]],
     });
     this.checkedPlatforms = this.game.platforms;
     this.checkedGenres = this.game.genres;
@@ -76,11 +76,11 @@ export class DialogComponent extends CreateGameComponent {
         this.description?.value,
         this.releaseDate?.value,
         this.publisher?.value,
-        this.picture?.value
+        this.pictureUrl?.value
       )
       .subscribe();
     this.dialogRef.close();
-    window.location.reload();
+    // window.location.reload();
   }
 
   onNoClick(): void {
