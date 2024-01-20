@@ -74,7 +74,7 @@ public class ClientService {
                 clientRepository.save(client);
                 return newShoppingCartItems;
             }
-            throw new EntityNotFoundException(String.format("Client does not have shopping cart item '%s' to be deleted.", game.getName()));
+            throw new EntityNotFoundException(String.format("Client does not have shopping cart item \"%s\" to be deleted.", game.getName()));
         }).orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTION_MESSAGE, shoppingCartItemDTO.clientUsername())));
     }
 }
