@@ -24,13 +24,11 @@ public class GenreController {
     }
 
     @PostMapping
-    @ResponseBody
     public ResponseEntity<GenreDto> createGenre(@RequestBody final GenreDto genreDto) {
         return new ResponseEntity<>(genreService.addGenre(genreDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{name}")
-    @ResponseBody
     public ResponseEntity<Boolean> deleteGenre(@PathVariable final String name) {
         genreService.deleteGenre(name);
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.ACCEPTED);

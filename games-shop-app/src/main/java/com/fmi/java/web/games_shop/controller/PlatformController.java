@@ -25,14 +25,12 @@ public class PlatformController {
     }
 
     @PostMapping
-    @ResponseBody
     public ResponseEntity<PlatformDto> createPlatform(@RequestBody final PlatformDto platformDto) {
 
         return new ResponseEntity<>(platformService.addPlatform(platformDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{name}")
-    @ResponseBody
     public ResponseEntity<Boolean> deletePlatform(@PathVariable final String name) {
         platformService.deletePlatform(name);
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.ACCEPTED);

@@ -31,13 +31,11 @@ public class PublisherController {
     }
 
     @PostMapping
-    @ResponseBody
     public ResponseEntity<PublisherDto> createPublisher(@RequestBody final PublisherDto publisherDto) {
         return new ResponseEntity<>(publisherService.addPublisher(publisherDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{name}")
-    @ResponseBody
     public ResponseEntity<Boolean> deletePublisher(@PathVariable final String name) {
         publisherService.deletePublisher(name);
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.ACCEPTED);
