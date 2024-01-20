@@ -20,12 +20,12 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/shopping-cart/{username}")
     public ResponseEntity<Set<ShoppingCartItem>> getGameById(@PathVariable("username") final String username) {
         return new ResponseEntity<>(clientService.getAllShoppingCartItems(username), HttpStatus.OK);
     }
 
-    @PutMapping
+    @PutMapping("/shopping-cart")
     public ResponseEntity<Client> addToShoppingCart( @RequestBody final ShoppingCartItemDTO shoppingCartItemDTO) {
         return new ResponseEntity<>(clientService.addToShoppingCart(shoppingCartItemDTO), HttpStatus.OK);
     }
