@@ -12,6 +12,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { DialogComponent } from '../dialog/dialog.component';
+import { ClientService } from 'src/app/module/client/services/client.service';
 
 @Component({
   selector: 'app-view-games',
@@ -40,6 +41,7 @@ export class ViewGamesComponent implements OnInit {
     'expand',
     'edit',
     'delete',
+    'cart',
     'addGame',
   ];
   public dataSource = new MatTableDataSource<Game>();
@@ -49,6 +51,7 @@ export class ViewGamesComponent implements OnInit {
 
   constructor(
     private readonly gameService: GameService,
+    private readonly clientService: ClientService,
     public dialog: MatDialog
   ) {}
   ngOnInit(): void {
@@ -62,6 +65,9 @@ export class ViewGamesComponent implements OnInit {
     this.gameService.deleteGame(name).subscribe();
     window.location.reload();
   }
+
+  onCartClick(name: string): void {}
+
   openDialog(game: Game): void {
     this.dialog.open(DialogComponent, {
       data: {
