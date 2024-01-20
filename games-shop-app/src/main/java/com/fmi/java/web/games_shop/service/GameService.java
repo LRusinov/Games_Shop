@@ -11,13 +11,14 @@ import com.fmi.java.web.games_shop.repository.GameRepository;
 import com.fmi.java.web.games_shop.repository.GenreRepository;
 import com.fmi.java.web.games_shop.repository.PlatformRepository;
 import com.fmi.java.web.games_shop.repository.PublisherRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class GameService {
     private final GameRepository gameRepository;
@@ -28,22 +29,14 @@ public class GameService {
 
     private final PublisherRepository publisherRepository;
 
-    private static final String EXCEPTIONMESSAGE = "Game with name \"%s\" does not exist.";
-
-    @Autowired
-    public GameService(final GameRepository gameRepository, final PlatformRepository platformRepository, final GenreRepository genreRepository, final PublisherRepository publisherRepository) {
-        this.gameRepository = gameRepository;
-        this.platformRepository = platformRepository;
-        this.genreRepository = genreRepository;
-        this.publisherRepository = publisherRepository;
-    }
+    private static final String EXCEPTION_MESSAGE = "Game with name \"%s\" does not exist.";
 
     public List<GameDto> getAllGames() {
         return gameRepository.findAll().stream().map(this::entityToDto).toList();
     }
 
     public GameDto getGameById(final String name) {
-        Game foundGame = gameRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTIONMESSAGE, name)));
+        Game foundGame = gameRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTION_MESSAGE, name)));
         return entityToDto(foundGame);
     }
 
@@ -57,7 +50,7 @@ public class GameService {
 
     public void deleteGame(final String name) {
         final Game gameToDelete =
-                gameRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTIONMESSAGE, name)));
+                gameRepository.findById(name).orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTION_MESSAGE, name)));
         gameRepository.delete(gameToDelete);
     }
 
@@ -65,7 +58,7 @@ public class GameService {
         return gameRepository.findById(gameName).map(game -> {
             game.setDescription(updatedGame.description());
             game.setGenres(updatedGame.genres().stream().map(this::findGenreByName).collect(Collectors.toSet()));
-            game.setPlatform(updatedGame.platforms().stream().map(this::findPlatformByName).collect(Collectors.toSet()));
+            game.setPlatforms(updatedGame.platforms().stream().map(this::findPlatformByName).collect(Collectors.toSet()));
             game.setPublisher(findPublisherByName(updatedGame.publisher()));
             game.setPictureUrl(updatedGame.pictureUrl());
             game.setReleaseDate(updatedGame.releaseDate());
@@ -86,13 +79,13 @@ public class GameService {
                 game.getReleaseDate(), game.getPublisherName(), game.getPictureUrl());
     }
 
-    private Game dtoToEntity(final GameDto gameDto) {
+    public Game dtoToEntity(final GameDto gameDto) {
         final Publisher publisher = findPublisherByName(gameDto.publisher());
         final Set<Genre> genres = gameDto.genres().stream().map(this::findGenreByName).collect(Collectors.toSet());
         final Set<Platform> platforms = gameDto.platforms().stream().map(this::findPlatformByName).collect(Collectors.toSet());
 
-        return new Game(gameDto.name(), gameDto.price(), genres, platforms, gameDto.description(),
-                gameDto.releaseDate(), publisher, gameDto.pictureUrl());
+        return new Game(gameDto.name(), gameDto.releaseDate(), gameDto.price(), platforms, gameDto.description(),
+                gameDto.pictureUrl(), publisher, genres);
     }
 
     private Genre findGenreByName(String genreName) {
@@ -107,7 +100,7 @@ public class GameService {
     }
 
     private Publisher findPublisherByName(String publisherName) {
-        return publisherRepository.findByname(publisherName).orElseThrow(() -> new EntityNotFoundException(String.format("Publisher with name \"%s\" " +
-                "does not exist.", publisherName)));
+        return publisherRepository.findByname(publisherName)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Publisher with name \"%s\" " + "does not exist.", publisherName)));
     }
 }

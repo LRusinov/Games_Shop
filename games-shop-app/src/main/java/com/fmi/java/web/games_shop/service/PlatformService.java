@@ -5,17 +5,15 @@ import com.fmi.java.web.games_shop.exception.EntityExistsException;
 import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Platform;
 import com.fmi.java.web.games_shop.repository.PlatformRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class PlatformService {
     private final PlatformRepository platformRepository;
-
-    public PlatformService(final PlatformRepository platformRepository) {
-        this.platformRepository = platformRepository;
-    }
 
     public List<PlatformDto> getAllPlatforms() {
         return platformRepository.findAll().stream().map(this::entityToDto).toList();

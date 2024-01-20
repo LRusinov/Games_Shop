@@ -5,26 +5,24 @@ import com.fmi.java.web.games_shop.exception.EntityExistsException;
 import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Publisher;
 import com.fmi.java.web.games_shop.repository.PublisherRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class PublisherService {
     private final PublisherRepository publisherRepository;
 
-    private static final String EXCEPTIONMESSAGE = "Publisher with name \"%s\" does not exist.";
-
-    public PublisherService(final PublisherRepository publisherRepository) {
-        this.publisherRepository = publisherRepository;
-    }
+    private static final String EXCEPTION_MESSAGE = "Publisher with name \"%s\" does not exist.";
 
     public List<Publisher> getAllPublishers() {
         return publisherRepository.findAll();
     }
 
     public Publisher getPublisherByName(final String name) {
-        return publisherRepository.findByname(name).orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTIONMESSAGE, name)));
+        return publisherRepository.findByname(name).orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTION_MESSAGE, name)));
     }
 
     public PublisherDto addPublisher(final PublisherDto newPublisher) {
@@ -37,7 +35,7 @@ public class PublisherService {
     }
 
     public void deletePublisher(final String name) {
-        final Publisher publisherToDelete = publisherRepository.findByname(name).orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTIONMESSAGE, name)));
+        final Publisher publisherToDelete = publisherRepository.findByname(name).orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTION_MESSAGE, name)));
         publisherRepository.delete(publisherToDelete);
     }
 

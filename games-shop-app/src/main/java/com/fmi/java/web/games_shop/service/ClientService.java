@@ -6,23 +6,19 @@ import com.fmi.java.web.games_shop.model.Client;
 import com.fmi.java.web.games_shop.model.Game;
 import com.fmi.java.web.games_shop.model.ShoppingCartItem;
 import com.fmi.java.web.games_shop.repository.ClientRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class ClientService {
     private final ClientRepository clientRepository;
     private final ShoppingCartItemService shoppingCartItemService;
     private final GameService gameService;
     private static final String EXCEPTION_MESSAGE = "Client with username \"%s\" does not exist.";
-
-    public ClientService(ClientRepository clientRepository, ShoppingCartItemService shoppingCartItemService, GameService gameService) {
-        this.clientRepository = clientRepository;
-        this.shoppingCartItemService = shoppingCartItemService;
-        this.gameService = gameService;
-    }
 
     public Set<ShoppingCartItem> getAllShoppingCartItems(final String username){
         Client client = clientRepository.findById(username)

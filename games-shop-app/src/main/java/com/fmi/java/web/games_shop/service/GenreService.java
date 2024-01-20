@@ -5,17 +5,15 @@ import com.fmi.java.web.games_shop.exception.EntityExistsException;
 import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Genre;
 import com.fmi.java.web.games_shop.repository.GenreRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class GenreService {
     private final GenreRepository genreRepository;
-
-    public GenreService(final GenreRepository genreRepository) {
-        this.genreRepository = genreRepository;
-    }
 
     public List<GenreDto> getAllGenres() {
         return genreRepository.findAll().stream().map(this::entityToDto).toList();
