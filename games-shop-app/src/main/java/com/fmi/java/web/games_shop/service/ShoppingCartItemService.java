@@ -1,6 +1,7 @@
 package com.fmi.java.web.games_shop.service;
 
 import com.fmi.java.web.games_shop.model.ShoppingCartItem;
+import com.fmi.java.web.games_shop.model.ShoppingCartItemId;
 import com.fmi.java.web.games_shop.repository.ShoppingCartItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,5 +14,9 @@ public class ShoppingCartItemService {
 
     public ShoppingCartItem addShoppingCartItem(final ShoppingCartItem shoppingCartItem) {
         return shoppingCartItemRepository.save(shoppingCartItem);
+    }
+
+    public void removedShoppingCartItem(final ShoppingCartItemId shoppingCartItemId) {
+        shoppingCartItemRepository.deleteById(shoppingCartItemId);
     }
 }

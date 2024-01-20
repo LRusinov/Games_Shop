@@ -26,7 +26,12 @@ public class ClientController {
     }
 
     @PutMapping("/shopping-cart")
-    public ResponseEntity<Client> addToShoppingCart( @RequestBody final ShoppingCartItemDTO shoppingCartItemDTO) {
+    public ResponseEntity<Set<ShoppingCartItem>> addToShoppingCart(@RequestBody final ShoppingCartItemDTO shoppingCartItemDTO) {
         return new ResponseEntity<>(clientService.addToShoppingCart(shoppingCartItemDTO), HttpStatus.OK);
+    }
+
+    @PostMapping("/shopping-cart")
+    public ResponseEntity<Set<ShoppingCartItem>> removeFromShoppingCart(@RequestBody final ShoppingCartItemDTO shoppingCartItemDTO) {
+        return new ResponseEntity<>(clientService.removeFromShoppingCart(shoppingCartItemDTO), HttpStatus.OK);
     }
 }

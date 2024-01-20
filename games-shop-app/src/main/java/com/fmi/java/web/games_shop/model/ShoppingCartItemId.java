@@ -7,6 +7,7 @@ import java.util.Objects;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @EqualsAndHashCode
 public class ShoppingCartItemId implements Serializable {
 
