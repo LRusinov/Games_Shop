@@ -17,7 +17,7 @@ public class Client {
     private String password;
 
     @OneToMany(mappedBy = "client")
-    private Set<ShoppingCartItem> shoppingCart;
+    private Set<ShoppingCartItem> shoppingCartItems;
 
     protected Client() {
         //Needed for JPA.
@@ -44,6 +44,14 @@ public class Client {
         this.password = password;
     }
 
+    public Set<ShoppingCartItem> getShoppingCartItems() {
+        return shoppingCartItems;
+    }
+
+    public void setShoppingCartItems(Set<ShoppingCartItem> shoppingCartItems) {
+        this.shoppingCartItems = shoppingCartItems;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,8 +59,7 @@ public class Client {
 
         Client client = (Client) o;
 
-        if (!Objects.equals(username, client.username)) return false;
-        return Objects.equals(password, client.password);
+        return Objects.equals(username, client.username);
     }
 
     @Override
