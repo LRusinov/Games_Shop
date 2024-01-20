@@ -1,43 +1,43 @@
-  table {
-    width: 100%;
-  }
-  
-  tr.detail-row {
-    height: 0;
-  }
-  
-  tr.element-row:not(.expanded-row):hover {
-    background: rgba(166, 166, 166, 0.189);
-  }
-  
-  tr.element-row:not(.expanded-row):active {
-    background: rgba(166, 166, 166, 0.646);
-  }
-  
-  .element-detail {
-    overflow: hidden;
-    display: flex;
-  }
-  
-  .element-description {
-    padding: 16px;
-  }
-  
-  .image{
-    width: 20%;
-    height: 20%;
-  }
-  .description{
-    font-size: medium;
-    width: 50%;
-    padding-left: 5%;
-  }
+table {
+  width: 100%;
+}
 
-  .delete-button{
-    padding-left: 1px;
-  }
-  
-  .header-cell {
-    background-color: #7411bb!important;
-    color: white;
-  }
+tr.detail-row {
+  height: 0;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: rgba(166, 166, 166, 0.189);
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: rgba(166, 166, 166, 0.646);
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.element-description {
+  padding: 16px;
+}
+
+.image {
+  width: 20%;
+  height: 20%;
+}
+.description {
+  font-size: medium;
+  width: 50%;
+  padding-left: 5%;
+}
+
+.delete-button {
+  padding-left: 1px;
+}
+
+.header-cell {
+  background-color: #7411bb !important;
+  color: white;
+}
