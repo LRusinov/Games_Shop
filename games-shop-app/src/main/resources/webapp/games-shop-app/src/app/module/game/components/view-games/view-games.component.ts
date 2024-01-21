@@ -66,7 +66,9 @@ export class ViewGamesComponent implements OnInit {
     window.location.reload();
   }
 
-  onCartClick(name: string): void {}
+  onCartClick(name: string): void {
+    this.clientService.addToShoppingCart(name, 'user').subscribe();
+  }
 
   openDialog(game: Game): void {
     this.dialog.open(DialogComponent, {

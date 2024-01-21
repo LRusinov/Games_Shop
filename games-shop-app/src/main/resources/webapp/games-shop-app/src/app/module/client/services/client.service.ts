@@ -14,4 +14,30 @@ export class ClientService {
       `http://localhost:8080/games-shop/client/shopping-cart/${username}`
     );
   }
+
+  addToShoppingCart(
+    gameName: string,
+    clientUsername: string
+  ): Observable<ShoppingCartItem[]> {
+    return this.httpClient.put<ShoppingCartItem[]>(
+      'http://localhost:8080/games-shop/client/shopping-cart',
+      {
+        clientUsername,
+        gameName,
+      }
+    );
+  }
+
+  removeFromShoppingCart(
+    gameName: string,
+    clientUsername: string
+  ): Observable<ShoppingCartItem[]> {
+    return this.httpClient.post<ShoppingCartItem[]>(
+      'http://localhost:8080/games-shop/client/shopping-cart',
+      {
+        clientUsername,
+        gameName,
+      }
+    );
+  }
 }

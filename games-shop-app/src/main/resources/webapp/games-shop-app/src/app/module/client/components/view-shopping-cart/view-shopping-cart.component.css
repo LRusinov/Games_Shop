@@ -1,0 +1,24 @@
+.mat-column-name {
+  padding-left: 16px;
+  font-size: 25px;
+}
+
+.mat-column-quantity {
+  padding-left: 16px;
+  font-size: 30px;
+}
+
+.mat-column-price {
+  padding-left: 16px;
+  font-size: 30px;
+}
+
+.mat-column-multiplied-price {
+  padding-left: 16px;
+  font-size: 30px;
+}
+
+.image {
+  max-width: 30%;
+  max-height: 30%;
+}

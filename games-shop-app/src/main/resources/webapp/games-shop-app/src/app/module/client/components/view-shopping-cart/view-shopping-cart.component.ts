@@ -1,20 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ClientService } from '../../services/client.service';
 import { ShoppingCartItem } from 'src/app/model/ShoppingCartItem';
+import { MatTableDataSource } from '@angular/material/table';
+import { isNgTemplate } from '@angular/compiler';
 
 @Component({
   selector: 'app-view-shopping-cart',
   templateUrl: './view-shopping-cart.component.html',
   styleUrls: ['./view-shopping-cart.component.css'],
 })
-export class ViewShoppingCartComponent {
+export class ViewShoppingCartComponent implements OnInit {
   cartItems: ShoppingCartItem[] = [];
+  columnsToDisplay = [
+    'name',
+    'picture',
+    'price',
+    'quantity',
+    'multiplied-price',
+  ];
+  public dataSource = new MatTableDataSource<ShoppingCartItem>();
 
   constructor(private readonly clientService: ClientService) {}
 
   ngOnInit(): void {
     this.clientService.getShoppingCartItems('user').subscribe((response) => {
       this.cartItems = response;
+      this.dataSource.data = this.cartItems;
     });
+  }
+
+  onAddClick(name: string): void {
+    this.clientService.addToShoppingCart(name, 'user').subscribe((response) => {
+      this.cartItems = response;
+      this.dataSource.data = this.cartItems;
+    });
+  }
+
+  onRemoveClick(name: string): void {
+    this.clientService
+      .removeFromShoppingCart(name, 'user')
+      .subscribe((response) => {
+        this.cartItems = response;
+        this.dataSource.data = this.cartItems;
+      });
+  }
+
+  getTotalCost(): number {
+    return this.cartItems
+      .map((item) => item.game.price * item.quantity)
+      .reduce((acc, value) => acc + value, 0);
   }
 }
