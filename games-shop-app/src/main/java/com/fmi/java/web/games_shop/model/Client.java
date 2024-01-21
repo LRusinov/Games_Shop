@@ -2,7 +2,9 @@ package com.fmi.java.web.games_shop.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.UuidGenerator;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,14 +17,22 @@ import java.util.Set;
 public class Client {
 
     @Id
-    @Column(name = "USERNAME", length = 30, nullable = false)
     @EqualsAndHashCode.Include
-    private String username;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID", nullable = false)
+    private int id;
 
-    @Column(name = "PASSWORD", length = 20, nullable = false)
-    @EqualsAndHashCode.Include
-    private String password;
+    @OneToOne
+    @JoinColumn(name = "USERNAME")
+    private Login login;
 
     @OneToMany(mappedBy = "client")
     private Set<ShoppingCartItem> shoppingCartItems;
+
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders;
+
+    public String getUsername(){
+        return login.getUsername();
+    }
 }
