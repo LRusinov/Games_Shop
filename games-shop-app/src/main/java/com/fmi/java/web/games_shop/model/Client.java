@@ -17,11 +17,12 @@ import java.util.Set;
 public class Client {
 
     @Id
+    @EqualsAndHashCode.Include
     @Column(name = "USERNAME")
     private String username;
 
     @OneToMany(mappedBy = "client")
-    private Set<ShoppingCartItem> shoppingCartItems;
+    private List<ShoppingCartItem> shoppingCartItems;
 
     @OneToMany(mappedBy = "client")
     private List<Order> orders;

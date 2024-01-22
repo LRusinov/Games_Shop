@@ -26,7 +26,7 @@ public class ClientController {
     }
 
     @GetMapping("/shopping-cart/{username}")
-    public ResponseEntity<Set<ShoppingCartItemDTO>> getShoppingCartItems(@PathVariable("username") final String username) {
+    public ResponseEntity<List<ShoppingCartItemDTO>> getShoppingCartItems(@PathVariable("username") final String username) {
         return new ResponseEntity<>(clientService.getAllShoppingCartItems(username), HttpStatus.OK);
     }
 
@@ -41,12 +41,12 @@ public class ClientController {
     }
 
     @PutMapping("/shopping-cart")
-    public ResponseEntity<Set<ShoppingCartItemDTO>> addToShoppingCart(@RequestBody final ShoppingCartItemRequestDTO shoppingCartItemDTO) {
+    public ResponseEntity<List<ShoppingCartItemDTO>> addToShoppingCart(@RequestBody final ShoppingCartItemRequestDTO shoppingCartItemDTO) {
         return new ResponseEntity<>(clientService.addToShoppingCart(shoppingCartItemDTO), HttpStatus.OK);
     }
 
     @PostMapping("/shopping-cart")
-    public ResponseEntity<Set<ShoppingCartItemDTO>> removeFromShoppingCart(@RequestBody final ShoppingCartItemRequestDTO shoppingCartItemDTO) {
+    public ResponseEntity<List<ShoppingCartItemDTO>> removeFromShoppingCart(@RequestBody final ShoppingCartItemRequestDTO shoppingCartItemDTO) {
         return new ResponseEntity<>(clientService.removeFromShoppingCart(shoppingCartItemDTO), HttpStatus.OK);
     }
 }

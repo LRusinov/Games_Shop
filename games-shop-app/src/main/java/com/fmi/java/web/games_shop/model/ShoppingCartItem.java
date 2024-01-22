@@ -20,7 +20,6 @@ public class ShoppingCartItem {
     @EqualsAndHashCode.Include
     private Game game;
 
-    @JsonIgnore
     @Id
     @ManyToOne
     @JoinColumn(name = "CLIENT_USERNAME", referencedColumnName = "USERNAME")

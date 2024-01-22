@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,10 +23,11 @@ public class ClientService {
     private final GameService gameService;
     private static final String EXCEPTION_MESSAGE = "Client with username \"%s\" does not exist.";
 
-    public Set<ShoppingCartItemDTO> getAllShoppingCartItems(final String username) {
+    public List<ShoppingCartItemDTO> getAllShoppingCartItems(final String username) {
         Client client = clientRepository.findById(username)
                 .orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTION_MESSAGE, username)));
-        return client.getShoppingCartItems().stream().map(this::convertToDto).collect(Collectors.toSet());
+
+        return client.getShoppingCartItems().stream().map(this::convertToDto).toList();
     }
 
     public List<OrderDTO> getOrderHistory(final String username) {
@@ -43,36 +45,33 @@ public class ClientService {
         return convertToDto(newOrder);
     }
 
-    public Set<ShoppingCartItemDTO> addToShoppingCart(final ShoppingCartItemRequestDTO shoppingCartItemDTO) {
+    public List<ShoppingCartItemDTO> addToShoppingCart(final ShoppingCartItemRequestDTO shoppingCartItemDTO) {
         return clientRepository.findById(shoppingCartItemDTO.clientUsername()).map(client -> {
-            Set<ShoppingCartItem> shoppingCartItems = client.getShoppingCartItems();
+            List<ShoppingCartItem> shoppingCartItems = client.getShoppingCartItems();
 
             Game game = gameService.dtoToEntity(gameService.getGameById(shoppingCartItemDTO.gameName()));
             ShoppingCartItem shoppingCartItemToAdd = new ShoppingCartItem(game, client, 1);
 
-            if (shoppingCartItems.contains(shoppingCartItemToAdd)) {
-                client.setShoppingCartItems(shoppingCartItems.stream().map(item -> {
-                    if (shoppingCartItemDTO.gameName().equals(item.getGame().getName())) {
-                        item.setQuantity(item.getQuantity() + 1);
-                    }
-                    return item;
-                }).collect(Collectors.toSet()));
+            int indexOfItem= shoppingCartItems.indexOf(shoppingCartItemToAdd);
+            if (indexOfItem != -1) {
+                shoppingCartItems.get(indexOfItem).setQuantity(shoppingCartItems.get(indexOfItem).getQuantity() + 1);
             } else {
                 shoppingCartItems.add(shoppingCartItemService.addShoppingCartItem(shoppingCartItemToAdd));
             }
             clientRepository.save(client);
-            return shoppingCartItems.stream().map(this::convertToDto).collect(Collectors.toSet());
+            return shoppingCartItems.stream().map(this::convertToDto).toList();
         }).orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTION_MESSAGE, shoppingCartItemDTO.clientUsername())));
     }
 
-    public Set<ShoppingCartItemDTO> removeFromShoppingCart(final ShoppingCartItemRequestDTO shoppingCartItemDTO) {
+    public List<ShoppingCartItemDTO> removeFromShoppingCart(final ShoppingCartItemRequestDTO shoppingCartItemDTO) {
         return clientRepository.findById(shoppingCartItemDTO.clientUsername()).map(client -> {
-            Set<ShoppingCartItem> shoppingCartItems = client.getShoppingCartItems();
+            List<ShoppingCartItem> shoppingCartItems = client.getShoppingCartItems();
             Game game = gameService.dtoToEntity(gameService.getGameById(shoppingCartItemDTO.gameName()));
             ShoppingCartItem shoppingCartItemToBeRemove = new ShoppingCartItem(game, client, 1);
 
-            if (shoppingCartItems.contains(shoppingCartItemToBeRemove)) {
-                Set<ShoppingCartItem> newShoppingCartItems = new HashSet<>();
+            int indexOfItem= shoppingCartItems.indexOf(shoppingCartItemToBeRemove);
+            if (indexOfItem != -1) {
+                List<ShoppingCartItem> newShoppingCartItems = new ArrayList<>();
                 for (ShoppingCartItem item : shoppingCartItems) {
                     if (shoppingCartItemDTO.gameName().equals(item.getGame().getName())) {
                         if (item.getQuantity() != 1) {
@@ -80,14 +79,14 @@ public class ClientService {
                             newShoppingCartItems.add(item);
                         } else {
                             shoppingCartItemService.removedShoppingCartItem(new ShoppingCartItemId(game.getName(), client.getUsername()));
-                            continue;
                         }
+                        continue;
                     }
                     newShoppingCartItems.add(item);
                 }
                 client.setShoppingCartItems(newShoppingCartItems);
                 clientRepository.save(client);
-                return newShoppingCartItems.stream().map(this::convertToDto).collect(Collectors.toSet());
+                return newShoppingCartItems.stream().map(this::convertToDto).toList();
             }
             throw new EntityNotFoundException(String.format("Client does not have shopping cart item \"%s\" to be deleted.", game.getName()));
         }).orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTION_MESSAGE, shoppingCartItemDTO.clientUsername())));
