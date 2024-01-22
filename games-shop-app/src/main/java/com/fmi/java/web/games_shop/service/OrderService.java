@@ -5,6 +5,7 @@ import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Order;
 import com.fmi.java.web.games_shop.model.OrderItem;
 import com.fmi.java.web.games_shop.model.ShoppingCartItemId;
+import com.fmi.java.web.games_shop.repository.OrderItemRepository;
 import com.fmi.java.web.games_shop.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final GameService gameService;
     private final ShoppingCartItemService shoppingCartItemService;
+    private final OrderItemService orderItemService;
 
     public Order getOrder(final int orderId){
         return orderRepository.findById(orderId)
@@ -25,8 +27,13 @@ public class OrderService {
 
     public Order createOrder(String clientUsername, Order order){
         List<OrderItem> orderItems = order.getOrderItems();
-        orderItems.forEach(orderItem -> shoppingCartItemService.removedShoppingCartItem(new ShoppingCartItemId(orderItem.getGame().getName(), clientUsername)));
-        return orderRepository.save(order);
+        Order newOrder = orderRepository.save(order);
+        orderItems.forEach(orderItem -> {
+            orderItem.setOrder(newOrder);
+            orderItemService.createOrderItem(orderItem);
+            shoppingCartItemService.removedShoppingCartItem(new ShoppingCartItemId(orderItem.getGame().getName(), clientUsername));
+        });
+        return newOrder;
     }
 
     public Order completeOrder(Order order){

@@ -30,6 +30,8 @@ public class Order {
     @Column(name = "DATE_OF_ARRIVAL")
     private Instant dateOfArrival;
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(name ="STATUS")
     private OrderStatus status;
 
     @Column(name = "TOTAL_PRICE")
