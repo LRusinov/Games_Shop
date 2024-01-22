@@ -4,20 +4,15 @@ import com.fmi.java.web.games_shop.dto.OrderDTO;
 import com.fmi.java.web.games_shop.dto.PurchaseOrderDTO;
 import com.fmi.java.web.games_shop.dto.ShoppingCartItemDTO;
 import com.fmi.java.web.games_shop.dto.ShoppingCartItemRequestDTO;
-import com.fmi.java.web.games_shop.model.Order;
-import com.fmi.java.web.games_shop.model.OrderItem;
-import com.fmi.java.web.games_shop.model.ShoppingCartItem;
 import com.fmi.java.web.games_shop.service.ClientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/games-shop/client")
-@CrossOrigin(origins = "http://localhost:4200")
 public class ClientController {
     private final ClientService clientService;
 

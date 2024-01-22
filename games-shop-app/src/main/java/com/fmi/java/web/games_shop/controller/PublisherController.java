@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/games-shop/publishers")
-@CrossOrigin(origins = "http://localhost:4200")
 public class PublisherController {
 
     private final PublisherService publisherService;

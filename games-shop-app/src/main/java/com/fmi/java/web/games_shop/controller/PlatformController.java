@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/games-shop/platforms")
-@CrossOrigin(origins = "http://localhost:4200")
 public class PlatformController {
 
     private final PlatformService platformService;
