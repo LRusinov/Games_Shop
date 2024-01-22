@@ -23,7 +23,7 @@ public class ShoppingCartItem {
     @JsonIgnore
     @Id
     @ManyToOne
-    @JoinColumn(name = "CLIENT_USERNAME")
+    @JoinColumn(name = "CLIENT_USERNAME", referencedColumnName = "USERNAME")
     @EqualsAndHashCode.Include
     private Client client;
 

@@ -254,6 +254,4 @@ VALUES ('The Witcher 3: Wild Hunt', 'PC');
 INSERT INTO GAME_PLATFORM (GAME_NAME, PLATFORM_NAME)
 VALUES ('Sons of the Forest', 'PC');
 
-INSERT INTO LOGIN (USERNAME, PASSWORD) values ('user', 'user');
-
 INSERT INTO CLIENT (USERNAME) values ('user');

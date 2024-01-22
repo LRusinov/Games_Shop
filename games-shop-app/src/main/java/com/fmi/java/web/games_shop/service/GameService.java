@@ -71,7 +71,7 @@ public class GameService {
 
     }
 
-    private GameDto entityToDto(final Game game) {
+    public GameDto entityToDto(final Game game) {
         final Set<String> platforms = game.getPlatforms().stream().map(Platform::getName).collect(Collectors.toSet());
         final Set<String> genres = game.getGenres().stream().map(Genre::getName).collect(Collectors.toSet());
 

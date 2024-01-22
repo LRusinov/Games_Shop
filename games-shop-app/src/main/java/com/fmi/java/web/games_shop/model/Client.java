@@ -17,14 +17,8 @@ import java.util.Set;
 public class Client {
 
     @Id
-    @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false)
-    private int id;
-
-    @OneToOne
-    @JoinColumn(name = "USERNAME")
-    private Login login;
+    @Column(name = "USERNAME")
+    private String username;
 
     @OneToMany(mappedBy = "client")
     private Set<ShoppingCartItem> shoppingCartItems;
@@ -32,7 +26,4 @@ public class Client {
     @OneToMany(mappedBy = "client")
     private List<Order> orders;
 
-    public String getUsername(){
-        return login.getUsername();
-    }
 }
