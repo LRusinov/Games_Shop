@@ -5,12 +5,11 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "PURCHASE_ORDER")
@@ -31,12 +30,10 @@ public class Order {
     @Column(name = "DATE_OF_ARRIVAL")
     private Instant dateOfArrival;
 
-    @ManyToOne
-    @JoinColumn(name = "STATUS")
     private OrderStatus status;
 
     @Column(name = "TOTAL_PRICE")
-    private int totalPrice;
+    private double totalPrice;
 
     @JsonIgnore
     @ManyToOne
@@ -45,4 +42,30 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
+
+    public Order(Instant dateOfCreation, Instant dateOfArrival, Client client, List<OrderItem> orderItems) {
+        this.dateOfCreation = dateOfCreation;
+        estimateDateOfArrival();
+        this.dateOfArrival = dateOfArrival;
+        setOrderStatus(dateOfArrival);
+        calculateTotalPrice(orderItems);
+        this.client = client;
+        this.orderItems = orderItems;
+    }
+
+    private void estimateDateOfArrival() {
+        this.estimatedDate = Instant.now().plus(7, ChronoUnit.DAYS);
+    }
+
+    private void calculateTotalPrice(List<OrderItem> orderItems){
+        this.totalPrice = orderItems.stream().mapToDouble(item->item.getQuantity() * item.getGame().getPrice()).sum();
+    }
+
+    private void setOrderStatus(Instant dateOfArrival) {
+        if(dateOfArrival == null){
+            this.status = OrderStatus.IN_PROGRESS;
+            return;
+        }
+        this.status = OrderStatus.COMPLETED;
+    }
 }

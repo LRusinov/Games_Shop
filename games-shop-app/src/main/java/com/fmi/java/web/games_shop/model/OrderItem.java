@@ -5,7 +5,6 @@ import lombok.*;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "ORDER_ITEM")
@@ -27,4 +26,8 @@ public class OrderItem {
 
     private int quantity;
 
+    public OrderItem(Game game, int quantity) {
+        this.game = game;
+        this.quantity = quantity;
+    }
 }
