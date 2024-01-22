@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Game } from 'src/app/model/Game';
 import { Platform } from 'src/app/model/Platform';
-import { GameService } from 'src/app/module/game/services/game.service';
 import { PlatformService } from '../../services/platform.service';
 
 @Component({

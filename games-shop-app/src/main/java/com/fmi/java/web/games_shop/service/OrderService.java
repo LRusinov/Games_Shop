@@ -5,7 +5,6 @@ import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Order;
 import com.fmi.java.web.games_shop.model.OrderItem;
 import com.fmi.java.web.games_shop.model.ShoppingCartItemId;
-import com.fmi.java.web.games_shop.repository.OrderItemRepository;
 import com.fmi.java.web.games_shop.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

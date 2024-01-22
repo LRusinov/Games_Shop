@@ -3,8 +3,6 @@ package com.fmi.java.web.games_shop.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Objects;
-
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor

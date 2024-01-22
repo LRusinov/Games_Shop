@@ -3,7 +3,6 @@ package com.fmi.java.web.games_shop.model;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

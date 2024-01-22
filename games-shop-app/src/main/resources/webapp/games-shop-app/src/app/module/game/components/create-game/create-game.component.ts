@@ -8,7 +8,7 @@ import { GenreService } from 'src/app/module/genre/services/genre.service';
 import { PlatformService } from 'src/app/module/platform/services/platform.service';
 import { PublisherService } from 'src/app/module/publisher/services/publisher.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
