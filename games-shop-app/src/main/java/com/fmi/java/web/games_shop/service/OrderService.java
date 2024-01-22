@@ -1,5 +1,6 @@
 package com.fmi.java.web.games_shop.service;
 
+import com.fmi.java.web.games_shop.dto.OrderItemDTO;
 import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Order;
 import com.fmi.java.web.games_shop.model.OrderItem;
@@ -14,6 +15,7 @@ import java.util.List;
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final GameService gameService;
     private final ShoppingCartItemService shoppingCartItemService;
 
     public Order getOrder(final int orderId){
@@ -21,13 +23,17 @@ public class OrderService {
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Order with id \"%d\" does not exist.", orderId)));
     }
 
-    public Order createOrder(Order order){
+    public Order createOrder(String clientUsername, Order order){
         List<OrderItem> orderItems = order.getOrderItems();
-        orderItems.forEach(orderItem -> shoppingCartItemService.removedShoppingCartItem(new ShoppingCartItemId(orderItem.getGame().getName(), orderItem.getOrder().getClient().getUsername())));
+        orderItems.forEach(orderItem -> shoppingCartItemService.removedShoppingCartItem(new ShoppingCartItemId(orderItem.getGame().getName(), clientUsername)));
         return orderRepository.save(order);
     }
 
     public Order completeOrder(Order order){
         return orderRepository.save(order);
+    }
+
+    private OrderItem convertToEntity(final OrderItemDTO orderItemDTO) {
+        return new OrderItem(gameService.dtoToEntity(gameService.getGameById(orderItemDTO.gameName())), orderItemDTO.quantity());
     }
 }

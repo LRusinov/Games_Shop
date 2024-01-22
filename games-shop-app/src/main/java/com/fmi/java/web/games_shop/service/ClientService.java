@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -21,7 +18,7 @@ public class ClientService {
     private final ShoppingCartItemService shoppingCartItemService;
     private final OrderService orderService;
     private final GameService gameService;
-    private static final String EXCEPTION_MESSAGE = "Client with username \"%s\" does not exist.";
+    private static final String EXCEPTION_MESSAGE = "Client with clientUsername \"%s\" does not exist.";
 
     public List<ShoppingCartItemDTO> getAllShoppingCartItems(final String username) {
         Client client = clientRepository.findById(username)
@@ -37,9 +34,9 @@ public class ClientService {
     }
 
     public OrderDTO addOrder(PurchaseOrderDTO purchaseOrderDTO) {
-        Client client = clientRepository.findById(purchaseOrderDTO.username())
-                .orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTION_MESSAGE, purchaseOrderDTO.username())));
-        Order newOrder = orderService.createOrder(new Order(Instant.now(), null, client, purchaseOrderDTO.orderItems().stream().map(this::convertToEntity).toList()));
+        Client client = clientRepository.findById(purchaseOrderDTO.clientUsername())
+                .orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTION_MESSAGE, purchaseOrderDTO.clientUsername())));
+        Order newOrder = orderService.createOrder(purchaseOrderDTO.clientUsername(), new Order(Instant.now(), null, client, purchaseOrderDTO.orderItems().stream().map(this::convertToEntity).toList()));
         client.getOrders().add(newOrder);
         clientRepository.save(client);
         return convertToDto(newOrder);
