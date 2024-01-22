@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { OrderItem } from 'src/app/model/OrderItem';
+import { PurchaseOrder } from 'src/app/model/PurchaseOrder';
 import { ShoppingCartItem } from 'src/app/model/ShoppingCartItem';
 
 @Injectable({
@@ -37,6 +39,19 @@ export class ClientService {
       {
         clientUsername,
         gameName,
+      }
+    );
+  }
+
+  createOrder(
+    clientUsername: string,
+    orderItems: OrderItem[]
+  ): Observable<PurchaseOrder> {
+    return this.httpClient.put<PurchaseOrder>(
+      'http://localhost:8080/games-shop/client/order',
+      {
+        clientUsername,
+        orderItems,
       }
     );
   }

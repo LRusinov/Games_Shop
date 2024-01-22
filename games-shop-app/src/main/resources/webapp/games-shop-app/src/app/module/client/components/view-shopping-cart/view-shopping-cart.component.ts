@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClientService } from '../../services/client.service';
 import { ShoppingCartItem } from 'src/app/model/ShoppingCartItem';
 import { MatTableDataSource } from '@angular/material/table';
-import { isNgTemplate } from '@angular/compiler';
+import { OrderItem } from 'src/app/model/OrderItem';
 
 @Component({
   selector: 'app-view-shopping-cart',
@@ -43,6 +43,17 @@ export class ViewShoppingCartComponent implements OnInit {
         this.cartItems = response;
         this.dataSource.data = this.cartItems;
       });
+  }
+
+  onSubmitOrderClick(): void {
+    const orderItems: OrderItem[] = this.cartItems.map((cartItem) => {
+      return {
+        gameName: cartItem.game.name,
+        quantity: cartItem.quantity,
+      };
+    });
+    this.clientService.createOrder('user', orderItems).subscribe();
+    window.location.reload();
   }
 
   getTotalCost(): number {
