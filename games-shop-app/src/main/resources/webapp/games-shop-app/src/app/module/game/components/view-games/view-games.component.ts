@@ -13,6 +13,7 @@ import {
 } from '@angular/animations';
 import { DialogComponent } from '../dialog/dialog.component';
 import { ClientService } from 'src/app/module/client/services/client.service';
+import { User } from 'src/app/model/Client';
 
 @Component({
   selector: 'app-view-games',
@@ -48,6 +49,7 @@ export class ViewGamesComponent implements OnInit {
   expandedElement: Game | null = null;
   @ViewChild(MatSort)
   sort: MatSort = new MatSort();
+  user = new User();
 
   constructor(
     private readonly gameService: GameService,
@@ -60,6 +62,7 @@ export class ViewGamesComponent implements OnInit {
       this.dataSource.data = this.games;
       this.dataSource.sort = this.sort;
     });
+    this.user = JSON.parse(sessionStorage.getItem('userdetails')!);
   }
   onDeleteClick(name: string): void {
     this.gameService.deleteGame(name).subscribe();

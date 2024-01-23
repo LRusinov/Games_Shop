@@ -40,7 +40,16 @@
 
   <ng-container matColumnDef="addGame">
     <th mat-header-cell *matHeaderCellDef class="header-cell">
-      <button mat-icon-button matTooltip="Add game" routerLink="create/">
+      <button
+        mat-icon-button
+        matTooltip="Add game"
+        *ngIf="
+          user != undefined &&
+          user.authStatus == 'AUTH' &&
+          user.role != 'CUSTOMER'
+        "
+        routerLink="create/"
+      >
         <mat-icon>add_circle</mat-icon>
       </button>
     </th>
@@ -71,6 +80,11 @@
     <td mat-cell *matCellDef="let element">
       <button
         mat-icon-button
+        *ngIf="
+          user != undefined &&
+          user.authStatus == 'AUTH' &&
+          user.role != 'CUSTOMER'
+        "
         (click)="openDialog(element); $event.stopPropagation()"
       >
         <mat-icon>edit</mat-icon>
@@ -82,6 +96,11 @@
     <td mat-cell *matCellDef="let element">
       <button
         mat-icon-button
+        *ngIf="
+          user != undefined &&
+          user.authStatus == 'AUTH' &&
+          user.role == 'CUSTOMER'
+        "
         (click)="onCartClick(element.name); $event.stopPropagation()"
       >
         <mat-icon>add_shopping_cart</mat-icon>
@@ -93,6 +112,11 @@
     <td mat-cell *matCellDef="let element">
       <button
         mat-icon-button
+        *ngIf="
+          user != undefined &&
+          user.authStatus == 'AUTH' &&
+          user.role != 'CUSTOMER'
+        "
         (click)="onDeleteClick(element.name); $event.stopPropagation()"
       >
         <mat-icon>delete</mat-icon>

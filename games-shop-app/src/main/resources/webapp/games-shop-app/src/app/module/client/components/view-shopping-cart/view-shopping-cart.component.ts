@@ -3,6 +3,7 @@ import { ClientService } from '../../services/client.service';
 import { ShoppingCartItem } from 'src/app/model/ShoppingCartItem';
 import { MatTableDataSource } from '@angular/material/table';
 import { OrderItem } from 'src/app/model/OrderItem';
+import { User } from 'src/app/model/Client';
 
 @Component({
   selector: 'app-view-shopping-cart',
@@ -23,10 +24,18 @@ export class ViewShoppingCartComponent implements OnInit {
   constructor(private readonly clientService: ClientService) {}
 
   ngOnInit(): void {
-    this.clientService.getShoppingCartItems('user').subscribe((response) => {
-      this.cartItems = response;
-      this.dataSource.data = this.cartItems;
-    });
+    const user: User =
+      sessionStorage.getItem('userdetails') != undefined
+        ? JSON.parse(sessionStorage.getItem('userdetails')!)
+        : undefined;
+    if (user != undefined) {
+      this.clientService
+        .getShoppingCartItems(user.username)
+        .subscribe((response) => {
+          this.cartItems = response;
+          this.dataSource.data = this.cartItems;
+        });
+    }
   }
 
   onAddClick(name: string): void {

@@ -16,4 +16,11 @@ export class LoginService {
       withCredentials: true,
     });
   }
+
+  logout() {
+    window.sessionStorage.clear();
+    return this.http.post(environment.rooturl + '/games-shop/logout', {
+      withCredentials: true,
+    });
+  }
 }

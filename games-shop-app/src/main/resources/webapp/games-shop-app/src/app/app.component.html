@@ -9,11 +9,28 @@
   </button>
   <button
     mat-icon-button
-    *ngIf="user.authStatus == 'AUTH'"
+    *ngIf="user.authStatus == 'AUTH' && user.role == 'CUSTOMER'"
     routerLinkActive="active"
     routerLink="shopping-cart/"
   >
     <mat-icon>shopping_cart</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    *ngIf="user.authStatus != 'AUTH'"
+    routerLinkActive="active"
+    routerLink="login/"
+  >
+    <mat-icon>perm_identity</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    *ngIf="user.authStatus == 'AUTH'"
+    (click)="onLogoutClick()"
+    routerLinkActive="active"
+    routerLink=""
+  >
+    <mat-icon>exit_to_app</mat-icon>
   </button>
   <button
     mat-icon-button

@@ -12,6 +12,7 @@ import { PublisherService } from 'src/app/module/publisher/services/publisher.se
 import { LoginService } from '../../services/login.service';
 import { User } from 'src/app/model/Client';
 import { getCookie } from 'typescript-cookie';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -53,13 +54,12 @@ export class LoginComponent {
           'Authorization',
           responseData.headers.get('Authorization')!
         );
-        console.log(window.sessionStorage.getItem('Authorization'));
         this.user = <any>responseData.body;
         this.user.authStatus = 'AUTH';
         window.sessionStorage.setItem('userdetails', JSON.stringify(this.user));
         let xsrf = getCookie('XSRF-TOKEN')!;
         window.sessionStorage.setItem('XSRF-TOKEN', xsrf);
-        // this.router.navigate(['']);
+        this.router.navigate(['game']);
       });
   }
   onNoClick() {}
