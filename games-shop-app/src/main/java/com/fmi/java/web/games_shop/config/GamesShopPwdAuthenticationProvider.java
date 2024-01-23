@@ -1,5 +1,6 @@
 package com.fmi.java.web.games_shop.config;
 
+import com.fmi.java.web.games_shop.dto.ClientDTO;
 import com.fmi.java.web.games_shop.model.Client;
 import com.fmi.java.web.games_shop.service.ClientService;
 import lombok.AllArgsConstructor;
@@ -27,14 +28,14 @@ public class GamesShopPwdAuthenticationProvider implements AuthenticationProvide
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
-        Client client = clientService.findClientByUsername(username)
+        ClientDTO clientDTO = clientService.findClientByUsername(username)
                 .orElseThrow(() -> new BadCredentialsException("No user registered with this credentials!"));
 
-        if (!passwordEncoder.matches(password, client.getPassword())) {
+        if (!passwordEncoder.matches(password, clientDTO.password())) {
             throw new BadCredentialsException("Invalid password.");
         }
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(client.getRole().name()));
+        authorities.add(new SimpleGrantedAuthority(clientDTO.role().name()));
         return new UsernamePasswordAuthenticationToken(username, password, authorities);
     }
 

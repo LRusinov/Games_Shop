@@ -24,8 +24,16 @@ public class ClientService {
     private final PasswordEncoder passwordEncoder;
     private static final String EXCEPTION_MESSAGE = "Client with clientUsername \"%s\" does not exist.";
 
-    public Optional<Client> findClientByUsername(String username){
-        return  clientRepository.findById(username);
+    public Optional<ClientDTO> findClientByUsername(String username){
+        return  entityToDto(clientRepository.findById(username));
+    }
+
+    private static Optional<ClientDTO> entityToDto(Optional<Client> client){
+        if(client.isPresent()){
+            Client c = client.get();
+            return Optional.of( new ClientDTO(c.getUsername(), c.getPassword(), c.getRole()));
+        }
+       return Optional.empty();
     }
 
     public boolean registerClient(ClientDTO clientDTO){
