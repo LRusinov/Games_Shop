@@ -13,7 +13,8 @@ export class ClientService {
 
   getShoppingCartItems(username: string): Observable<ShoppingCartItem[]> {
     return this.httpClient.get<ShoppingCartItem[]>(
-      `http://localhost:8080/games-shop/client/shopping-cart/${username}`
+      `http://localhost:8080/games-shop/client/shopping-cart/${username}`,
+      { withCredentials: true }
     );
   }
 
@@ -26,6 +27,7 @@ export class ClientService {
       {
         clientUsername,
         gameName,
+        withCredentials: true,
       }
     );
   }
@@ -39,6 +41,7 @@ export class ClientService {
       {
         clientUsername,
         gameName,
+        withCredentials: true,
       }
     );
   }
@@ -52,6 +55,7 @@ export class ClientService {
       {
         clientUsername,
         orderItems,
+        withCredentials: true,
       }
     );
   }

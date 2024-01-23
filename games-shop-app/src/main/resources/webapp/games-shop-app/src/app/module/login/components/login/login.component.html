@@ -1,0 +1,43 @@
+<div mat-dialog-content>
+  <form novalidate [formGroup]="loginForm">
+    <table>
+      <div class="title-containter">
+        <h1 class="title">Login</h1>
+      </div>
+      <tr>
+        <td>
+          <mat-form-field>
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username" required />
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              formControlName="password"
+              type="password"
+              required
+            />
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-raised-button
+    class="form-button"
+    color="primary"
+    (click)="onNoClick()"
+  >
+    Cancel
+  </button>
+  <button mat-raised-button class="form-button" (click)="onLogin()">
+    Login
+  </button>
+</div>

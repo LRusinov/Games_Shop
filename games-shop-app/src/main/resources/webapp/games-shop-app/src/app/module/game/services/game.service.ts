@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Game } from 'src/app/model/Game';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
   constructor(private readonly httpClient: HttpClient) {}
 
-  getGames(): Observable<Game[]> {
+  getGames() {
     return this.httpClient.get<Game[]>(
       'http://localhost:8080/games-shop/games'
     );
@@ -35,12 +36,14 @@ export class GameService {
         releaseDate,
         publisher,
         pictureUrl,
+        withCredentials: true,
       }
     );
   }
   deleteGame(name: string): Observable<Game> {
     return this.httpClient.delete<Game>(
-      `http://localhost:8080/games-shop/games/${name}`
+      `http://localhost:8080/games-shop/games/${name}`,
+      { withCredentials: true }
     );
   }
 
@@ -65,6 +68,7 @@ export class GameService {
         releaseDate,
         publisher,
         pictureUrl,
+        withCredentials: true,
       }
     );
   }

@@ -7,23 +7,53 @@
   <button mat-icon-button routerLink="game/">
     <mat-icon>videogame_asset</mat-icon>
   </button>
-  <button mat-icon-button routerLink="shopping-cart/">
+  <button
+    mat-icon-button
+    *ngIf="user.authStatus == 'AUTH'"
+    routerLinkActive="active"
+    routerLink="shopping-cart/"
+  >
     <mat-icon>shopping_cart</mat-icon>
   </button>
-  <button mat-icon-button [matMenuTriggerFor]="menu">
+  <button
+    mat-icon-button
+    *ngIf="user.authStatus == 'AUTH' && user.role != 'CUSTOMER'"
+    routerLinkActive="active"
+    [matMenuTriggerFor]="menu"
+  >
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="game/create/">
+    <button
+      mat-menu-item
+      *ngIf="user.authStatus == 'AUTH' && user.role != 'CUSTOMER'"
+      routerLinkActive="active"
+      routerLink="game/create/"
+    >
       <span>Add game</span>
     </button>
-    <button mat-menu-item routerLink="add-genre/">
+    <button
+      mat-menu-item
+      *ngIf="user.authStatus == 'AUTH' && user.role != 'CUSTOMER'"
+      routerLinkActive="active"
+      routerLink="add-genre/"
+    >
       <span>Add genre </span>
     </button>
-    <button mat-menu-item routerLink="add-publisher/">
+    <button
+      mat-menu-item
+      *ngIf="user.authStatus == 'AUTH' && user.role != 'CUSTOMER'"
+      routerLinkActive="active"
+      routerLink="add-publisher/"
+    >
       <span>Add publisher</span>
     </button>
-    <button mat-menu-item routerLink="add-platform">
+    <button
+      mat-menu-item
+      *ngIf="user.authStatus == 'AUTH' && user.role != 'CUSTOMER'"
+      routerLinkActive="active"
+      routerLink="add-platform"
+    >
       <span>Add platform</span>
     </button>
   </mat-menu>

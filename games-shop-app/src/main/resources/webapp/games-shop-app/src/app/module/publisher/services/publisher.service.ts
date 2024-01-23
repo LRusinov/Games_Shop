@@ -11,7 +11,8 @@ export class PublisherService {
 
   getPublishers(): Observable<Publisher[]> {
     return this.httpClient.get<Publisher[]>(
-      'http://localhost:8080/games-shop/publishers'
+      'http://localhost:8080/games-shop/publishers',
+      { withCredentials: true }
     );
   }
 
@@ -28,6 +29,7 @@ export class PublisherService {
         yearOfCreation,
         description,
         logoPictureUrl,
+        withCredentials: true,
       }
     );
   }
