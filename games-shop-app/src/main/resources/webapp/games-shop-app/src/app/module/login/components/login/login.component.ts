@@ -25,6 +25,7 @@ export class LoginComponent {
   user: User = new User();
 
   constructor(
+    public readonly snackBar: MatSnackBar,
     private fb: FormBuilder,
     private readonly loginService: LoginService,
     private router: Router
@@ -48,20 +49,26 @@ export class LoginComponent {
     this.user.password = this.password?.value;
     console.log(this.user);
 
-    this.loginService
-      .validateLoginDetails(this.user)
-      .subscribe((responseData) => {
+    this.loginService.validateLoginDetails(this.user).subscribe({
+      next: (response) => {
         window.sessionStorage.setItem(
           'Authorization',
-          responseData.headers.get('Authorization')!
+          response.headers.get('Authorization')!
         );
-        this.user = <any>responseData.body;
+        this.user = <any>response.body;
         this.user.authStatus = 'AUTH';
         window.sessionStorage.setItem('userdetails', JSON.stringify(this.user));
         let xsrf = getCookie('XSRF-TOKEN')!;
         window.sessionStorage.setItem('XSRF-TOKEN', xsrf);
         this.router.navigate(['game']);
-      });
+      },
+      error: (err: HttpErrorResponse) => {
+        if (err.status == 401) {
+          this.snackBar.open('Invalid credentials', 'Okay');
+        } else {
+          this.snackBar.open('An error occured. Login failed.', 'Okay');
+        }
+      },
+    });
   }
-  onNoClick() {}
 }
