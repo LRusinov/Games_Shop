@@ -70,7 +70,11 @@ export class ViewGamesComponent implements OnInit {
   }
 
   onCartClick(name: string): void {
-    this.clientService.addToShoppingCart(name, 'user').subscribe();
+    if (this.user != undefined) {
+      this.clientService
+        .addToShoppingCart(name, this.user.username)
+        .subscribe();
+    }
   }
 
   openDialog(game: Game): void {

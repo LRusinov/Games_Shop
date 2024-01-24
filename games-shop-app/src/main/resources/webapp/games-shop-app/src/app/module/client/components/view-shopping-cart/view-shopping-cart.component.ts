@@ -11,6 +11,7 @@ import { User } from 'src/app/model/Client';
   styleUrls: ['./view-shopping-cart.component.css'],
 })
 export class ViewShoppingCartComponent implements OnInit {
+  user = new User();
   cartItems: ShoppingCartItem[] = [];
   columnsToDisplay = [
     'name',
@@ -24,13 +25,13 @@ export class ViewShoppingCartComponent implements OnInit {
   constructor(private readonly clientService: ClientService) {}
 
   ngOnInit(): void {
-    const user: User =
+    this.user =
       sessionStorage.getItem('userdetails') != undefined
         ? JSON.parse(sessionStorage.getItem('userdetails')!)
         : undefined;
-    if (user != undefined) {
+    if (this.user != undefined) {
       this.clientService
-        .getShoppingCartItems(user.username)
+        .getShoppingCartItems(this.user.username)
         .subscribe((response) => {
           this.cartItems = response;
           this.dataSource.data = this.cartItems;
@@ -38,16 +39,18 @@ export class ViewShoppingCartComponent implements OnInit {
     }
   }
 
-  onAddClick(name: string): void {
-    this.clientService.addToShoppingCart(name, 'user').subscribe((response) => {
-      this.cartItems = response;
-      this.dataSource.data = this.cartItems;
-    });
+  onAddClick(gameName: string): void {
+    this.clientService
+      .addToShoppingCart(gameName, this.user.username)
+      .subscribe((response) => {
+        this.cartItems = response;
+        this.dataSource.data = this.cartItems;
+      });
   }
 
-  onRemoveClick(name: string): void {
+  onRemoveClick(gameName: string): void {
     this.clientService
-      .removeFromShoppingCart(name, 'user')
+      .removeFromShoppingCart(gameName, this.user.username)
       .subscribe((response) => {
         this.cartItems = response;
         this.dataSource.data = this.cartItems;
@@ -61,7 +64,7 @@ export class ViewShoppingCartComponent implements OnInit {
         quantity: cartItem.quantity,
       };
     });
-    this.clientService.createOrder('user', orderItems).subscribe();
+    this.clientService.createOrder(this.user.username, orderItems).subscribe();
     window.location.reload();
   }
 
