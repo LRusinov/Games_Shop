@@ -119,10 +119,14 @@ public class ClientService {
     }
 
     private OrderDTO convertToDto(final Order order) {
-        return new OrderDTO(order.getId(), order.getDateOfCreation(), order.getEstimatedDate(), order.getDateOfArrival(), order.getTotalPrice());
+        return new OrderDTO(order.getId(), order.getDateOfCreation(), order.getEstimatedDate(), order.getDateOfArrival(), order.getTotalPrice(), order.getOrderItems().stream().map(ClientService::convertToDto).toList());
     }
 
     private ShoppingCartItemDTO convertToDto(ShoppingCartItem shoppingCartItem){
         return new ShoppingCartItemDTO(gameService.entityToDto(shoppingCartItem.getGame()), shoppingCartItem.getQuantity());
+    }
+
+    private static OrderItemDTO convertToDto(OrderItem orderItem){
+        return new OrderItemDTO(orderItem.getGameName(), orderItem.getQuantity());
     }
 }
