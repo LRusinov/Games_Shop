@@ -1,10 +1,13 @@
-.form-button{
-    margin-left: 20px;
+.form-button {
+  margin-left: 20px;
 }
-.title-containter{
-    text-align: center;
+.title-containter {
+  text-align: center;
 }
-.title{
-    font-size: 40px;
-    color: #000
+.title {
+  font-size: 40px;
+  color: #000;
+}
+.description {
+  width: 200%;
 }

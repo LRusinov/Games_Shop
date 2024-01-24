@@ -67,9 +67,17 @@
       <tr></tr>
       <tr>
         <td>
-          <mat-form-field
+          <mat-form-field class="description"
             ><mat-label>Description</mat-label>
             <input matInput formControlName="description" required
+          /></mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field
+            ><mat-label>Picture URL</mat-label>
+            <input matInput formControlName="pictureUrl" required
           /></mat-form-field>
         </td>
         <td>
@@ -86,14 +94,6 @@
             ></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-form-field
-            ><mat-label>Picture URL</mat-label>
-            <input matInput formControlName="pictureUrl" required
-          /></mat-form-field>
         </td>
       </tr>
     </table>

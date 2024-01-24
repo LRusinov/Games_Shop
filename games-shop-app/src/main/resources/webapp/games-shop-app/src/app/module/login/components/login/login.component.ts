@@ -23,14 +23,15 @@ export class LoginComponent {
   loginForm: FormGroup;
   authStatus: string = '';
   user: User = new User();
+
   constructor(
     private fb: FormBuilder,
     private readonly loginService: LoginService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      username: [],
-      password: [],
+      username: [null, Validators.required],
+      password: [null, Validators.required],
     });
   }
 
@@ -42,7 +43,7 @@ export class LoginComponent {
     return this.loginForm.get('password');
   }
 
-  onLogin() {
+  onLoginClick() {
     this.user.name = this.username?.value;
     this.user.password = this.password?.value;
     console.log(this.user);
