@@ -114,7 +114,8 @@ public class ClientService {
     }
 
     private OrderItem convertToEntity(final OrderItemDTO orderItemDTO) {
-        return new OrderItem(gameService.dtoToEntity(gameService.getGameById(orderItemDTO.gameName())), orderItemDTO.quantity());
+        GameDto gameDto = gameService.getGameById(orderItemDTO.gameName());
+        return new OrderItem(gameDto.name(),gameDto.price(), orderItemDTO.quantity());
     }
 
     private OrderDTO convertToDto(final Order order) {

@@ -1,5 +1,6 @@
 package com.fmi.java.web.games_shop.service;
 
+import com.fmi.java.web.games_shop.dto.GameDto;
 import com.fmi.java.web.games_shop.dto.OrderItemDTO;
 import com.fmi.java.web.games_shop.exception.EntityNotFoundException;
 import com.fmi.java.web.games_shop.model.Order;
@@ -30,16 +31,12 @@ public class OrderService {
         orderItems.forEach(orderItem -> {
             orderItem.setOrder(newOrder);
             orderItemService.createOrderItem(orderItem);
-            shoppingCartItemService.removedShoppingCartItem(new ShoppingCartItemId(orderItem.getGame().getName(), clientUsername));
+            shoppingCartItemService.removedShoppingCartItem(new ShoppingCartItemId(orderItem.getGameName(), clientUsername));
         });
         return newOrder;
     }
 
     public Order completeOrder(Order order){
         return orderRepository.save(order);
-    }
-
-    private OrderItem convertToEntity(final OrderItemDTO orderItemDTO) {
-        return new OrderItem(gameService.dtoToEntity(gameService.getGameById(orderItemDTO.gameName())), orderItemDTO.quantity());
     }
 }

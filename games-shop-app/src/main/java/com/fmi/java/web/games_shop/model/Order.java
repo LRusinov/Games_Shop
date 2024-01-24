@@ -60,7 +60,7 @@ public class Order {
     }
 
     private void calculateTotalPrice(List<OrderItem> orderItems){
-        this.totalPrice = orderItems.stream().mapToDouble(item->item.getQuantity() * item.getGame().getPrice()).sum();
+        this.totalPrice = orderItems.stream().mapToDouble(item->item.getQuantity() * item.getPrice()).sum();
     }
 
     private void setOrderStatus(Instant dateOfArrival) {

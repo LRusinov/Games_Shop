@@ -16,18 +16,22 @@ public class OrderItem {
     @Column(name = "ID", nullable = false)
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "GAME_NAME", referencedColumnName = "NAME")
-    private Game game;
+    @Column(name = "GAME_NAME")
+    private String gameName;
 
     @ManyToOne
     @JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")
     private Order order;
 
+    @Column(name = "QUANTITY")
     private int quantity;
 
-    public OrderItem(Game game, int quantity) {
-        this.game = game;
+    @Column(name = "PRICE")
+    private double price;
+
+    public OrderItem(String gameName, double price, int quantity) {
+        this.gameName = gameName;
+        this.price = price;
         this.quantity = quantity;
     }
 }
