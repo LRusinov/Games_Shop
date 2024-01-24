@@ -1,0 +1,51 @@
+<div>
+  <mat-card>
+    <h2 class="title">Registration</h2>
+    <mat-card-content class="container">
+      <form novalidate [formGroup]="form" class="registration-form">
+        <table>
+          <tr>
+            <td>
+              <mat-form-field
+                ><mat-label>Name</mat-label>
+                <input matInput formControlName="username" required
+              /></mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field
+                ><mat-label>Password</mat-label>
+                <input matInput formControlName="password" required
+              /></mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field>
+                <mat-label>Confirm Password</mat-label>
+                <input matInput formControlName="confirmPassword" required />
+              </mat-form-field>
+            </td>
+            <td>
+              <div class="warning" *ngIf="!checkIfPasswordMatch()">
+                Passwords do not match.
+              </div>
+            </td>
+          </tr>
+        </table>
+        <button
+          mat-raised-button
+          class="form-button"
+          [disabled]="form.invalid"
+          (click)="onRegisterClick()"
+        >
+          Register
+        </button>
+        <button mat-raised-button class="form-button" [routerLink]="['../']">
+          Cancel
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

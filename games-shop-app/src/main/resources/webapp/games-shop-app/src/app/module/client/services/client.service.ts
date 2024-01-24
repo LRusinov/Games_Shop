@@ -59,4 +59,15 @@ export class ClientService {
       }
     );
   }
+
+  registerClient(username: string, password: string): Observable<Boolean> {
+    return this.httpClient.post<Boolean>(
+      'http://localhost:8080/games-shop/client/register',
+      {
+        username,
+        password,
+        withCredentials: true,
+      }
+    );
+  }
 }

@@ -37,7 +37,7 @@ const routes: Routes = [
       import('./module/platform/platform.module').then((m) => m.PlatformModule),
   },
   {
-    path: 'shopping-cart',
+    path: 'client',
     loadChildren: () =>
       import('./module/client/client.module').then((m) => m.ClientModule),
   },

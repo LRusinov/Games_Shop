@@ -11,7 +11,7 @@
     mat-icon-button
     *ngIf="user.authStatus == 'AUTH' && user.role == 'CUSTOMER'"
     routerLinkActive="active"
-    routerLink="shopping-cart/"
+    routerLink="client/shopping-cart/"
   >
     <mat-icon>shopping_cart</mat-icon>
   </button>
@@ -23,24 +23,26 @@
   >
     <mat-icon>perm_identity</mat-icon>
   </button>
-  <button
-    mat-icon-button
-    *ngIf="user.authStatus == 'AUTH'"
-    (click)="onLogoutClick()"
-    routerLinkActive="active"
-    routerLink=""
-  >
-    <mat-icon>exit_to_app</mat-icon>
-  </button>
-  <button
-    mat-icon-button
-    *ngIf="user.authStatus == 'AUTH' && user.role != 'CUSTOMER'"
-    routerLinkActive="active"
-    [matMenuTriggerFor]="menu"
-  >
+  <button mat-icon-button routerLinkActive="active" [matMenuTriggerFor]="menu">
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
+    <button
+      mat-menu-item
+      *ngIf="user.authStatus != 'AUTH'"
+      routerLinkActive="active"
+      routerLink="client/register/"
+    >
+      <span>Register</span>
+    </button>
+    <button
+      mat-menu-item
+      *ngIf="user.authStatus == 'AUTH' && user.role == 'CUSTOMER'"
+      routerLinkActive="active"
+      routerLink="client/orders/"
+    >
+      <span>View orders</span>
+    </button>
     <button
       mat-menu-item
       *ngIf="user.authStatus == 'AUTH' && user.role != 'CUSTOMER'"
@@ -74,5 +76,14 @@
       <span>Add platform</span>
     </button>
   </mat-menu>
+  <button
+    mat-icon-button
+    *ngIf="user.authStatus == 'AUTH'"
+    (click)="onLogoutClick()"
+    routerLinkActive="active"
+    routerLink=""
+  >
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
 </mat-toolbar>
 <router-outlet></router-outlet>

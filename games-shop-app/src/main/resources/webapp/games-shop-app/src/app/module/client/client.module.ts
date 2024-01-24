@@ -10,19 +10,27 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ClientRoutingModule } from './client-routing.module';
+import { RegisterComponent } from './components/register/register.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
-  declarations: [ViewShoppingCartComponent],
+  declarations: [ViewShoppingCartComponent, RegisterComponent],
   imports: [
     CommonModule,
     ClientRoutingModule,
     MatTableModule,
-    MatPaginatorModule,
     MatIconModule,
     MatButtonModule,
-    MatCheckboxModule,
     MatSnackBarModule,
-    MatDialogModule,
+    MatCardModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSnackBarModule,
   ],
 })
 export class ClientModule {}
