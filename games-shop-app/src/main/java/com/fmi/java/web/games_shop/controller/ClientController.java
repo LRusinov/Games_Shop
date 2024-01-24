@@ -22,7 +22,7 @@ public class ClientController {
         return new ResponseEntity<>(clientService.getAllShoppingCartItems(username), HttpStatus.OK);
     }
 
-    @GetMapping("/order/{username}")
+    @GetMapping("/order-history/{username}")
     public ResponseEntity<List<OrderDTO>> getOrderHistory(@PathVariable("username") final String username) {
         return new ResponseEntity<>(clientService.getOrderHistory(username), HttpStatus.OK);
     }

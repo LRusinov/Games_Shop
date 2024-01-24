@@ -56,7 +56,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/games-shop/games", "/games-shop/client/register").permitAll()
                         .requestMatchers("/games-shop/client/shopping-cart/*", "/games-shop/client/shopping-cart").hasAuthority(ClientRole.CUSTOMER.name())
-                        .requestMatchers("/games-shop/client/order", "/games-shop/client/order/*").hasAuthority(ClientRole.CUSTOMER.name())
+                        .requestMatchers("/games-shop/client/order", "/games-shop/client/order-history/*").hasAuthority(ClientRole.CUSTOMER.name())
                         .requestMatchers("/games-shop/platforms", "/games-shop/platforms/*").hasAuthority(ClientRole.MANAGER.name())
                         .requestMatchers("/games-shop/genres", "/games-shop/genres/*").hasAuthority(ClientRole.MANAGER.name())
                         .requestMatchers("/games-shop/publishers", "/games-shop/publishers/*").hasAuthority(ClientRole.MANAGER.name())
