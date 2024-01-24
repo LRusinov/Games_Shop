@@ -70,4 +70,11 @@ export class ClientService {
       }
     );
   }
+
+  getOrderHistory(username: string): Observable<PurchaseOrder[]> {
+    return this.httpClient.get<PurchaseOrder[]>(
+      `http://localhost:8080/games-shop/client/order-history/${username}`,
+      { withCredentials: true }
+    );
+  }
 }
