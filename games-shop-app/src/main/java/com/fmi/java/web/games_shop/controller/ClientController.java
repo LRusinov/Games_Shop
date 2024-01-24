@@ -1,9 +1,6 @@
 package com.fmi.java.web.games_shop.controller;
 
-import com.fmi.java.web.games_shop.dto.OrderDTO;
-import com.fmi.java.web.games_shop.dto.PurchaseOrderDTO;
-import com.fmi.java.web.games_shop.dto.ShoppingCartItemDTO;
-import com.fmi.java.web.games_shop.dto.ShoppingCartItemRequestDTO;
+import com.fmi.java.web.games_shop.dto.*;
 import com.fmi.java.web.games_shop.service.ClientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,5 +40,10 @@ public class ClientController {
     @PostMapping("/shopping-cart")
     public ResponseEntity<List<ShoppingCartItemDTO>> removeFromShoppingCart(@RequestBody final ShoppingCartItemRequestDTO shoppingCartItemDTO) {
         return new ResponseEntity<>(clientService.removeFromShoppingCart(shoppingCartItemDTO), HttpStatus.OK);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<Boolean> registerUser(@RequestBody ClientDTO clientDTO){
+        return new ResponseEntity<>(clientService.registerClient(clientDTO), HttpStatus.OK);
     }
 }

@@ -18,11 +18,6 @@ public class LoginController {
 
     private final ClientService clientService;
 
-    @PostMapping("/register")
-    public ResponseEntity<Boolean> registerUser(@RequestBody ClientDTO clientDTO){
-        return new ResponseEntity<>(clientService.registerClient(clientDTO), HttpStatus.OK);
-    }
-
     @RequestMapping("/login")
     public ClientDTO getUserDetailsAfterLogin(Authentication authentication) {
         return clientService.findClientByUsername(authentication.getName()).orElse(null);

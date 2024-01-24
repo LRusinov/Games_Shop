@@ -54,7 +54,7 @@ public class SecurityConfig {
                 .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
                 .addFilterBefore(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/games-shop/games", "/games-shop/register").permitAll()
+                        .requestMatchers("/games-shop/games", "/games-shop/client/register").permitAll()
                         .requestMatchers("/games-shop/client/shopping-cart/*", "/games-shop/client/shopping-cart").hasAuthority(ClientRole.CUSTOMER.name())
                         .requestMatchers("/games-shop/client/order", "/games-shop/client/order/*").hasAuthority(ClientRole.CUSTOMER.name())
                         .requestMatchers("/games-shop/platforms", "/games-shop/platforms/*").hasAuthority(ClientRole.MANAGER.name())
