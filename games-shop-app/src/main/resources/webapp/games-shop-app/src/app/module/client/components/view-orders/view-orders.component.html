@@ -1,1 +1,82 @@
-<p>view-orders works!</p>
+<table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef class="header-cell">ID</th>
+    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+  </ng-container>
+  <ng-container matColumnDef="created">
+    <th mat-header-cell *matHeaderCellDef class="header-cell">Created</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.dateOfCreation | date : "dd-MM-yyyy HH:mm" }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="estimated">
+    <th mat-header-cell *matHeaderCellDef class="header-cell">Estimated</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.estimatedDate | date : "dd-MM-yyyy" }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="arrived">
+    <th mat-header-cell *matHeaderCellDef class="header-cell">Arrived</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.dateOfArrival | date : "dd-MM-yyyy" }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef class="header-cell">Total Price</th>
+    <td mat-cell *matCellDef="let element">{{ element.totalPrice }} BGN</td>
+  </ng-container>
+  <ng-container matColumnDef="expand">
+    <th mat-header-cell *matHeaderCellDef class="header-cell">&nbsp;</th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        mat-icon-button
+        (click)="
+          expandedElement = expandedElement === element ? null : element;
+          $event.stopPropagation()
+        "
+      >
+        <mat-icon *ngIf="expandedElement !== element">
+          keyboard_arrow_down
+        </mat-icon>
+        <mat-icon *ngIf="expandedElement === element">
+          keyboard_arrow_up
+        </mat-icon>
+      </button>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="expandedDetails">
+    <td
+      mat-cell
+      *matCellDef="let element"
+      [attr.colspan]="columnsToDisplay.length"
+    >
+      <div
+        class="element-detail"
+        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+      >
+        <div>
+          <b>Products: </b>
+          <p *ngFor="let product of element.orderItems">
+            <strong>Name:</strong> {{ product.gameName }} |
+            <strong>Price:</strong> {{ product.price }} BGN |
+            <strong>Quantity:</strong> {{ product.quantity }}
+          </p>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr
+    mat-row
+    *matRowDef="let element; columns: columnsToDisplay"
+    class="element-row"
+    [class.expanded-row]="expandedElement === element"
+    (click)="expandedElement = expandedElement === element ? null : element"
+  ></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: ['expandedDetails']"
+    class="detail-row"
+  ></tr>
+</table>

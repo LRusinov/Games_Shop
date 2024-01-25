@@ -127,6 +127,6 @@ public class ClientService {
     }
 
     private static OrderItemDTO convertToDto(OrderItem orderItem){
-        return new OrderItemDTO(orderItem.getGameName(), orderItem.getQuantity());
+        return new OrderItemDTO(orderItem.getGameName(), orderItem.getPrice(), orderItem.getQuantity());
     }
 }

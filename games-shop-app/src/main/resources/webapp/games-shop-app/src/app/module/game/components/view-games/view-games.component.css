@@ -38,6 +38,7 @@ tr.element-row:not(.expanded-row):active {
 }
 
 .header-cell {
+  font-size: 20px;
   background-color: #7411bb !important;
   color: white;
 }

@@ -16,9 +16,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ViewOrdersComponent } from './components/view-orders/view-orders.component';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
-  declarations: [ViewShoppingCartComponent, RegisterComponent, ViewOrdersComponent],
+  declarations: [
+    ViewShoppingCartComponent,
+    RegisterComponent,
+    ViewOrdersComponent,
+  ],
   imports: [
     CommonModule,
     ClientRoutingModule,
@@ -32,6 +37,7 @@ import { ViewOrdersComponent } from './components/view-orders/view-orders.compon
     ReactiveFormsModule,
     MatInputModule,
     MatSnackBarModule,
+    MatSortModule,
   ],
 })
 export class ClientModule {}

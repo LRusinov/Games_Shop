@@ -28,3 +28,14 @@
   left: 95%;
   background-color: #7411bb !important;
 }
+
+.header-cell {
+  font-size: 30px;
+  background-color: #7411bb !important;
+  color: white;
+}
+
+.total-price-cell {
+  font-size: 30px;
+  background-color: #7411bb !important;
+}

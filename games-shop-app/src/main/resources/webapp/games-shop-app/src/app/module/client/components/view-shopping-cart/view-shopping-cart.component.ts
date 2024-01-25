@@ -61,6 +61,7 @@ export class ViewShoppingCartComponent implements OnInit {
     const orderItems: OrderItem[] = this.cartItems.map((cartItem) => {
       return {
         gameName: cartItem.game.name,
+        price: cartItem.game.price,
         quantity: cartItem.quantity,
       };
     });
