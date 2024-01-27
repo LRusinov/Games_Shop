@@ -4,6 +4,8 @@ import { ShoppingCartItem } from 'src/app/model/ShoppingCartItem';
 import { MatTableDataSource } from '@angular/material/table';
 import { OrderItem } from 'src/app/model/OrderItem';
 import { User } from 'src/app/model/Client';
+import { MatDialog } from '@angular/material/dialog';
+import { PayOrderComponent } from '../pay-order/pay-order.component';
 
 @Component({
   selector: 'app-view-shopping-cart',
@@ -22,7 +24,10 @@ export class ViewShoppingCartComponent implements OnInit {
   ];
   public dataSource = new MatTableDataSource<ShoppingCartItem>();
 
-  constructor(private readonly clientService: ClientService) {}
+  constructor(
+    private readonly clientService: ClientService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.user =
@@ -58,15 +63,28 @@ export class ViewShoppingCartComponent implements OnInit {
   }
 
   onSubmitOrderClick(): void {
-    const orderItems: OrderItem[] = this.cartItems.map((cartItem) => {
-      return {
-        gameName: cartItem.game.name,
-        price: cartItem.game.price,
-        quantity: cartItem.quantity,
-      };
-    });
-    this.clientService.createOrder(this.user.username, orderItems).subscribe();
-    window.location.reload();
+    this.dialog
+      .open(PayOrderComponent, {
+        width: '550px', // Set the desired width
+        height: '450px', // Set the desired height
+        data: this.getTotalCost(),
+      })
+      .afterClosed()
+      .subscribe((res) => {
+        if (res) {
+          const orderItems: OrderItem[] = this.cartItems.map((cartItem) => {
+            return {
+              gameName: cartItem.game.name,
+              price: cartItem.game.price,
+              quantity: cartItem.quantity,
+            };
+          });
+          this.clientService
+            .createOrder(this.user.username, orderItems)
+            .subscribe();
+          window.location.reload();
+        }
+      });
   }
 
   getTotalCost(): number {
