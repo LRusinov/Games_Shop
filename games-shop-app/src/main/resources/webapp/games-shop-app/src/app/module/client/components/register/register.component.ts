@@ -20,9 +20,9 @@ export class RegisterComponent {
 
   constructor(
     private router: Router,
-    public readonly snackBar: MatSnackBar,
-    public readonly clientService: ClientService,
-    public readonly formBuilder: FormBuilder
+    private readonly snackBar: MatSnackBar,
+    private readonly clientService: ClientService,
+    private readonly formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {

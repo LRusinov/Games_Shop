@@ -1,11 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/model/Client';
-import { GameService } from 'src/app/module/game/services/game.service';
 import { ClientService } from '../../services/client.service';
 import { PurchaseOrder } from 'src/app/model/PurchaseOrder';
 import { MatTableDataSource } from '@angular/material/table';
-import { Game } from 'src/app/model/Game';
 import { MatSort } from '@angular/material/sort';
 import {
   trigger,
