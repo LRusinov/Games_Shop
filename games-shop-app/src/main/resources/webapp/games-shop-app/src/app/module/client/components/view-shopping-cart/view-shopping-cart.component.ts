@@ -6,6 +6,8 @@ import { OrderItem } from 'src/app/model/OrderItem';
 import { User } from 'src/app/model/Client';
 import { MatDialog } from '@angular/material/dialog';
 import { PayOrderComponent } from '../pay-order/pay-order.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-view-shopping-cart',
@@ -25,6 +27,7 @@ export class ViewShoppingCartComponent implements OnInit {
   public dataSource = new MatTableDataSource<ShoppingCartItem>();
 
   constructor(
+    private readonly snackBar: MatSnackBar,
     private readonly clientService: ClientService,
     public dialog: MatDialog
   ) {}
@@ -65,8 +68,8 @@ export class ViewShoppingCartComponent implements OnInit {
   onSubmitOrderClick(): void {
     this.dialog
       .open(PayOrderComponent, {
-        width: '550px', // Set the desired width
-        height: '450px', // Set the desired height
+        width: '550px',
+        height: '450px',
         data: this.getTotalCost(),
       })
       .afterClosed()
@@ -81,8 +84,19 @@ export class ViewShoppingCartComponent implements OnInit {
           });
           this.clientService
             .createOrder(this.user.username, orderItems)
-            .subscribe();
-          window.location.reload();
+            .subscribe({
+              next: (response) => {
+                this.snackBar
+                  .open('You have successfully submited your order!', 'Okay')
+                  .afterDismissed()
+                  .subscribe(() => {
+                    window.location.reload();
+                  });
+              },
+              error: (err: HttpErrorResponse) => {
+                this.snackBar.open('An error occured.', 'Okay');
+              },
+            });
         }
       });
   }
