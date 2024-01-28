@@ -13,7 +13,7 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "PURCHASE_ORDER")
-public class Order {
+public class PurchaseOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,10 +42,10 @@ public class Order {
     @JoinColumn(name = "CLIENT_ID")
     private Client client;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "purchaseOrder")
     private List<OrderItem> orderItems;
 
-    public Order(Instant dateOfCreation, Instant dateOfArrival, Client client, List<OrderItem> orderItems) {
+    public PurchaseOrder(Instant dateOfCreation, Instant dateOfArrival, Client client, List<OrderItem> orderItems) {
         this.dateOfCreation = dateOfCreation;
         estimateDateOfArrival();
         this.dateOfArrival = dateOfArrival;

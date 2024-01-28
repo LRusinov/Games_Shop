@@ -30,7 +30,7 @@ public class Client {
     private List<ShoppingCartItem> shoppingCartItems;
 
     @OneToMany(mappedBy = "client")
-    private List<Order> orders;
+    private List<PurchaseOrder> purchaseOrders;
 
     public Client(String username, String password, ClientRole role) {
         this.username = username;

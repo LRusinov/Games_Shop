@@ -54,16 +54,16 @@ public class ClientService {
     public List<OrderDTO> getOrderHistory(final String username) {
         Client client = clientRepository.findById(username)
                 .orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTION_MESSAGE, username)));
-        return client.getOrders().stream().map(this::convertToDto).toList();
+        return client.getPurchaseOrders().stream().map(this::convertToDto).toList();
     }
 
     public OrderDTO addOrder(PurchaseOrderDTO purchaseOrderDTO) {
         Client client = clientRepository.findById(purchaseOrderDTO.clientUsername())
                 .orElseThrow(() -> new EntityNotFoundException(String.format(EXCEPTION_MESSAGE, purchaseOrderDTO.clientUsername())));
-        Order newOrder = orderService.createOrder(purchaseOrderDTO.clientUsername(), new Order(Instant.now(), null, client, purchaseOrderDTO.orderItems().stream().map(this::convertToEntity).toList()));
-        client.getOrders().add(newOrder);
+        PurchaseOrder newPurchaseOrder = orderService.createOrder(purchaseOrderDTO.clientUsername(), new PurchaseOrder(Instant.now(), null, client, purchaseOrderDTO.orderItems().stream().map(this::convertToEntity).toList()));
+        client.getPurchaseOrders().add(newPurchaseOrder);
         clientRepository.save(client);
-        return convertToDto(newOrder);
+        return convertToDto(newPurchaseOrder);
     }
 
     public List<ShoppingCartItemDTO> addToShoppingCart(final ShoppingCartItemRequestDTO shoppingCartItemDTO) {
@@ -118,8 +118,8 @@ public class ClientService {
         return new OrderItem(gameDto.name(),gameDto.price(), orderItemDTO.quantity());
     }
 
-    private OrderDTO convertToDto(final Order order) {
-        return new OrderDTO(order.getId(), order.getDateOfCreation(), order.getEstimatedDate(), order.getDateOfArrival(), order.getTotalPrice(), order.getOrderItems().stream().map(ClientService::convertToDto).toList());
+    private OrderDTO convertToDto(final PurchaseOrder purchaseOrder) {
+        return new OrderDTO(purchaseOrder.getId(), purchaseOrder.getDateOfCreation(), purchaseOrder.getEstimatedDate(), purchaseOrder.getDateOfArrival(), purchaseOrder.getTotalPrice(),purchaseOrder.getStatus().name().replace('_',' '), purchaseOrder.getOrderItems().stream().map(ClientService::convertToDto).toList());
     }
 
     private ShoppingCartItemDTO convertToDto(ShoppingCartItem shoppingCartItem){
