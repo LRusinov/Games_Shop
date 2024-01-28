@@ -34,6 +34,7 @@ export class ViewOrdersComponent {
     'estimated',
     'arrived',
     'price',
+    'status',
     'expand',
   ];
   expandedElement: PurchaseOrder | null = null;

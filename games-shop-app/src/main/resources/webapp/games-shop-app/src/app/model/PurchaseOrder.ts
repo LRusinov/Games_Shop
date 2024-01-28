@@ -6,5 +6,6 @@ export interface PurchaseOrder {
   estimatedDate: Date;
   dateOfArrival: Date;
   totalPrice: number;
+  status: string;
   orderItems: OrderItem[];
 }

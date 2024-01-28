@@ -84,18 +84,8 @@ export class ViewShoppingCartComponent implements OnInit {
           });
           this.clientService
             .createOrder(this.user.username, orderItems)
-            .subscribe({
-              next: (response) => {
-                this.snackBar
-                  .open('You have successfully submited your order!', 'Okay')
-                  .afterDismissed()
-                  .subscribe(() => {
-                    window.location.reload();
-                  });
-              },
-              error: (err: HttpErrorResponse) => {
-                this.snackBar.open('An error occured.', 'Okay');
-              },
+            .subscribe((res) => {
+              window.location.reload();
             });
         }
       });
