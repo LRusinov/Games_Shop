@@ -7,11 +7,13 @@ import com.fmi.java.web.games_shop.model.Genre;
 import com.fmi.java.web.games_shop.repository.GenreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class GenreService {
     private final GenreRepository genreRepository;
 

@@ -5,9 +5,11 @@ import com.fmi.java.web.games_shop.model.ShoppingCartItemId;
 import com.fmi.java.web.games_shop.repository.ShoppingCartItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class ShoppingCartItemService {
 
     private final ShoppingCartItemRepository shoppingCartItemRepository;
