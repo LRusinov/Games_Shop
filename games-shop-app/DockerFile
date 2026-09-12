@@ -1,0 +1,9 @@
+FROM eclipse-temurin:21-jre
+
+WORKDIR /games-shop-app
+
+COPY target/*.jar games-shop-app.jar
+
+EXPOSE 8888
+
+ENTRYPOINT ["java", "-jar", "games-shop-app.jar"]
