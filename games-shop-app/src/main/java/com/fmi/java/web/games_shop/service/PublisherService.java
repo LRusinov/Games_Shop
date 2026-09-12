@@ -7,11 +7,13 @@ import com.fmi.java.web.games_shop.model.Publisher;
 import com.fmi.java.web.games_shop.repository.PublisherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class PublisherService {
     private final PublisherRepository publisherRepository;
 

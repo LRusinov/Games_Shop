@@ -7,11 +7,13 @@ import com.fmi.java.web.games_shop.model.Platform;
 import com.fmi.java.web.games_shop.repository.PlatformRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class PlatformService {
     private final PlatformRepository platformRepository;
 

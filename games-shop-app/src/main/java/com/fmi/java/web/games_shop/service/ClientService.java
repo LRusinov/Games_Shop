@@ -8,6 +8,7 @@ import com.fmi.java.web.games_shop.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class ClientService {
     private final ClientRepository clientRepository;
     private final ShoppingCartItemService shoppingCartItemService;

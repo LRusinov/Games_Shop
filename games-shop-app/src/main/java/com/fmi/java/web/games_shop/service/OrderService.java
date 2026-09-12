@@ -7,11 +7,13 @@ import com.fmi.java.web.games_shop.model.ShoppingCartItemId;
 import com.fmi.java.web.games_shop.repository.PurchaseOrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class OrderService {
     private final PurchaseOrderRepository purchaseOrderRepository;
     private final GameService gameService;

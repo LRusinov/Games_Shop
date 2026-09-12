@@ -13,6 +13,7 @@ import com.fmi.java.web.games_shop.repository.PlatformRepository;
 import com.fmi.java.web.games_shop.repository.PublisherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class GameService {
     private final GameRepository gameRepository;
 
