@@ -4,6 +4,6 @@ WORKDIR /games-shop-app
 
 COPY target/*.jar Games_Shop-0.0.1-SNAPSHOT.jar
 
-EXPOSE 8888
+EXPOSE 8090
 
 ENTRYPOINT ["java", "-jar", "Games_Shop-0.0.1-SNAPSHOT.jar"]
