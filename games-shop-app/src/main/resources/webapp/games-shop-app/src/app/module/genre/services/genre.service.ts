@@ -11,14 +11,14 @@ export class GenreService {
 
   getGenres(): Observable<Genre[]> {
     return this.httpClient.get<Genre[]>(
-      'http://localhost:8080/games-shop/genres',
+      'http://localhost:8888/games-shop/genres',
       { withCredentials: true }
     );
   }
 
   createGenre(name: string): Observable<Genre> {
     return this.httpClient.post<Genre>(
-      'http://localhost:8080/games-shop/genres',
+      'http://localhost:8888/games-shop/genres',
       {
         name,
         withCredentials: true,

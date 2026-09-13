@@ -11,7 +11,7 @@ export class GameService {
 
   getGames() {
     return this.httpClient.get<Game[]>(
-      'http://localhost:8080/games-shop/games'
+      'http://localhost:8888/games-shop/games'
     );
   }
 
@@ -26,7 +26,7 @@ export class GameService {
     pictureUrl: string
   ): Observable<Game> {
     return this.httpClient.post<Game>(
-      'http://localhost:8080/games-shop/games',
+      'http://localhost:8888/games-shop/games',
       {
         name,
         price,
@@ -42,7 +42,7 @@ export class GameService {
   }
   deleteGame(name: string): Observable<Game> {
     return this.httpClient.delete<Game>(
-      `http://localhost:8080/games-shop/games/${name}`,
+      `http://localhost:8888/games-shop/games/${name}`,
       { withCredentials: true }
     );
   }
@@ -58,7 +58,7 @@ export class GameService {
     pictureUrl: string
   ): Observable<Game> {
     return this.httpClient.put<Game>(
-      `http://localhost:8080/games-shop/games/${name}`,
+      `http://localhost:8888/games-shop/games/${name}`,
       {
         name,
         price,

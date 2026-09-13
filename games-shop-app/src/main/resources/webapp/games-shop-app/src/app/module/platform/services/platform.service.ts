@@ -11,14 +11,14 @@ export class PlatformService {
 
   getPlatforms(): Observable<Platform[]> {
     return this.httpClient.get<Platform[]>(
-      'http://localhost:8080/games-shop/platforms',
+      'http://localhost:8888/games-shop/platforms',
       { withCredentials: true }
     );
   }
 
   createPlatform(name: string): Observable<Platform> {
     return this.httpClient.post<Platform>(
-      'http://localhost:8080/games-shop/platforms',
+      'http://localhost:8888/games-shop/platforms',
       {
         name,
         withCredentials: true,

@@ -13,7 +13,7 @@ export class ClientService {
 
   getShoppingCartItems(username: string): Observable<ShoppingCartItem[]> {
     return this.httpClient.get<ShoppingCartItem[]>(
-      `http://localhost:8080/games-shop/client/shopping-cart/${username}`,
+      `http://localhost:8888/games-shop/client/shopping-cart/${username}`,
       { withCredentials: true }
     );
   }
@@ -23,7 +23,7 @@ export class ClientService {
     clientUsername: string
   ): Observable<ShoppingCartItem[]> {
     return this.httpClient.put<ShoppingCartItem[]>(
-      'http://localhost:8080/games-shop/client/shopping-cart',
+      'http://localhost:8888/games-shop/client/shopping-cart',
       {
         clientUsername,
         gameName,
@@ -37,7 +37,7 @@ export class ClientService {
     clientUsername: string
   ): Observable<ShoppingCartItem[]> {
     return this.httpClient.post<ShoppingCartItem[]>(
-      'http://localhost:8080/games-shop/client/shopping-cart',
+      'http://localhost:8888/games-shop/client/shopping-cart',
       {
         clientUsername,
         gameName,
@@ -51,7 +51,7 @@ export class ClientService {
     orderItems: OrderItem[]
   ): Observable<PurchaseOrder> {
     return this.httpClient.put<PurchaseOrder>(
-      'http://localhost:8080/games-shop/client/order',
+      'http://localhost:8888/games-shop/client/order',
       {
         clientUsername,
         orderItems,
@@ -62,7 +62,7 @@ export class ClientService {
 
   registerClient(username: string, password: string): Observable<Boolean> {
     return this.httpClient.post<Boolean>(
-      'http://localhost:8080/games-shop/client/register',
+      'http://localhost:8888/games-shop/client/register',
       {
         username,
         password,
@@ -73,7 +73,7 @@ export class ClientService {
 
   getOrderHistory(username: string): Observable<PurchaseOrder[]> {
     return this.httpClient.get<PurchaseOrder[]>(
-      `http://localhost:8080/games-shop/client/order-history/${username}`,
+      `http://localhost:8888/games-shop/client/order-history/${username}`,
       { withCredentials: true }
     );
   }
